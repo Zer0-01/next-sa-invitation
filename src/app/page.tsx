@@ -1,5 +1,7 @@
 import BismillahComponent from "@/components/custom/bismillah-component";
+import CountdownComponent from "@/components/custom/countdown-component";
 import DateComponent from "@/components/custom/date-component";
+import DoaComponent from "@/components/custom/doa-component";
 import MenjemputComponent from "@/components/custom/menjemput-component";
 import TimeComponent from "@/components/custom/time-component";
 import VenueComponent from "@/components/custom/venue-component";
@@ -16,6 +18,8 @@ export default function Home() {
         <DateComponent />
         <TimeComponent />
         <VenueComponent />
+        <CountdownComponent />
+        <DoaComponent />
       </div>
 
       {/* Right spacer (hidden on small screens) */}
