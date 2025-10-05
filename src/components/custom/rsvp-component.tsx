@@ -1,31 +1,71 @@
 "use client";
 
 import { useState } from "react";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "../ui/dialog";
+import {
+    Dialog,
+    DialogTrigger,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription,
+    DialogFooter,
+    DialogClose,
+} from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import useHomeStore from "@/lib/store/home-store";
+import { supabase } from "@/lib/supabase/supabase";
+import { toast } from "sonner";
 
 const RsvpComponent = () => {
-    const [attendance, setAttendance] = useState<"hadir" | "tidak" | "">("");
-    const [pax, setPax] = useState<number | "">("");
+    const { name, phone, isAttend, pax, setName, setPhone, setIsAttend, setPax, reset } = useHomeStore();
+    const [loading, setLoading] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log({
-            attendance,
-            pax: attendance === "hadir" ? pax : 0,
-        });
+
+        if (!name || !phone || isAttend === null) {
+            alert("Sila isi semua maklumat.");
+            return;
+        }
+
+        setLoading(true);
+
+        const { error } = await supabase.from("rsvp").insert([
+            {
+                name,
+                phone,
+                isAttend,
+                pax: isAttend ? pax : 0,
+                created_at: new Date().toISOString(),
+            },
+        ]);
+
+        setLoading(false);
+
+        if (error) {
+            console.error(error);
+            toast.error("Gagal menghantar RSVP. Sila cuba lagi.");
+            return;
+        }
+
+        toast.success("RSVP berjaya dihantar!");
+        reset();
+        setIsOpen(false); // ✅ Close dialog
     };
 
     return (
         <div className="flex flex-col items-center gap-4">
             <h1 className="text-2xl font-semibold">Maklumat Kehadiran</h1>
 
-            <Dialog>
+            <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogTrigger asChild>
-                    <Button variant="outline">Isi Kehadiran</Button>
+                    <Button variant="outline" onClick={() => setIsOpen(true)}>
+                        Isi Kehadiran
+                    </Button>
                 </DialogTrigger>
 
                 <DialogContent className="sm:max-w-[425px]">
@@ -41,15 +81,36 @@ const RsvpComponent = () => {
                             {/* Name */}
                             <div className="grid gap-2">
                                 <Label htmlFor="name">Nama</Label>
-                                <Input id="name" name="name" placeholder="Nama penuh anda" required />
+                                <Input
+                                    id="name"
+                                    name="name"
+                                    placeholder="Nama penuh anda"
+                                    required
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
                             </div>
 
-                            {/* Attendance Radio Group */}
+                            {/* Phone */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="phone">No. Telefon</Label>
+                                <Input
+                                    id="phone"
+                                    name="phone"
+                                    type="tel"
+                                    placeholder="012-3456789"
+                                    required
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                />
+                            </div>
+
+                            {/* Attendance */}
                             <div className="grid gap-2">
                                 <Label>Kehadiran</Label>
                                 <RadioGroup
-                                    value={attendance}
-                                    onValueChange={(val) => setAttendance(val as "hadir" | "tidak")}
+                                    value={isAttend === null ? "" : isAttend ? "hadir" : "tidak"}
+                                    onValueChange={(val) => setIsAttend(val === "hadir")}
                                     className="flex gap-4"
                                 >
                                     <div className="flex items-center space-x-2">
@@ -63,15 +124,15 @@ const RsvpComponent = () => {
                                 </RadioGroup>
                             </div>
 
-                            {/* Pax input — only shows when attending */}
-                            {attendance === "hadir" && (
+                            {/* Pax input */}
+                            {isAttend && (
                                 <div className="grid gap-2">
                                     <Label htmlFor="pax">Bilangan Kehadiran (Pax)</Label>
                                     <Input
                                         id="pax"
                                         name="pax"
                                         type="number"
-                                        min={1}
+                                        min={0}
                                         max={10}
                                         value={pax}
                                         onChange={(e) => setPax(Number(e.target.value))}
@@ -86,7 +147,9 @@ const RsvpComponent = () => {
                             <DialogClose asChild>
                                 <Button variant="outline">Batal</Button>
                             </DialogClose>
-                            <Button type="submit">Hantar</Button>
+                            <Button type="submit" disabled={loading}>
+                                {loading ? "Menghantar..." : "Hantar"}
+                            </Button>
                         </DialogFooter>
                     </form>
                 </DialogContent>
