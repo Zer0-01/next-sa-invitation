@@ -1,5 +1,8 @@
 import BismillahComponent from "@/components/custom/bismillah-component";
+import DateComponent from "@/components/custom/date-component";
 import MenjemputComponent from "@/components/custom/menjemput-component";
+import TimeComponent from "@/components/custom/time-component";
+import VenueComponent from "@/components/custom/venue-component";
 
 export default function Home() {
   return (
@@ -10,6 +13,9 @@ export default function Home() {
       <div >
         <BismillahComponent />
         <MenjemputComponent />
+        <DateComponent />
+        <TimeComponent />
+        <VenueComponent />
       </div>
 
       {/* Right spacer (hidden on small screens) */}
