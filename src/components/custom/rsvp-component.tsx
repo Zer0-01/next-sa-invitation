@@ -59,7 +59,7 @@ const RsvpComponent = () => {
     };
 
     return (
-        <div className="flex flex-col items-center gap-6 p-6 bg-gradient-to-b from-pink-50 to-white rounded-2xl shadow-lg max-w-md mx-auto">
+        <div className="flex flex-col items-center gap-6 p-6 m-3">
             <h1 className="text-3xl font-bold text-pink-600">Maklumat Kehadiran</h1>
             <p className="text-sm text-gray-600 text-center max-w-xs">
                 Sila isi maklumat kehadiran anda untuk majlis ini. Maklumat anda akan dirahsiakan.
@@ -69,7 +69,7 @@ const RsvpComponent = () => {
                 <DialogTrigger asChild>
                     <Button
                         variant="outline"
-                        className="px-6 py-3 text-lg font-medium hover:bg-pink-100 transition-all"
+                        className="px-6 py-3 text-lg font-medium hover:bg-pink-100 w-full"
                         onClick={() => setIsOpen(true)}
                     >
                         Isi Kehadiran
