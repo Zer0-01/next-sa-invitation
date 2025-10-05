@@ -1,76 +1,174 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import useGuestbookStore from "@/lib/store/guestbook-store";
 import { Button } from "../ui/button";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import {
+    Dialog,
+    DialogTrigger,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription,
+    DialogFooter,
+    DialogClose,
+} from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { supabase } from "@/lib/supabase/supabase";
+import { toast } from "sonner";
+
+interface GuestMessage {
+    id: number;
+    name: string;
+    message: string;
+    created_at: string;
+}
 
 const GuestBookComponent = () => {
-    const guestMessages = [
-        "Selamat Pengantin Baru! Semoga bahagia hingga ke Jannah 💍",
-        "Tahniah! Semoga cinta kekal selamanya ❤️",
-        "Semoga diberkati dengan ketenangan dan kasih sayang yang berkekalan.",
-        "Doa kami agar perkahwinan ini penuh rahmat dan kebahagiaan.",
-        "Tahniah kepada pasangan! Moga dilimpahi rezeki dan keberkatan.",
-        "Selamat menempuh hidup baru bersama pasangan tercinta!",
-        "Semoga menjadi keluarga yang sakinah, mawaddah, warahmah.",
-        "Perjalanan baru bermula, semoga sentiasa dalam lindungan Allah.",
-        "Moga cinta ini terus subur dalam setiap langkah kehidupan bersama.",
-        "Tahniah! Moga diberi kesabaran dan pengertian dalam perkahwinan.",
-        "Semoga setiap hari membawa lebih banyak cinta dan kebahagiaan.",
-        "Doa tulus buat kalian berdua, semoga bahagia dunia akhirat.",
-        "Moga ikatan ini menjadi asbab ke syurga buat kalian berdua.",
-        "Tahniah! Moga rumah tangga penuh dengan kasih dan rahmah.",
-        "Selamat pengantin baru, semoga dikurniakan zuriat yang soleh dan solehah.",
-        "Perkahwinan ini permulaan kisah cinta abadi, tahniah sahabat! 💖",
-    ];
+    const { name, message, setName, setMessage, reset } = useGuestbookStore();
+    const [loading, setLoading] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [messages, setMessages] = useState<GuestMessage[]>([]);
+
+    const fetchMessages = async () => {
+        const { data, error } = await supabase
+            .from<"guestbook", GuestMessage>("guestbook")
+            .select("*")
+            .order("created_at", { ascending: true });
+
+        if (error) {
+            console.error(error);
+            toast.error("Gagal memuatkan mesej.");
+            return;
+        }
+
+        setMessages(data || []);
+    };
+
+    useEffect(() => {
+        fetchMessages();
+
+        const subscription = supabase
+            .channel("guestbook_channel")
+            .on(
+                "postgres_changes",
+                { event: "INSERT", schema: "public", table: "guestbook" },
+                () => {
+                    fetchMessages();
+                }
+            )
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(subscription);
+        };
+    }, []);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!name || !message) {
+            toast.error("Sila isi nama dan mesej.");
+            return;
+        }
+
+        setLoading(true);
+
+        const { error } = await supabase.from("guestbook").insert([
+            {
+                name,
+                message,
+                created_at: new Date().toISOString(),
+            },
+        ]);
+
+        setLoading(false);
+
+        if (error) {
+            console.error(error);
+            toast.error("Gagal menghantar mesej. Sila cuba lagi.");
+            return;
+        }
+
+        toast.success("Mesej berjaya dihantar!");
+        reset();
+        setIsOpen(false);
+        fetchMessages();
+
+    };
 
     return (
         <div className="m-3">
             <h1 className="text-center text-2xl font-semibold mb-4">Guest Book</h1>
 
-            <div className="h-80 overflow-y-auto border rounded-2xl p-4 bg-gradient-to-b from-white to-pink-50 shadow-inner">
-                <ul className="space-y-3">
-                    {guestMessages.map((message, index) => (
-                        <li
-                            key={index}
-                            className="p-3 bg-white rounded-xl shadow-sm border border-pink-100 text-gray-700 text-sm"
-                        >
-                            {message}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            {messages.length > 0 && (
+                <div className="h-80 overflow-y-auto border rounded-2xl p-4 bg-gradient-to-b from-white to-pink-50 shadow-inner mb-4">
+                    <ul className="space-y-3">
+                        {messages.map((msg) => (
+                            <li
+                                key={msg.id}
+                                className="p-3 bg-white rounded-xl shadow-sm border border-pink-100 text-gray-700 text-sm"
+                            >
+                                <strong>{msg.name}:</strong> {msg.message}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
 
-            <Dialog>
-                <form>
-                    <DialogTrigger asChild>
-                        <Button variant="outline">Open Dialog</Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px]">
+            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                <DialogTrigger asChild>
+                    <Button variant="outline" onClick={() => setIsOpen(true)}>
+                        Tulis Mesej
+                    </Button>
+                </DialogTrigger>
+
+                <DialogContent className="sm:max-w-[425px]">
+                    <form onSubmit={handleSubmit}>
                         <DialogHeader>
-                            <DialogTitle>Edit profile</DialogTitle>
+                            <DialogTitle>Tambah Mesej</DialogTitle>
                             <DialogDescription>
-                                Make changes to your profile here. Click save when you&apos;re
-                                done.
+                                Sila isi nama dan mesej anda di bawah.
                             </DialogDescription>
                         </DialogHeader>
+
                         <div className="grid gap-4">
-                            <div className="grid gap-3">
-                                <Label htmlFor="name-1">Name</Label>
-                                <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
+                            <div className="grid gap-2">
+                                <Label htmlFor="name">Nama</Label>
+                                <Input
+                                    id="name"
+                                    name="name"
+                                    placeholder="Nama penuh anda"
+                                    required
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
                             </div>
-                            <div className="grid gap-3">
-                                <Label htmlFor="username-1">Username</Label>
-                                <Input id="username-1" name="username" defaultValue="@peduarte" />
+
+                            <div className="grid gap-2">
+                                <Label htmlFor="message">Mesej</Label>
+                                <Input
+                                    id="message"
+                                    name="message"
+                                    placeholder="Tulis mesej anda..."
+                                    required
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                />
                             </div>
                         </div>
+
                         <DialogFooter>
                             <DialogClose asChild>
-                                <Button variant="outline">Cancel</Button>
+                                <Button variant="outline">Batal</Button>
                             </DialogClose>
-                            <Button type="submit">Save changes</Button>
+                            <Button type="submit" disabled={loading}>
+                                {loading ? "Menghantar..." : "Hantar"}
+                            </Button>
                         </DialogFooter>
-                    </DialogContent>
-                </form>
+                    </form>
+                </DialogContent>
             </Dialog>
         </div>
     );
