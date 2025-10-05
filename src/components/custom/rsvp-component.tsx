@@ -1,49 +1,98 @@
-import { Dialog } from "@radix-ui/react-dialog"
-import { Button } from "../ui/button"
-import { DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
-import { Label } from "../ui/label"
-import { Input } from "../ui/input"
+"use client";
+
+import { useState } from "react";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "../ui/dialog";
+import { Button } from "../ui/button";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
 const RsvpComponent = () => {
+    const [attendance, setAttendance] = useState<"hadir" | "tidak" | "">("");
+    const [pax, setPax] = useState<number | "">("");
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        console.log({
+            attendance,
+            pax: attendance === "hadir" ? pax : 0,
+        });
+    };
+
     return (
-        <div className="flex flex-col items-center">
-            <h1>Maklumat Kehadiran</h1>
+        <div className="flex flex-col items-center gap-4">
+            <h1 className="text-2xl font-semibold">Maklumat Kehadiran</h1>
+
             <Dialog>
-                <form>
-                    <DialogTrigger asChild>
-                        <Button variant="outline">RSVP</Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px]">
+                <DialogTrigger asChild>
+                    <Button variant="outline">Isi Kehadiran</Button>
+                </DialogTrigger>
+
+                <DialogContent className="sm:max-w-[425px]">
+                    <form onSubmit={handleSubmit}>
                         <DialogHeader>
-                            <DialogTitle>RSVP</DialogTitle>
+                            <DialogTitle>Kehadiran</DialogTitle>
                             <DialogDescription>
-                                Make changes to your profile here. Click save when you&apos;re
-                                done.
+                                Sila isi maklumat kehadiran anda di bawah.
                             </DialogDescription>
                         </DialogHeader>
-                        <div className="grid gap-4">
-                            <div className="grid gap-3">
-                                <Label htmlFor="name-1">Name</Label>
-                                <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
+
+                        <div className="grid gap-4 py-2">
+                            {/* Name */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="name">Nama</Label>
+                                <Input id="name" name="name" placeholder="Nama penuh anda" required />
                             </div>
-                            <div className="grid gap-3">
-                                <Label htmlFor="username-1">Username</Label>
-                                <Input id="username-1" name="username" defaultValue="@peduarte" />
+
+                            {/* Attendance Radio Group */}
+                            <div className="grid gap-2">
+                                <Label>Kehadiran</Label>
+                                <RadioGroup
+                                    value={attendance}
+                                    onValueChange={(val) => setAttendance(val as "hadir" | "tidak")}
+                                    className="flex gap-4"
+                                >
+                                    <div className="flex items-center space-x-2">
+                                        <RadioGroupItem value="hadir" id="hadir" />
+                                        <Label htmlFor="hadir">Hadir</Label>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        <RadioGroupItem value="tidak" id="tidak" />
+                                        <Label htmlFor="tidak">Tidak Hadir</Label>
+                                    </div>
+                                </RadioGroup>
                             </div>
+
+                            {/* Pax input — only shows when attending */}
+                            {attendance === "hadir" && (
+                                <div className="grid gap-2">
+                                    <Label htmlFor="pax">Bilangan Kehadiran (Pax)</Label>
+                                    <Input
+                                        id="pax"
+                                        name="pax"
+                                        type="number"
+                                        min={1}
+                                        max={10}
+                                        value={pax}
+                                        onChange={(e) => setPax(Number(e.target.value))}
+                                        placeholder="Contoh: 2"
+                                        required
+                                    />
+                                </div>
+                            )}
                         </div>
+
                         <DialogFooter>
                             <DialogClose asChild>
-                                <Button variant="outline">Cancel</Button>
+                                <Button variant="outline">Batal</Button>
                             </DialogClose>
-                            <Button type="submit">Save changes</Button>
+                            <Button type="submit">Hantar</Button>
                         </DialogFooter>
-                    </DialogContent>
-                </form>
+                    </form>
+                </DialogContent>
             </Dialog>
-
-
         </div>
-    )
-}
+    );
+};
 
-export default RsvpComponent
+export default RsvpComponent;
