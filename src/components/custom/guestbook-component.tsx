@@ -54,9 +54,7 @@ const GuestBookComponent = () => {
             .on(
                 "postgres_changes",
                 { event: "INSERT", schema: "public", table: "guestbook" },
-                () => {
-                    fetchMessages();
-                }
+                () => fetchMessages()
             )
             .subscribe();
 
@@ -95,22 +93,25 @@ const GuestBookComponent = () => {
         reset();
         setIsOpen(false);
         fetchMessages();
-
     };
 
     return (
-        <div className="m-3">
-            <h1 className="text-center text-2xl font-semibold mb-4">Guest Book</h1>
+        <div className="flex flex-col items-center gap-6 p-6 m-3 ">
+            <h1 className="text-3xl font-bold text-pink-600">Guest Book</h1>
+            <p className="text-sm text-gray-600 text-center max-w-xs">
+                Tinggalkan mesej anda untuk kenangan majlis ini.
+            </p>
 
             {messages.length > 0 && (
-                <div className="h-80 overflow-y-auto border rounded-2xl p-4 bg-gradient-to-b from-white to-pink-50 shadow-inner mb-4">
+                <div className="h-80 overflow-y-auto border rounded-2xl p-4 bg-white shadow-inner w-full">
                     <ul className="space-y-3">
                         {messages.map((msg) => (
                             <li
                                 key={msg.id}
-                                className="p-3 bg-white rounded-xl shadow-sm border border-pink-100 text-gray-700 text-sm"
+                                className="p-3 bg-pink-50 rounded-xl shadow-sm border border-pink-100 text-gray-700 text-sm"
                             >
-                                <strong>{msg.name}:</strong> {msg.message}
+                                <strong className="text-pink-600">{msg.name}:</strong>{" "}
+                                {msg.message}
                             </li>
                         ))}
                     </ul>
@@ -119,22 +120,29 @@ const GuestBookComponent = () => {
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogTrigger asChild>
-                    <Button variant="outline" onClick={() => setIsOpen(true)}>
+                    <Button
+                        variant="outline"
+                        className="px-6 py-3 text-lg font-medium hover:bg-pink-100 w-full"
+                        onClick={() => setIsOpen(true)}
+                    >
                         Tulis Mesej
                     </Button>
                 </DialogTrigger>
 
-                <DialogContent className="sm:max-w-[425px]">
-                    <form onSubmit={handleSubmit}>
+                <DialogContent className="sm:max-w-lg p-6 space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-6">
                         <DialogHeader>
-                            <DialogTitle>Tambah Mesej</DialogTitle>
-                            <DialogDescription>
+                            <DialogTitle className="text-2xl font-bold text-pink-700">
+                                Tambah Mesej
+                            </DialogTitle>
+                            <DialogDescription className="text-sm text-gray-500">
                                 Sila isi nama dan mesej anda di bawah.
                             </DialogDescription>
                         </DialogHeader>
 
                         <div className="grid gap-4">
-                            <div className="grid gap-2">
+                            {/* Name */}
+                            <div className="grid gap-1">
                                 <Label htmlFor="name">Nama</Label>
                                 <Input
                                     id="name"
@@ -146,7 +154,8 @@ const GuestBookComponent = () => {
                                 />
                             </div>
 
-                            <div className="grid gap-2">
+                            {/* Message */}
+                            <div className="grid gap-1">
                                 <Label htmlFor="message">Mesej</Label>
                                 <Input
                                     id="message"
@@ -159,11 +168,17 @@ const GuestBookComponent = () => {
                             </div>
                         </div>
 
-                        <DialogFooter>
+                        <DialogFooter className="flex justify-between">
                             <DialogClose asChild>
-                                <Button variant="outline">Batal</Button>
+                                <Button variant="ghost" disabled={loading}>
+                                    Batal
+                                </Button>
                             </DialogClose>
-                            <Button type="submit" disabled={loading}>
+                            <Button
+                                type="submit"
+                                className="bg-pink-600 hover:bg-pink-700 text-white"
+                                disabled={loading}
+                            >
                                 {loading ? "Menghantar..." : "Hantar"}
                             </Button>
                         </DialogFooter>
