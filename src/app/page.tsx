@@ -2,6 +2,7 @@ import BismillahComponent from "@/components/custom/bismillah-component";
 import CountdownComponent from "@/components/custom/countdown-component";
 import DateComponent from "@/components/custom/date-component";
 import DoaComponent from "@/components/custom/doa-component";
+import GuestBookComponent from "@/components/custom/guestbook-component";
 import MenjemputComponent from "@/components/custom/menjemput-component";
 import RsvpComponent from "@/components/custom/rsvp-component";
 import TimeComponent from "@/components/custom/time-component";
@@ -22,6 +23,7 @@ export default function Home() {
         <CountdownComponent />
         <DoaComponent />
         <RsvpComponent />
+        <GuestBookComponent />
       </div>
 
       {/* Right spacer (hidden on small screens) */}
