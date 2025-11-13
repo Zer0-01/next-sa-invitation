@@ -1,5 +1,6 @@
 import InfoComponent from "./components/info-component";
 import InviteComponent from "./components/invite-component";
+import ProgrammeComponent from "./components/programme-component";
 import TitleComponent from "./components/title-component";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
       <TitleComponent />
       <InviteComponent />
       <InfoComponent />
+      <ProgrammeComponent />
     </div>
 
   );
