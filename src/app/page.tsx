@@ -3,6 +3,7 @@ import CountdownComponent from "./components/countdown-component";
 import DoaComponent from "./components/doa-component";
 import InfoComponent from "./components/info-component";
 import InviteComponent from "./components/invite-component";
+import MessageComponent from "./components/message-component";
 import ProgrammeComponent from "./components/programme-component";
 import TitleComponent from "./components/title-component";
 
@@ -16,6 +17,7 @@ export default function Home() {
       <DoaComponent />
       <CountdownComponent />
       <CarouselComponent />
+      <MessageComponent />
     </div>
 
   );
