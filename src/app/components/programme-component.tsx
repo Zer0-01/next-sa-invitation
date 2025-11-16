@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const ProgrammeComponent = () => {
     return (
-        <Card className="w-full max-w-md mx-auto p-6">
+        <Card  className="m-8">
             <CardHeader>
                 <CardTitle className="text-center text-2xl font-serif font-bold mb-4">
                     Programme
