@@ -1,3 +1,4 @@
+import DoaComponent from "./components/doa-component";
 import InfoComponent from "./components/info-component";
 import InviteComponent from "./components/invite-component";
 import ProgrammeComponent from "./components/programme-component";
@@ -10,6 +11,7 @@ export default function Home() {
       <InviteComponent />
       <InfoComponent />
       <ProgrammeComponent />
+      <DoaComponent />
     </div>
 
   );
