@@ -1,6 +1,7 @@
 import CarouselComponent from "./components/carousel-component";
 import CountdownComponent from "./components/countdown-component";
 import DoaComponent from "./components/doa-component";
+import FooterComponent from "./components/footer-component";
 import InfoComponent from "./components/info-component";
 import InviteComponent from "./components/invite-component";
 import MessageComponent from "./components/message-component";
@@ -18,6 +19,7 @@ export default function Home() {
       <CountdownComponent />
       <CarouselComponent />
       <MessageComponent />
+      <FooterComponent />
     </div>
 
   );
