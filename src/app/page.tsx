@@ -1,3 +1,4 @@
+import CountdownComponent from "./components/countdown-component";
 import DoaComponent from "./components/doa-component";
 import InfoComponent from "./components/info-component";
 import InviteComponent from "./components/invite-component";
@@ -12,6 +13,7 @@ export default function Home() {
       <InfoComponent />
       <ProgrammeComponent />
       <DoaComponent />
+      <CountdownComponent />
     </div>
 
   );
