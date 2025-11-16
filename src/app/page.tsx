@@ -1,3 +1,4 @@
+import CarouselComponent from "./components/carousel-component";
 import CountdownComponent from "./components/countdown-component";
 import DoaComponent from "./components/doa-component";
 import InfoComponent from "./components/info-component";
@@ -14,6 +15,7 @@ export default function Home() {
       <ProgrammeComponent />
       <DoaComponent />
       <CountdownComponent />
+      <CarouselComponent />
     </div>
 
   );
