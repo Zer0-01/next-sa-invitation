@@ -33,9 +33,8 @@ const MessageFormComponent = () => {
 
     const isSubmitDisabled = !name.trim() || !message.trim()
 
-    const handleSubmit = async () => {
-        await submit()
-        closeModal()
+    const handleSubmit = () => {
+        submit()
     }
 
     const cancel = () => {

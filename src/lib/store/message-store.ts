@@ -1,6 +1,7 @@
 import { addDoc, DocumentData, getDocs } from "firebase/firestore"
 import { create } from "zustand"
 import { messageCollection } from "../firebase"
+import { toast } from "sonner"
 
 interface MessageState {
     // UI
@@ -65,5 +66,10 @@ export const useMessageStore = create<MessageState>((set, get) => ({
 
         // reset form
         set({ name: "", message: "" })
+
+        // close modal
+        get().closeModal()
+
+        toast.success("Ucapan berhasil dikirim")
     },
 }))
