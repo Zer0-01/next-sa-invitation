@@ -34,9 +34,8 @@ const AttendanceComponent = () => {
 
 
 
-    const handleSubmit = async () => {
-        await submit()
-        closeModal()
+    const handleSubmit = () => {
+        submit()
     }
 
     const cancel = () => {

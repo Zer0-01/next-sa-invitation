@@ -1,6 +1,7 @@
 import { addDoc } from "firebase/firestore";
 import { create } from "zustand";
 import { attendanceCollection } from "../firebase";
+import { toast } from "sonner";
 
 interface AttendanceState {
     isModalOpen: boolean,
@@ -27,7 +28,7 @@ export const useAttendanceStore = create<AttendanceState>((set) => ({
     pax: 1,
     setPax: (pax) => set({ pax }),
     submit: async () => {
-        const { name, isAttend, pax } = useAttendanceStore.getState()
+        const { name, isAttend, pax, closeModal } = useAttendanceStore.getState()
         try {
             const docRef = await addDoc(attendanceCollection, {
                 name: name,
@@ -35,6 +36,9 @@ export const useAttendanceStore = create<AttendanceState>((set) => ({
                 pax: isAttend ? pax : 0
             })
             console.log("Document written with Id: ", docRef.id)
+
+            closeModal()
+            toast.success("Kehadiran berjaya disimpan")
             set({ name: "", isAttend: true, pax: 1 })
         } catch (error) {
             console.error("Error adding document: ", error)
