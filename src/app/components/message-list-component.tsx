@@ -23,10 +23,10 @@ const MessageListComponent = () => {
                 {messages.map((msg, index) => (
                     <div key={index} className="flex flex-col py-3">
                         <p className="text-sm text-green-700 font-semibold tracking-wide">
-                            {msg.sender}
+                            {msg.name}
                         </p>
                         <p className="text-gray-900 mt-1 text-base leading-relaxed">
-                            {msg.content}
+                            {msg.message}
                         </p>
 
                         {index < messages.length - 1 && (

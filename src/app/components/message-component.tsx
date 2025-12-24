@@ -1,10 +1,10 @@
 'use client'
 
-import { Button } from "@/components/ui/button";
 import AttendanceComponent from "./attendance-component";
 import { useEffect } from "react";
 import { useMessageStore } from "@/lib/store/message-store";
 import MessageListComponent from "./message-list-component";
+import MessageFormComponent from "./message-form-component";
 
 
 
@@ -31,9 +31,7 @@ const MessageComponent = () => {
 
             <div className="flex flex-col sm:flex-row items-center sm:justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-6">
                 <AttendanceComponent />
-                <Button className="bg-white text-gray-900 border border-gray-300 px-6 py-3 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                    Tulis Ucapan
-                </Button>
+                <MessageFormComponent />
             </div>
         </section>
     );
