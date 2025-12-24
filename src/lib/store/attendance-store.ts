@@ -1,4 +1,6 @@
+import { addDoc } from "firebase/firestore";
 import { create } from "zustand";
+import { attendanceCollection } from "../firebase";
 
 interface AttendanceState {
     isModalOpen: boolean,
@@ -10,6 +12,7 @@ interface AttendanceState {
     setIsAttend: (isAttend: boolean) => void
     pax: number,
     setPax: (pax: number) => void
+    submit: () => void
 
 }
 
@@ -22,5 +25,20 @@ export const useAttendanceStore = create<AttendanceState>((set) => ({
     isAttend: true,
     setIsAttend: (isAttend) => set({ isAttend }),
     pax: 1,
-    setPax: (pax) => set({ pax })
+    setPax: (pax) => set({ pax }),
+    submit: async () => {
+        const { name, isAttend, pax } = useAttendanceStore.getState()
+        try {
+            const docRef = await addDoc(attendanceCollection, {
+                name: name,
+                isAttend: isAttend,
+                pax: isAttend ? pax : 0
+            })
+            console.log("Document written with Id: ", docRef.id)
+            set({ name: "", isAttend: true, pax: 1 })
+        } catch (error) {
+            console.error("Error adding document: ", error)
+
+        }
+    }
 }))

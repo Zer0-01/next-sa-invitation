@@ -30,11 +30,12 @@ const AttendanceComponent = () => {
     const setIsAttend = useAttendanceStore((state) => state.setIsAttend)
     const pax = useAttendanceStore((state) => state.pax)
     const setPax = useAttendanceStore((state) => state.setPax)
+    const submit = useAttendanceStore((state) => state.submit)
 
 
 
-    const handleSubmit = () => {
-        console.log({ name, isAttend, pax })
+    const handleSubmit = async () => {
+        await submit()
         closeModal()
     }
 
@@ -43,6 +44,10 @@ const AttendanceComponent = () => {
         setIsAttend(true)
         setPax(1)
         closeModal()
+    }
+
+    const isSubmitDisabled = () => {
+        return !name
     }
 
     return (
@@ -60,9 +65,9 @@ const AttendanceComponent = () => {
             >
                 <DialogContent >
                     <DialogHeader>
-                        <DialogTitle>Confirm Attendance</DialogTitle>
+                        <DialogTitle>Sahkan Kehadiran</DialogTitle>
                         <DialogDescription>
-                            Fill in your details below to confirm your attendance.
+                            Isi form dibawah ini untuk sahkan kehadiran.
                         </DialogDescription>
                     </DialogHeader>
 
@@ -71,7 +76,7 @@ const AttendanceComponent = () => {
                             <FieldGroup>
                                 <Field>
                                     <FieldLabel htmlFor="attendance-name">Nama</FieldLabel>
-                                    <FieldDescription>Enter your full name</FieldDescription>
+                                    <FieldDescription>Masukkan nama anda</FieldDescription>
                                     <Input
                                         id="attendance-name"
                                         value={name}
@@ -81,8 +86,8 @@ const AttendanceComponent = () => {
                                 </Field>
 
                                 <Field>
-                                    <FieldLabel htmlFor="attendance-attend">Attend</FieldLabel>
-                                    <FieldDescription>Will you attend the event?</FieldDescription>
+                                    <FieldLabel htmlFor="attendance-attend">Kehadiran</FieldLabel>
+                                    <FieldDescription>Adakah anda hadir?</FieldDescription>
                                     <Select
                                         value={isAttend ? "yes" : "no"}
                                         onValueChange={(value) => setIsAttend(value === "yes")}
@@ -91,24 +96,31 @@ const AttendanceComponent = () => {
                                             <SelectValue placeholder="Select" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="yes">Yes</SelectItem>
-                                            <SelectItem value="no">No</SelectItem>
+                                            <SelectItem value="yes">Ya</SelectItem>
+                                            <SelectItem value="no">Tidak</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </Field>
 
-                                <Field>
-                                    <FieldLabel htmlFor="attendance-pax">Pax</FieldLabel>
-                                    <FieldDescription>Number of people attending</FieldDescription>
-                                    <Input
-                                        id="attendance-pax"
-                                        type="number"
-                                        min={1}
-                                        value={pax}
-                                        onChange={(e) => setPax(Number(e.target.value))}
-                                        required
-                                    />
-                                </Field>
+                                {isAttend && (
+                                    <Field>
+                                        <FieldLabel htmlFor="attendance-pax">Pax</FieldLabel>
+                                        <FieldDescription>Jumlah pax anda</FieldDescription>
+                                        <Select value={String(pax)} onValueChange={(value) => setPax(Number(value))}>
+                                            <SelectTrigger id="attendance-pax">
+                                                <SelectValue placeholder="Select pax" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
+                                                    <SelectItem key={n} value={String(n)}>
+                                                        {n}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </Field>
+                                )}
+
                             </FieldGroup>
                         </FieldSet>
 
@@ -116,10 +128,10 @@ const AttendanceComponent = () => {
 
                         <div className="flex justify-end gap-2 mt-2">
                             <Button variant="outline" onClick={cancel}>
-                                Cancel
+                                Batal
                             </Button>
-                            <Button type="submit" className="bg-green-600 text-white">
-                                Confirm
+                            <Button type="submit" disabled={isSubmitDisabled()} className="bg-green-600 text-white">
+                                Hantar
                             </Button>
                         </div>
                     </form>
