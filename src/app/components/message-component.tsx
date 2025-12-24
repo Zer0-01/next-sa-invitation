@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import AttendanceComponent from "./attendance-component";
 
 const messages = [
     { sender: "Ahmad", content: "Selamat pengantin baru! Semoga bahagia hingga ke syurga." },
@@ -35,9 +36,7 @@ const MessageComponent = () => {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row items-center sm:justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-6">
-                <Button className="bg-green-600 text-white px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
-                    Sahkan Kehadiran
-                </Button>
+                <AttendanceComponent />
                 <Button className="bg-white text-gray-900 border border-gray-300 px-6 py-3 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
                     Tulis Ucapan
                 </Button>
