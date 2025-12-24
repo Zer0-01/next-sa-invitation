@@ -1,11 +1,11 @@
-import Image from "next/image";
+import Image from "next/image"
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
     CarouselNext,
-    CarouselPrevious
-} from "@/components/ui/carousel";
+    CarouselPrevious,
+} from "@/components/ui/carousel"
 
 const CarouselComponent = () => {
     const images = [
@@ -13,16 +13,16 @@ const CarouselComponent = () => {
         "https://picsum.photos/id/1024/600/800",
         "https://picsum.photos/id/1035/600/800",
         "https://picsum.photos/id/1043/600/800",
-        "https://picsum.photos/id/1050/600/800"
-    ];
+        "https://picsum.photos/id/1050/600/800",
+    ]
 
     return (
-        <div className="w-full">
-            <Carousel className="w-full">
-                <CarouselContent className="!gap-0"> {/* Remove spacing */}
+        <div className="flex justify-center overflow-hidden">
+            <Carousel className="w-full max-w-xs sm:max-w-sm md:max-w-md overflow-hidden">
+                <CarouselContent className="gap-0">
                     {images.map((src, index) => (
-                        <CarouselItem key={index} className="!px-0 !mx-0"> {/* Remove padding/margin */}
-                            <div className="relative w-full h-72 overflow-hidden shadow-md">
+                        <CarouselItem key={index} className="px-0">
+                            <div className="relative aspect-[3/4] overflow-hidden  shadow-lg">
                                 <Image
                                     src={src}
                                     alt={`Slide ${index + 1}`}
@@ -34,12 +34,11 @@ const CarouselComponent = () => {
                         </CarouselItem>
                     ))}
                 </CarouselContent>
-
-                <CarouselPrevious className="left-2" />
-                <CarouselNext className="right-2" />
+                <CarouselPrevious className="left-2 bg-white/80 backdrop-blur-md shadow-md hover:bg-white" />
+                <CarouselNext className="right-2 bg-white/80 backdrop-blur-md shadow-md hover:bg-white" />
             </Carousel>
         </div>
-    );
-};
+    )
+}
 
-export default CarouselComponent;
+export default CarouselComponent
