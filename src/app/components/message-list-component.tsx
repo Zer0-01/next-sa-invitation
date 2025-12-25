@@ -4,9 +4,8 @@ const MessageListComponent = () => {
     const getMessagesStatus = useMessageStore((state) => state.getMessagesStatus)
     const messages = useMessageStore((state) => state.messages)
 
-
     if (getMessagesStatus === "loading") {
-        return <div className="mt-6 text-center">Loading...</div>
+        return <div className="mt-6 text-center text-gray-500">Loading...</div>
     }
 
     if (getMessagesStatus === "error") {
@@ -19,24 +18,24 @@ const MessageListComponent = () => {
 
     if (getMessagesStatus === "success") {
         return messages.length > 0 ? (
-            <div className="flex flex-col w-full max-w-md mt-6 h-96 overflow-y-auto space-y-4 px-2">
+            <div className="flex flex-col w-full max-w-md mt-6 h-96 overflow-y-auto px-2 space-y-2">
                 {messages.map((msg, index) => (
-                    <div key={index} className="flex flex-col py-3">
-                        <p className="text-sm text-green-700 font-semibold tracking-wide">
-                            {msg.name}
-                        </p>
-                        <p className="text-gray-900 mt-1 text-base leading-relaxed">
-                            {msg.message}
-                        </p>
-
-                        {index < messages.length - 1 && (
-                            <div className="border-b border-gray-200 mt-3" />
-                        )}
+                    <div
+                        key={index}
+                        className={`flex ${msg.isUser ? "justify-end" : "justify-start"}`}
+                    >
+                        <div
+                            className={`max-w-[70%] px-4 py-2 rounded-xl break-words
+                                ${msg.isUser ? "bg-blue-500 text-white rounded-br-none" : "bg-gray-200 text-gray-900 rounded-bl-none"}`}
+                        >
+                            <p className="text-sm font-semibold">{msg.name}</p>
+                            <p className="mt-1 text-base">{msg.message}</p>
+                        </div>
                     </div>
                 ))}
             </div>
         ) : (
-            <div className="mt-6 text-center">Tiada pesanan lagi</div>
+            <div className="mt-6 text-center text-gray-500">No messages yet</div>
         )
     }
 
