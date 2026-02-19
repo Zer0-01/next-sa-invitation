@@ -54,7 +54,7 @@ const AttendanceComponent = () => {
         <div className="flex flex-col items-center">
             <Button
                 onClick={openModal}
-                className="bg-gray-900 text-white text-xs tracking-widest uppercase font-medium px-8 py-6 rounded-none border border-gray-900 hover:bg-white hover:text-gray-900 transition-all duration-500 ease-in-out shadow-sm"
+                className="text-xs tracking-widest uppercase font-medium px-8 py-6 rounded-md shadow-sm"
             >
                 RSVP Now
             </Button>
@@ -63,10 +63,10 @@ const AttendanceComponent = () => {
                 open={isModalOpen}
                 onOpenChange={(open) => (open ? openModal() : closeModal())}
             >
-                <DialogContent className="max-w-md rounded-none border-none bg-white">
+                <DialogContent className="max-w-md rounded-xl border-primary/10 bg-background">
                     <DialogHeader className="text-center pt-6">
-                        <DialogTitle className="text-2xl font-serif font-bold tracking-tight text-gray-900">RSVP</DialogTitle>
-                        <div className="w-12 h-[1px] bg-gray-200 mx-auto mt-4 mb-2" />
+                        <DialogTitle className="text-2xl font-serif font-bold tracking-tight text-foreground">RSVP</DialogTitle>
+                        <div className="w-12 h-[1px] bg-primary/20 mx-auto mt-4 mb-2" />
                         <DialogDescription className="text-sm text-gray-400 font-light tracking-wide">
                             Kindly confirm your presence by filling out the form.
                         </DialogDescription>
@@ -134,11 +134,11 @@ const AttendanceComponent = () => {
                             <Button
                                 type="submit"
                                 disabled={isSubmitDisabled() || isSubmitting}
-                                className="w-full bg-gray-900 text-white text-xs tracking-widest uppercase font-medium py-6 rounded-none hover:bg-gray-800 transition-colors"
+                                className="w-full h-12 text-xs tracking-widest uppercase font-medium"
                             >
                                 {isSubmitting ? "Sending..." : "Submit RSVP"}
                             </Button>
-                            <Button variant="ghost" onClick={cancel} className="w-full text-xs tracking-widest uppercase text-gray-400 hover:text-gray-900 rounded-none py-6">
+                            <Button variant="ghost" onClick={cancel} className="w-full h-12 text-xs tracking-widest uppercase">
                                 Cancel
                             </Button>
                         </div>

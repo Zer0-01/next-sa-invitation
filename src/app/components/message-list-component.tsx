@@ -12,7 +12,7 @@ const MessageListComponent = ({ messages, status }: MessageListComponentProps) =
     if (status === "loading") {
         return (
             <div className="flex justify-center items-center h-64">
-                <div className="animate-pulse text-gray-400 tracking-widest text-xs uppercase">Loading Messages...</div>
+                <div className="animate-pulse text-muted-foreground tracking-widest text-xs uppercase">Loading Messages...</div>
             </div>
         )
     }
@@ -50,12 +50,12 @@ const MessageListComponent = ({ messages, status }: MessageListComponentProps) =
                                 className={`flex ${msg.isUser ? "justify-end" : "justify-start"}`}
                             >
                                 <div
-                                    className={`max-w-[85%] md:max-w-[70%] px-5 py-3 shadow-sm
+                                    className={`max-w-[85%] md:max-w-[70%] px-5 py-3 shadow-md
                                         ${msg.isUser
-                                            ? "bg-gray-900 text-white rounded-2xl rounded-tr-none"
-                                            : "bg-white border border-gray-100 text-gray-900 rounded-2xl rounded-tl-none"}`}
+                                            ? "bg-primary text-primary-foreground rounded-2xl rounded-tr-none"
+                                            : "bg-background border border-primary/10 text-foreground rounded-2xl rounded-tl-none shadow-primary/5"}`}
                                 >
-                                    <p className={`text-[10px] uppercase tracking-wider font-semibold mb-1 ${msg.isUser ? "text-gray-400" : "text-gray-500"}`}>
+                                    <p className={`text-[10px] uppercase tracking-wider font-semibold mb-1 ${msg.isUser ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
                                         {msg.name}
                                     </p>
                                     <p className="text-sm md:text-base leading-relaxed font-light">

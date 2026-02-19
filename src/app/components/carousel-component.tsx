@@ -20,7 +20,7 @@ const CarouselComponent = () => {
     ]
 
     return (
-        <section className="py-24 bg-[#fdfdfd] overflow-hidden">
+        <section className="py-24 bg-background overflow-hidden border-t border-primary/10">
             <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -29,8 +29,8 @@ const CarouselComponent = () => {
                 className="flex flex-col items-center gap-16"
             >
                 <div className="flex flex-col items-center gap-3 px-6">
-                    <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-gray-400 font-medium text-center">Gallery</span>
-                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 tracking-tight text-center">Moments to Remember</h2>
+                    <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-muted-foreground font-medium text-center">Gallery</span>
+                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-foreground tracking-tight text-center">Moments to Remember</h2>
                 </div>
 
                 <div className="w-full flex justify-center px-4 md:px-0">
@@ -54,8 +54,8 @@ const CarouselComponent = () => {
                                 </CarouselItem>
                             ))}
                         </CarouselContent>
-                        <CarouselPrevious className="hidden md:flex -left-12 bg-white border-none shadow-sm hover:bg-gray-50" />
-                        <CarouselNext className="hidden md:flex -right-12 bg-white border-none shadow-sm hover:bg-gray-50" />
+                        <CarouselPrevious className="hidden md:flex -left-12 bg-background border-primary/10 shadow-sm hover:bg-sage/10 text-primary" />
+                        <CarouselNext className="hidden md:flex -right-12 bg-background border-primary/10 shadow-sm hover:bg-sage/10 text-primary" />
                     </Carousel>
                 </div>
             </motion.div>

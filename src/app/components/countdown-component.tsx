@@ -55,7 +55,8 @@ const CountdownComponent = () => {
     };
 
     return (
-        <section className="py-24 bg-white px-6">
+        <section className="py-24 bg-primary text-primary-foreground px-6 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-20 pointer-events-none" />
             <motion.div
                 variants={containerVariants}
                 initial="hidden"
@@ -64,8 +65,8 @@ const CountdownComponent = () => {
                 className="flex flex-col items-center gap-12"
             >
                 <div className="flex flex-col items-center gap-3">
-                    <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-gray-400 font-medium">Count the Days</span>
-                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 tracking-tight">The Celebration Begins In</h2>
+                    <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-primary-foreground/60 font-medium">Count the Days</span>
+                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-primary-foreground tracking-tight">The Celebration Begins In</h2>
                 </div>
 
                 <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8">
@@ -78,12 +79,12 @@ const CountdownComponent = () => {
                         <motion.div
                             key={index}
                             variants={itemVariants}
-                            className="flex flex-col items-center min-w-[70px] md:min-w-[100px] gap-2 p-4 md:p-6 bg-[#fafafa] border border-gray-50 shadow-sm"
+                            className="flex flex-col items-center min-w-[80px] md:min-w-[120px] gap-2 p-4 md:p-8 bg-white/5 border border-white/10 backdrop-blur-sm rounded-xl shadow-lg"
                         >
-                            <span className="text-3xl md:text-5xl font-serif font-bold text-gray-900 leading-none">
+                            <span className="text-3xl md:text-5xl font-serif font-bold text-primary-foreground leading-none">
                                 {String(item.value).padStart(2, '0')}
                             </span>
-                            <span className="text-[10px] md:text-xs tracking-widest uppercase text-gray-400 font-light">
+                            <span className="text-[10px] md:text-xs tracking-widest uppercase text-primary-foreground/70 font-light">
                                 {item.label}
                             </span>
                         </motion.div>

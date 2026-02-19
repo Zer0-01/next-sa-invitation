@@ -78,7 +78,7 @@ const itemVariants = {
 
 const InfoComponent = () => {
     return (
-        <section className="flex flex-col items-center px-6 py-28 bg-[#fdfdfd] text-gray-900 border-y border-gray-100">
+        <section className="flex flex-col items-center px-6 py-28 bg-background text-foreground border-y border-primary/10">
             <motion.div
                 variants={containerVariants}
                 initial="hidden"
@@ -88,12 +88,12 @@ const InfoComponent = () => {
             >
                 {/* VENUE */}
                 <motion.div variants={itemVariants} className="flex flex-col items-center space-y-4">
-                    <div className="w-10 h-[1px] bg-gray-300 md:hidden" />
-                    <h3 className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-gray-400 font-medium">Venue</h3>
-                    <p className="text-xl md:text-2xl font-serif font-semibold text-gray-900">
+                    <div className="w-10 h-[1px] bg-primary/20 md:hidden" />
+                    <h3 className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-muted-foreground font-medium">Venue</h3>
+                    <p className="text-xl md:text-2xl font-serif font-semibold text-foreground">
                         Glass House Glenmarie
                     </p>
-                    <p className="text-xs md:text-sm text-gray-500 leading-relaxed max-w-[240px] text-center font-light">
+                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed max-w-[240px] text-center font-light">
                         Lot 16859, 3 Stone Park, Jalan Penyair U1/44, Hicom-Glenmarie Industrial Park,
                         40150 Shah Alam, Selangor
                     </p>
@@ -101,22 +101,22 @@ const InfoComponent = () => {
 
                 {/* DATE */}
                 <motion.div variants={itemVariants} className="flex flex-col items-center space-y-4">
-                    <div className="w-10 h-[1px] bg-gray-300 md:hidden" />
-                    <h3 className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-gray-400 font-medium">Date</h3>
-                    <p className="text-xl md:text-2xl font-serif font-semibold text-gray-900">
+                    <div className="w-10 h-[1px] bg-primary/20 md:hidden" />
+                    <h3 className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-muted-foreground font-medium">Date</h3>
+                    <p className="text-xl md:text-2xl font-serif font-semibold text-foreground">
                         Saturday, 13th Dec 2026
                     </p>
-                    <p className="text-xs md:text-sm text-gray-500 font-light italic">16 Rejab 1440H</p>
+                    <p className="text-xs md:text-sm text-muted-foreground font-light italic">16 Rejab 1440H</p>
                 </motion.div>
 
                 {/* TIME */}
                 <motion.div variants={itemVariants} className="flex flex-col items-center space-y-4">
-                    <div className="w-10 h-[1px] bg-gray-300 md:hidden" />
-                    <h3 className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-gray-400 font-medium">Time</h3>
-                    <p className="text-xl md:text-2xl font-serif font-semibold text-gray-900">
+                    <div className="w-10 h-[1px] bg-primary/20 md:hidden" />
+                    <h3 className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-muted-foreground font-medium">Time</h3>
+                    <p className="text-xl md:text-2xl font-serif font-semibold text-foreground">
                         11:00 AM – 5:00 PM
                     </p>
-                    <p className="text-xs md:text-sm text-gray-500 font-light italic">Reception starts at 12:30 PM</p>
+                    <p className="text-xs md:text-sm text-muted-foreground font-light italic">Reception starts at 12:30 PM</p>
                 </motion.div>
             </motion.div>
 
@@ -129,17 +129,17 @@ const InfoComponent = () => {
             >
                 <Drawer>
                     <DrawerTrigger asChild>
-                        <Button className="mt-20 bg-gray-900 text-white text-xs md:text-sm tracking-widest uppercase font-medium px-10 py-6 rounded-none border border-gray-900 hover:bg-white hover:text-gray-900 transition-all duration-500 ease-in-out shadow-sm">
+                        <Button className="mt-20 text-xs md:text-sm tracking-widest uppercase font-medium px-10 py-6 rounded-md shadow-sm">
                             Save The Date
                         </Button>
                     </DrawerTrigger>
 
-                    <DrawerContent className="pb-10 bg-white border-t border-gray-100">
+                    <DrawerContent className="pb-10 bg-background border-t border-primary/10">
                         <DrawerHeader className="text-center">
-                            <DrawerTitle className="text-xl font-serif font-semibold text-gray-900">
+                            <DrawerTitle className="text-xl font-serif font-semibold text-foreground">
                                 Saturday, 13th December 2026
                             </DrawerTitle>
-                            <DrawerDescription className="text-sm text-gray-500 font-light tracking-wide mt-2">
+                            <DrawerDescription className="text-sm text-muted-foreground font-light tracking-wide mt-2">
                                 11:00 AM – 5:00 PM
                             </DrawerDescription>
                         </DrawerHeader>
@@ -147,7 +147,7 @@ const InfoComponent = () => {
                         <DrawerFooter className="flex flex-col gap-4 max-w-md mx-auto w-full px-6">
                             <Button
                                 variant="outline"
-                                className="flex items-center justify-center gap-3 py-6 text-gray-700 border-gray-200 hover:bg-gray-50 rounded-none transition-colors"
+                                className="flex items-center justify-center gap-3 py-6 text-foreground border-primary/10 hover:bg-sage/10 rounded-md transition-colors"
                                 onClick={downloadICS}
                             >
                                 <DiApple className="text-2xl" />
@@ -155,7 +155,7 @@ const InfoComponent = () => {
                             </Button>
                             <Button
                                 variant="outline"
-                                className="flex items-center justify-center gap-3 py-6 text-gray-700 border-gray-200 hover:bg-gray-50 rounded-none transition-colors"
+                                className="flex items-center justify-center gap-3 py-6 text-foreground border-primary/10 hover:bg-sage/10 rounded-md transition-colors"
                                 onClick={addToGoogleCalendar}
                             >
                                 <FaGoogle className="text-xl" />
