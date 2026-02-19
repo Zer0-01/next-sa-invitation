@@ -7,6 +7,7 @@ import InviteComponent from "./components/invite-component";
 import MessageComponent from "./components/message-component";
 import ProgrammeComponent from "./components/programme-component";
 import TitleComponent from "./components/title-component";
+import GiftComponent from "./components/gift-component";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <CountdownComponent />
       <CarouselComponent />
       <MessageComponent />
+      <GiftComponent />
       <FooterComponent />
     </div>
 
