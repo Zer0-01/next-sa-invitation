@@ -14,15 +14,9 @@ const clientCredentials = {
 
 const app = initializeApp(clientCredentials);
 
-const db = getFirestore(app);
-const storage = getStorage(app);
-const attendanceCollection = collection(db, "attendance");
-const messageCollection = collection(db, "message");
+export const db = getFirestore(app);
+export const storage = getStorage(app);
+export const attendanceCollection = collection(db, "attendance");
+export const messageCollection = collection(db, "message");
 
-export {
-    app,
-    db,
-    storage,
-    attendanceCollection,
-    messageCollection
-}
+export default app;

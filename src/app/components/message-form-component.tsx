@@ -18,23 +18,35 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { useMessageStore } from "@/lib/store/message-store"
 
-const MessageFormComponent = () => {
-    const isModalOpen = useMessageStore((s) => s.isModalOpen)
-    const openModal = useMessageStore((s) => s.openModal)
-    const closeModal = useMessageStore((s) => s.closeModal)
+interface MessageFormComponentProps {
+    isModalOpen: boolean
+    openModal: () => void
+    closeModal: () => void
+    name: string
+    setName: (name: string) => void
+    message: string
+    setMessage: (message: string) => void
+    submit: () => Promise<void>
+    isSubmitting: boolean
+}
 
-    const name = useMessageStore((s) => s.name)
-    const setName = useMessageStore((s) => s.setName)
-    const message = useMessageStore((s) => s.message)
-    const setMessage = useMessageStore((s) => s.setMessage)
-    const submit = useMessageStore((s) => s.submit)
+const MessageFormComponent = ({
+    isModalOpen,
+    openModal,
+    closeModal,
+    name,
+    setName,
+    message,
+    setMessage,
+    submit,
+    isSubmitting
+}: MessageFormComponentProps) => {
 
-    const isSubmitDisabled = !name.trim() || !message.trim()
+    const isSubmitDisabled = !name.trim() || !message.trim() || isSubmitting
 
-    const handleSubmit = () => {
-        submit()
+    const handleSubmit = async () => {
+        await submit()
     }
 
     const cancel = () => {
@@ -42,6 +54,7 @@ const MessageFormComponent = () => {
         setMessage("")
         closeModal()
     }
+
 
     return (
         <div className="flex justify-center">

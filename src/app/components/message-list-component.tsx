@@ -1,14 +1,16 @@
-import { useMessageStore } from "@/lib/store/message-store"
+import { DocumentData } from "firebase/firestore"
 
-const MessageListComponent = () => {
-    const getMessagesStatus = useMessageStore((state) => state.getMessagesStatus)
-    const messages = useMessageStore((state) => state.messages)
+interface MessageListComponentProps {
+    messages: DocumentData[]
+    status: "initial" | "loading" | "success" | "error"
+}
 
-    if (getMessagesStatus === "loading") {
+const MessageListComponent = ({ messages, status }: MessageListComponentProps) => {
+    if (status === "loading") {
         return <div className="mt-6 text-center text-gray-500">Loading...</div>
     }
 
-    if (getMessagesStatus === "error") {
+    if (status === "error") {
         return (
             <div className="mt-6 text-center text-red-600">
                 Something went wrong
@@ -16,7 +18,7 @@ const MessageListComponent = () => {
         )
     }
 
-    if (getMessagesStatus === "success") {
+    if (status === "success") {
         return messages.length > 0 ? (
             <div className="flex flex-col w-full max-w-md mt-6 h-96 overflow-y-auto px-2 space-y-2">
                 {messages.map((msg, index) => (
@@ -41,5 +43,6 @@ const MessageListComponent = () => {
 
     return null
 }
+
 
 export default MessageListComponent

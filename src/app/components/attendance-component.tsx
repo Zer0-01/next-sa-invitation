@@ -18,32 +18,33 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useAttendanceStore } from "@/lib/store/attendance-store"
+import { useAttendance } from "@/hooks/use-attendance"
 
 const AttendanceComponent = () => {
-    const isModalOpen = useAttendanceStore((state) => state.isModalOpen)
-    const openModal = useAttendanceStore((state) => state.openModal)
-    const closeModal = useAttendanceStore((state) => state.closeModal)
-    const name = useAttendanceStore((state) => state.name)
-    const setName = useAttendanceStore((state) => state.setName)
-    const isAttend = useAttendanceStore((state) => state.isAttend)
-    const setIsAttend = useAttendanceStore((state) => state.setIsAttend)
-    const pax = useAttendanceStore((state) => state.pax)
-    const setPax = useAttendanceStore((state) => state.setPax)
-    const submit = useAttendanceStore((state) => state.submit)
+    const {
+        isModalOpen,
+        openModal,
+        closeModal,
+        name,
+        setName,
+        isAttend,
+        setIsAttend,
+        pax,
+        setPax,
+        submit,
+        resetForm,
+        isSubmitting
+    } = useAttendance()
 
-
-
-    const handleSubmit = () => {
-        submit()
+    const handleSubmit = async () => {
+        await submit()
     }
 
     const cancel = () => {
-        setName("")
-        setIsAttend(true)
-        setPax(1)
+        resetForm()
         closeModal()
     }
+
 
     const isSubmitDisabled = () => {
         return !name
@@ -129,8 +130,8 @@ const AttendanceComponent = () => {
                             <Button variant="outline" onClick={cancel}>
                                 Batal
                             </Button>
-                            <Button type="submit" disabled={isSubmitDisabled()} className="bg-green-600 text-white">
-                                Hantar
+                            <Button type="submit" disabled={isSubmitDisabled() || isSubmitting} className="bg-green-600 text-white">
+                                {isSubmitting ? "Menghantar..." : "Hantar"}
                             </Button>
                         </div>
                     </form>
