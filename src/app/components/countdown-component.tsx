@@ -1,39 +1,98 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
 const CountdownComponent = () => {
+    const targetDate = new Date("2026-12-13T11:00:00").getTime();
+    const [timeLeft, setTimeLeft] = useState({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+    });
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                return;
+            }
+
+            setTimeLeft({
+                days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+                seconds: Math.floor((distance % (1000 * 60)) / 1000)
+            });
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [targetDate]);
+
+    const containerVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.8,
+                staggerChildren: 0.1
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, scale: 0.8 },
+        visible: {
+            opacity: 1,
+            scale: 1,
+            transition: { duration: 0.5 }
+        }
+    };
+
     return (
-        <div className="flex flex-col items-center gap-4">
-            {/* Title */}
-            <div className="text-lg font-semibold tracking-wide">
-                MENGHITUNG HARI
-            </div>
-
-            {/* Countdown Row */}
-            <div className="flex flex-row items-center gap-4">
-                {/* Day */}
-                <div className="flex flex-col items-center">
-                    <span className="text-3xl font-bold">29</span>
-                    <span className="text-sm text-gray-600">Hari</span>
+        <section className="py-24 bg-white px-6">
+            <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="flex flex-col items-center gap-12"
+            >
+                <div className="flex flex-col items-center gap-3">
+                    <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-gray-400 font-medium">Count the Days</span>
+                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 tracking-tight">The Celebration Begins In</h2>
                 </div>
 
-                {/* Hour */}
-                <div className="flex flex-col items-center">
-                    <span className="text-3xl font-bold">21</span>
-                    <span className="text-sm text-gray-600">Jam</span>
+                <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8">
+                    {[
+                        { label: "Hari", value: timeLeft.days },
+                        { label: "Jam", value: timeLeft.hours },
+                        { label: "Minit", value: timeLeft.minutes },
+                        { label: "Saat", value: timeLeft.seconds }
+                    ].map((item, index) => (
+                        <motion.div
+                            key={index}
+                            variants={itemVariants}
+                            className="flex flex-col items-center min-w-[70px] md:min-w-[100px] gap-2 p-4 md:p-6 bg-[#fafafa] border border-gray-50 shadow-sm"
+                        >
+                            <span className="text-3xl md:text-5xl font-serif font-bold text-gray-900 leading-none">
+                                {String(item.value).padStart(2, '0')}
+                            </span>
+                            <span className="text-[10px] md:text-xs tracking-widest uppercase text-gray-400 font-light">
+                                {item.label}
+                            </span>
+                        </motion.div>
+                    ))}
                 </div>
-
-                {/* Minute */}
-                <div className="flex flex-col items-center">
-                    <span className="text-3xl font-bold">29</span>
-                    <span className="text-sm text-gray-600">Minit</span>
-                </div>
-
-                {/* Second */}
-                <div className="flex flex-col items-center">
-                    <span className="text-3xl font-bold">29</span>
-                    <span className="text-sm text-gray-600">Saat</span>
-                </div>
-            </div>
-        </div>
+            </motion.div>
+        </section>
     );
 };
 
 export default CountdownComponent;
+

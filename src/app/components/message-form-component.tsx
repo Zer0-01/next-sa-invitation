@@ -1,5 +1,6 @@
 'use client'
 
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
@@ -10,11 +11,9 @@ import {
 } from "@/components/ui/dialog"
 import {
     Field,
-    FieldDescription,
     FieldGroup,
     FieldLabel,
     FieldSet,
-    FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -60,66 +59,65 @@ const MessageFormComponent = ({
         <div className="flex justify-center">
             <Button
                 onClick={openModal}
-                className="bg-white text-gray-900 border border-gray-300 px-6 py-3 rounded-lg shadow-sm hover:shadow-md transition-all"
+                className="bg-white text-gray-900 border border-gray-200 text-xs tracking-widest uppercase font-medium px-8 py-6 rounded-none hover:bg-gray-50 transition-all duration-500 ease-in-out shadow-sm"
             >
-                Tulis Ucapan
+                Leave a Wish
             </Button>
 
             <Dialog open={isModalOpen} onOpenChange={(open) => (open ? openModal() : closeModal())}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Tulis Ucapan</DialogTitle>
-                        <DialogDescription>
-                            Tinggalkan ucapan atau doa untuk pengantin 💚
+                <DialogContent className="max-w-md rounded-none border-none bg-white">
+                    <DialogHeader className="text-center pt-6">
+                        <DialogTitle className="text-2xl font-serif font-bold tracking-tight text-gray-900">Guest Book</DialogTitle>
+                        <div className="w-12 h-[1px] bg-gray-200 mx-auto mt-4 mb-2" />
+                        <DialogDescription className="text-sm text-gray-400 font-light tracking-wide">
+                            Your kind words mean the world to us.
                         </DialogDescription>
                     </DialogHeader>
 
                     <form
-                        className="flex flex-col gap-4 mt-4"
+                        className="flex flex-col gap-6 mt-6 px-2 pb-6"
                         onSubmit={(e) => {
                             e.preventDefault()
                             handleSubmit()
                         }}
                     >
                         <FieldSet>
-                            <FieldGroup>
+                            <FieldGroup className="space-y-6">
                                 <Field>
-                                    <FieldLabel>Nama</FieldLabel>
-                                    <FieldDescription>Nama anda</FieldDescription>
+                                    <FieldLabel className="text-xs tracking-widest uppercase text-gray-400 font-medium">Name</FieldLabel>
                                     <Input
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
-                                        placeholder="Contoh: Anas"
+                                        placeholder="Your Name"
+                                        className="rounded-none border-gray-100 focus:border-gray-900 transition-colors py-6 text-sm"
                                         required
                                     />
                                 </Field>
 
                                 <Field>
-                                    <FieldLabel>Ucapan</FieldLabel>
-                                    <FieldDescription>Tulis mesej anda</FieldDescription>
+                                    <FieldLabel className="text-xs tracking-widest uppercase text-gray-400 font-medium">Message</FieldLabel>
                                     <Textarea
                                         value={message}
                                         onChange={(e) => setMessage(e.target.value)}
-                                        placeholder="Semoga bahagia hingga ke jannah..."
+                                        placeholder="Wishing you a lifetime of love and happiness..."
                                         rows={4}
+                                        className="rounded-none border-gray-100 focus:border-gray-900 transition-colors text-sm resize-none"
                                         required
                                     />
                                 </Field>
                             </FieldGroup>
                         </FieldSet>
 
-                        <FieldSeparator />
-
-                        <div className="flex justify-end gap-2">
-                            <Button variant="outline" onClick={cancel}>
-                                Batal
-                            </Button>
+                        <div className="flex flex-col gap-3 mt-4">
                             <Button
                                 type="submit"
                                 disabled={isSubmitDisabled}
-                                className="bg-green-600 text-white"
+                                className="w-full bg-gray-900 text-white text-xs tracking-widest uppercase font-medium py-6 rounded-none hover:bg-gray-800 transition-colors"
                             >
-                                Hantar
+                                {isSubmitting ? "Sending..." : "Send Wish"}
+                            </Button>
+                            <Button variant="ghost" onClick={cancel} className="w-full text-xs tracking-widest uppercase text-gray-400 hover:text-gray-900 rounded-none py-6">
+                                Cancel
                             </Button>
                         </div>
                     </form>
@@ -130,3 +128,4 @@ const MessageFormComponent = ({
 }
 
 export default MessageFormComponent
+

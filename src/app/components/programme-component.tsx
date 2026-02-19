@@ -1,39 +1,77 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.1 }
+    }
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 0.5 }
+    }
+};
 
 const ProgrammeComponent = () => {
     return (
-        <Card className="mx-auto my-8 w-full max-w-md rounded-xl shadow-lg">
-            <CardHeader>
-                <CardTitle className="text-center text-2xl font-serif font-bold tracking-wide">
-                    Programme
-                </CardTitle>
-            </CardHeader>
+        <section className="py-24 bg-white px-6">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="mx-auto w-full max-w-4xl"
+            >
+                <Card className="rounded-none border-none shadow-none">
+                    <CardHeader className="p-0 mb-16">
+                        <CardTitle className="text-center text-3xl md:text-4xl font-serif font-bold tracking-tight text-gray-900">
+                            Programme
+                        </CardTitle>
+                        <div className="w-16 h-[1px] bg-gray-200 mx-auto mt-6" />
+                    </CardHeader>
 
-            <CardContent className="space-y-6">
-                <div className="flex items-center justify-between border-b pb-3">
-                    <span className="text-sm font-semibold text-gray-500">Lunch</span>
-                    <span className="font-medium text-gray-900">11:00 AM – 5:00 PM</span>
-                </div>
-
-                <div className="flex items-center justify-between border-b pb-3">
-                    <span className="text-sm font-semibold text-gray-500">
-                        Arrival of Bride & Groom
-                    </span>
-                    <span className="font-medium text-gray-900">12:30 PM</span>
-                </div>
-
-                <div className="flex items-center justify-between border-b pb-3">
-                    <span className="text-sm font-semibold text-gray-500">Ceremony</span>
-                    <span className="font-medium text-gray-900">1:00 PM – 3:00 PM</span>
-                </div>
-
-                <div className="flex items-center justify-between">
-                    <span className="text-sm font-semibold text-gray-500">Reception</span>
-                    <span className="font-medium text-gray-900">3:30 PM – 5:00 PM</span>
-                </div>
-            </CardContent>
-        </Card>
+                    <CardContent className="p-0">
+                        <motion.div
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10"
+                        >
+                            {[
+                                { title: "Lunch", time: "11:00 AM – 5:00 PM" },
+                                { title: "Arrival of Bride & Groom", time: "12:30 PM" },
+                                { title: "Ceremony", time: "1:00 PM – 3:00 PM" },
+                                { title: "Reception", time: "3:30 PM – 5:00 PM" }
+                            ].map((item, index) => (
+                                <motion.div
+                                    key={index}
+                                    variants={itemVariants}
+                                    className="flex items-center justify-between border-b border-gray-50 pb-6 group"
+                                >
+                                    <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase font-semibold text-gray-400 group-hover:text-gray-900 transition-colors">
+                                        {item.title}
+                                    </span>
+                                    <span className="font-serif text-lg md:text-xl text-gray-900">
+                                        {item.time}
+                                    </span>
+                                </motion.div>
+                            ))}
+                        </motion.div>
+                    </CardContent>
+                </Card>
+            </motion.div>
+        </section>
     )
 }
 
 export default ProgrammeComponent
+
