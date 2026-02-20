@@ -66,7 +66,7 @@ const AttendanceComponent = () => {
                 <DialogContent className="max-w-md rounded-xl border-primary/10 bg-background">
                     <DialogHeader className="text-center pt-6">
                         <DialogTitle className="text-2xl font-serif font-bold tracking-tight text-foreground">RSVP</DialogTitle>
-                        <div className="w-12 h-[1px] bg-primary/20 mx-auto mt-4 mb-2" />
+                        <div className="w-12 h-px bg-primary/20 mx-auto mt-4 mb-2" />
                         <DialogDescription className="text-sm text-gray-400 font-light tracking-wide">
                             Kindly confirm your presence by filling out the form.
                         </DialogDescription>
