@@ -24,9 +24,9 @@ VERSION:2.0
 BEGIN:VEVENT
 SUMMARY:The Wedding of Adam & Hawa
 DESCRIPTION:Join us in celebrating the wedding of Adam & Hawa.
-LOCATION:Glass House Glenmarie, Lot 16859, 3 Stone Park, Jalan Penyair U1/44, Hicom-Glenmarie Industrial Park, Shah Alam, Selangor
-DTSTART:20261213T110000
-DTEND:20261213T170000
+LOCATION:Riq Grand Ballroom, Ampang, Selangor
+DTSTART:20261220T030000Z
+DTEND:20261220T083000Z
 END:VEVENT
 END:VCALENDAR
 `;
@@ -49,10 +49,9 @@ const addToGoogleCalendar = () => {
     const params = new URLSearchParams({
         action: "TEMPLATE",
         text: "The Wedding of Adam & Hawa",
-        dates: "20261213T110000/20261213T170000", // UTC format YYYYMMDDTHHmmss
+        dates: "20261220T030000Z/20261220T083000Z", // UTC format YYYYMMDDTHHmmss (11am-4:30pm MYT)
         details: "Join us in celebrating the wedding of Adam & Hawa.",
-        location:
-            "Glass House Glenmarie, Lot 16859, 3 Stone Park, Jalan Penyair U1/44, Hicom-Glenmarie Industrial Park, Shah Alam, Selangor",
+        location: "Riq Grand Ballroom, Ampang, Selangor",
     });
     window.open(`https://www.google.com/calendar/render?${params.toString()}`, "_blank");
 };
@@ -88,35 +87,39 @@ const InfoComponent = () => {
             >
                 {/* VENUE */}
                 <motion.div variants={itemVariants} className="flex flex-col items-center space-y-4">
-                    <div className="w-10 h-[1px] bg-primary/20 md:hidden" />
+                    <div className="w-10 h-px bg-primary/20 md:hidden" />
                     <h3 className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-muted-foreground font-medium">Venue</h3>
-                    <p className="text-xl md:text-2xl font-serif font-semibold text-foreground">
-                        Glass House Glenmarie
-                    </p>
+                    <a
+                        href="https://maps.app.goo.gl/B2xvTxge5uCbN6in6"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xl md:text-2xl font-serif font-semibold text-foreground hover:text-primary transition-colors text-center"
+                    >
+                        Riq Grand Ballroom
+                    </a>
                     <p className="text-xs md:text-sm text-muted-foreground leading-relaxed max-w-[240px] text-center font-light">
-                        Lot 16859, 3 Stone Park, Jalan Penyair U1/44, Hicom-Glenmarie Industrial Park,
-                        40150 Shah Alam, Selangor
+                        Ampang, Selangor
                     </p>
                 </motion.div>
 
                 {/* DATE */}
                 <motion.div variants={itemVariants} className="flex flex-col items-center space-y-4">
-                    <div className="w-10 h-[1px] bg-primary/20 md:hidden" />
+                    <div className="w-10 h-px bg-primary/20 md:hidden" />
                     <h3 className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-muted-foreground font-medium">Date</h3>
-                    <p className="text-xl md:text-2xl font-serif font-semibold text-foreground">
-                        Saturday, 13th Dec 2026
+                    <p className="text-xl md:text-2xl font-serif font-semibold text-foreground text-center">
+                        Sunday, 20th Dec 2026
                     </p>
-                    <p className="text-xs md:text-sm text-muted-foreground font-light italic">16 Rejab 1440H</p>
+                    <p className="text-xs md:text-sm text-muted-foreground font-light italic">11 Rejab 1448H</p>
                 </motion.div>
 
                 {/* TIME */}
                 <motion.div variants={itemVariants} className="flex flex-col items-center space-y-4">
-                    <div className="w-10 h-[1px] bg-primary/20 md:hidden" />
+                    <div className="w-10 h-px bg-primary/20 md:hidden" />
                     <h3 className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-muted-foreground font-medium">Time</h3>
-                    <p className="text-xl md:text-2xl font-serif font-semibold text-foreground">
-                        11:00 AM – 5:00 PM
+                    <p className="text-xl md:text-2xl font-serif font-semibold text-foreground text-center">
+                        11:00 AM – 4:30 PM
                     </p>
-                    <p className="text-xs md:text-sm text-muted-foreground font-light italic">Reception starts at 12:30 PM</p>
+                    <p className="text-xs md:text-sm text-muted-foreground font-light italic text-center">Ketibaan Pengantin: 12.30 PM</p>
                 </motion.div>
             </motion.div>
 
@@ -137,10 +140,10 @@ const InfoComponent = () => {
                     <DrawerContent className="pb-10 bg-background border-t border-primary/10">
                         <DrawerHeader className="text-center">
                             <DrawerTitle className="text-xl font-serif font-semibold text-foreground">
-                                Saturday, 13th December 2026
+                                Sunday, 20th December 2026
                             </DrawerTitle>
                             <DrawerDescription className="text-sm text-muted-foreground font-light tracking-wide mt-2">
-                                11:00 AM – 5:00 PM
+                                11:00 AM – 4:30 PM
                             </DrawerDescription>
                         </DrawerHeader>
 

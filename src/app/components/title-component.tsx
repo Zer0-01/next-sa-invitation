@@ -7,7 +7,7 @@ const TitleComponent = () => {
     const { isDismissed } = useOpening();
 
     return (
-        <section className="relative flex flex-col items-center justify-center min-h-[90vh] md:min-h-screen text-center text-foreground bg-background px-6 py-10 overflow-hidden">
+        <section className="relative flex flex-col items-center justify-center min-h-dvh text-center text-foreground bg-background px-6 py-10 overflow-hidden">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={isDismissed ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -58,7 +58,7 @@ const TitleComponent = () => {
                     transition={{ delay: 1, duration: 0.8 }}
                     className="text-sm md:text-lg mt-8 md:mt-12 tracking-[0.2em] text-muted-foreground font-light"
                 >
-                    Saturday • 13.12.26
+                    Sunday • 20.12.26
                 </motion.p>
             </motion.div>
         </section>

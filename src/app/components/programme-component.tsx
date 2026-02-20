@@ -35,7 +35,7 @@ const ProgrammeComponent = () => {
                         <CardTitle className="text-center text-3xl md:text-4xl font-serif font-bold tracking-tight text-foreground">
                             Programme
                         </CardTitle>
-                        <div className="w-16 h-[1px] bg-primary/20 mx-auto mt-6" />
+                        <div className="w-16 h-px bg-primary/20 mx-auto mt-6" />
                     </CardHeader>
 
                     <CardContent className="p-0">
@@ -47,10 +47,9 @@ const ProgrammeComponent = () => {
                             className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10"
                         >
                             {[
-                                { title: "Lunch", time: "11:00 AM – 5:00 PM" },
-                                { title: "Arrival of Bride & Groom", time: "12:30 PM" },
-                                { title: "Ceremony", time: "1:00 PM – 3:00 PM" },
-                                { title: "Reception", time: "3:30 PM – 5:00 PM" }
+                                { title: "Akad Nikah", time: "9:00 AM - 10:00 AM" },
+                                { title: "Jamuan Makan", time: "11:00 AM – 4:30 PM" },
+                                { title: "Ketibaan Pengantin", time: "12:30 PM" }
                             ].map((item, index) => (
                                 <motion.div
                                     key={index}
