@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 };
 
 import BackgroundMusic from "@/components/BackgroundMusic";
+import InvitationOpening from "@/components/InvitationOpening";
 
 export default function RootLayout({
   children,
@@ -30,7 +31,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <InvitationOpening>
+          {children}
+        </InvitationOpening>
         <Toaster />
         <BackgroundMusic />
       </body>
