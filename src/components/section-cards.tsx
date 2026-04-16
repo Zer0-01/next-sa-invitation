@@ -33,7 +33,7 @@ const cardContent = {
   },
   unattendingPax: {
     label: "Total Guest Unattend",
-    helper: "Total unattending pax recorded from RSVP submissions.",
+    helper: "Total unattending RSVP documents recorded.",
     icon: IconUserX,
   },
   totalRsvp: {
@@ -97,13 +97,13 @@ export function SectionCards() {
       .filter((item) => item.isAttend)
       .reduce((sum, item) => sum + (item.pax ?? 0), 0);
 
-    const unattendingPax = attendance
-      .filter((item) => item.isAttend === false)
-      .reduce((sum, item) => sum + (item.pax ?? 0), 0);
+    const unattendingCount = attendance.filter(
+      (item) => item.isAttend === false
+    ).length;
 
     return {
       attendingPax,
-      unattendingPax,
+      unattendingCount,
       totalRsvp: attendance.length,
       totalMessages: messages.length,
     };
@@ -116,7 +116,7 @@ export function SectionCards() {
     },
     {
       ...cardContent.unattendingPax,
-      value: stats.unattendingPax,
+      value: stats.unattendingCount,
     },
     {
       ...cardContent.totalRsvp,

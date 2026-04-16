@@ -5,8 +5,6 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  orderBy,
-  query,
 } from "firebase/firestore";
 import {
   flexRender,
@@ -48,14 +46,29 @@ type AttendanceItem = {
   name?: string;
   isAttend?: boolean;
   pax?: number;
+  createdAt?: {
+    seconds?: number;
+  };
 };
 
 type GuestTableRow = {
   id: string;
   name: string;
   status: "Attend" | "Unattend";
-  pax: number;
+  pax: number | "-";
+  createdAt: string;
 };
+
+function formatDate(seconds?: number) {
+  if (!seconds) {
+    return "Unknown date";
+  }
+
+  return new Intl.DateTimeFormat("en-MY", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(new Date(seconds * 1000));
+}
 
 export function GuestDashboard() {
   const [guests, setGuests] = useState<AttendanceItem[]>([]);
@@ -68,18 +81,23 @@ export function GuestDashboard() {
 
     async function loadGuests() {
       try {
-        const snapshot = await getDocs(query(attendanceCollection, orderBy("name")));
+        const snapshot = await getDocs(attendanceCollection);
 
         if (!isMounted) {
           return;
         }
 
-        setGuests(
-          snapshot.docs.map((guestDoc) => ({
+        const nextGuests = snapshot.docs
+          .map((guestDoc) => ({
             id: guestDoc.id,
             ...(guestDoc.data() as Omit<AttendanceItem, "id">),
           }))
-        );
+          .sort(
+            (left, right) =>
+              (right.createdAt?.seconds ?? 0) - (left.createdAt?.seconds ?? 0)
+          );
+
+        setGuests(nextGuests);
       } catch {
         if (!isMounted) {
           return;
@@ -105,13 +123,13 @@ export function GuestDashboard() {
       .filter((guest) => guest.isAttend)
       .reduce((sum, guest) => sum + (guest.pax ?? 0), 0);
 
-    const unattendingPax = guests
-      .filter((guest) => guest.isAttend === false)
-      .reduce((sum, guest) => sum + (guest.pax ?? 0), 0);
+    const unattendingCount = guests.filter(
+      (guest) => guest.isAttend === false
+    ).length;
 
     return {
       attendingPax,
-      unattendingPax,
+      unattendingCount,
       totalDocuments: guests.length,
     };
   }, [guests]);
@@ -122,7 +140,8 @@ export function GuestDashboard() {
         id: guest.id,
         name: guest.name ?? "Unnamed guest",
         status: guest.isAttend ? "Attend" : "Unattend",
-        pax: guest.pax ?? 0,
+        pax: guest.isAttend ? (guest.pax ?? 0) : "-",
+        createdAt: formatDate(guest.createdAt?.seconds),
       })),
     [guests]
   );
@@ -185,6 +204,15 @@ export function GuestDashboard() {
         cell: ({ row }) => <div className="text-right">{row.original.pax}</div>,
       },
       {
+        accessorKey: "createdAt",
+        header: "Created At",
+        cell: ({ row }) => (
+          <span className="text-sm text-muted-foreground">
+            {row.original.createdAt}
+          </span>
+        ),
+      },
+      {
         id: "action",
         header: () => <div className="text-right">Action</div>,
         cell: ({ row }) => (
@@ -229,7 +257,7 @@ export function GuestDashboard() {
               No of Unattend
             </CardDescription>
             <CardTitle className="text-3xl text-red-800">
-              {loading ? "--" : stats.unattendingPax}
+              {loading ? "--" : stats.unattendingCount}
             </CardTitle>
           </CardHeader>
         </Card>
