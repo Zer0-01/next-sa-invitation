@@ -56,6 +56,7 @@ type MessageTableRow = {
   name: string;
   message: string;
   createdAt: string;
+  createdAtSeconds: number;
 };
 
 function formatDate(seconds?: number) {
@@ -135,12 +136,18 @@ export function MessagesDashboard() {
 
   const tableData = useMemo<MessageTableRow[]>(
     () =>
-      messages.map((message) => ({
-        id: message.id,
-        name: message.name ?? "Guest",
-        message: message.message ?? "No message content.",
-        createdAt: formatDate(message.createdAt?.seconds),
-      })),
+      [...messages]
+        .sort(
+          (left, right) =>
+            (right.createdAt?.seconds ?? 0) - (left.createdAt?.seconds ?? 0)
+        )
+        .map((message) => ({
+          id: message.id,
+          name: message.name ?? "Guest",
+          message: message.message ?? "No message content.",
+          createdAt: formatDate(message.createdAt?.seconds),
+          createdAtSeconds: message.createdAt?.seconds ?? 0,
+        })),
     [messages]
   );
 
