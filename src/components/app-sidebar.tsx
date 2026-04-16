@@ -3,19 +3,13 @@
 import Link from "next/link"
 import * as React from "react"
 import {
-  IconConfetti,
   IconDashboard,
-  IconHelp,
   IconInnerShadowTop,
-  IconLogout,
   IconMessageCircle,
-  IconSearch,
-  IconSettings,
   IconUsers,
 } from "@tabler/icons-react"
 
 import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
 import {
   Sidebar,
@@ -28,11 +22,6 @@ import {
 } from "@/components/ui/sidebar"
 
 const data = {
-  user: {
-    name: "Admin",
-    email: "Firebase Auth",
-    avatar: "",
-  },
   navMain: [
     {
       title: "Home",
@@ -48,33 +37,6 @@ const data = {
       title: "Messages",
       url: "/admin/dashboard/messages",
       icon: IconMessageCircle,
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Public Site",
-      url: "/",
-      icon: IconConfetti,
-    },
-    {
-      title: "Admin Login",
-      url: "/admin/login",
-      icon: IconLogout,
-    },
-    {
-      title: "Search",
-      url: "/admin/dashboard",
-      icon: IconSearch,
-    },
-    {
-      title: "Settings",
-      url: "/admin/dashboard",
-      icon: IconSettings,
-    },
-    {
-      title: "Help",
-      url: "/admin/dashboard",
-      icon: IconHelp,
     },
   ],
 }
@@ -99,10 +61,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
     </Sidebar>
   )
