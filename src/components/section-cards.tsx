@@ -1,102 +1,159 @@
-import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react"
+"use client";
 
-import { Badge } from "@/components/ui/badge"
+import { useEffect, useMemo, useState } from "react";
+import { getDocs } from "firebase/firestore";
+import {
+  IconMessageCircle,
+  IconReceipt2,
+  IconUserCheck,
+  IconUserX,
+} from "@tabler/icons-react";
+
 import {
   Card,
-  CardAction,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
+import { attendanceCollection, messageCollection } from "@/lib/firebase";
+
+type AttendanceItem = {
+  isAttend?: boolean;
+  pax?: number;
+};
+
+type MessageItem = Record<string, unknown>;
+
+const cardContent = {
+  attendingPax: {
+    label: "Total Guest Attends",
+    helper: "Total attending pax from RSVP submissions.",
+    icon: IconUserCheck,
+  },
+  unattendingPax: {
+    label: "Total Guest Unattend",
+    helper: "Total unattending pax recorded from RSVP submissions.",
+    icon: IconUserX,
+  },
+  totalRsvp: {
+    label: "Total RSVP Documents",
+    helper: "Number of documents in the attendance collection.",
+    icon: IconReceipt2,
+  },
+  totalMessages: {
+    label: "Total Messages Documents",
+    helper: "Number of documents in the message collection.",
+    icon: IconMessageCircle,
+  },
+} as const;
 
 export function SectionCards() {
+  const [attendance, setAttendance] = useState<AttendanceItem[]>([]);
+  const [messages, setMessages] = useState<MessageItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadDashboardSummary() {
+      try {
+        const [attendanceSnapshot, messageSnapshot] = await Promise.all([
+          getDocs(attendanceCollection),
+          getDocs(messageCollection),
+        ]);
+
+        if (!isMounted) {
+          return;
+        }
+
+        setAttendance(
+          attendanceSnapshot.docs.map((doc) => doc.data() as AttendanceItem)
+        );
+        setMessages(messageSnapshot.docs.map((doc) => doc.data() as MessageItem));
+      } catch {
+        if (!isMounted) {
+          return;
+        }
+
+        setAttendance([]);
+        setMessages([]);
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadDashboardSummary();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const stats = useMemo(() => {
+    const attendingPax = attendance
+      .filter((item) => item.isAttend)
+      .reduce((sum, item) => sum + (item.pax ?? 0), 0);
+
+    const unattendingPax = attendance
+      .filter((item) => item.isAttend === false)
+      .reduce((sum, item) => sum + (item.pax ?? 0), 0);
+
+    return {
+      attendingPax,
+      unattendingPax,
+      totalRsvp: attendance.length,
+      totalMessages: messages.length,
+    };
+  }, [attendance, messages]);
+
+  const cards = [
+    {
+      ...cardContent.attendingPax,
+      value: stats.attendingPax,
+    },
+    {
+      ...cardContent.unattendingPax,
+      value: stats.unattendingPax,
+    },
+    {
+      ...cardContent.totalRsvp,
+      value: stats.totalRsvp,
+    },
+    {
+      ...cardContent.totalMessages,
+      value: stats.totalMessages,
+    },
+  ];
+
   return (
-    <div className="grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4 dark:*:data-[slot=card]:bg-card">
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>Total Revenue</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            $1,250.00
-          </CardTitle>
-          <CardAction>
-            <Badge variant="outline">
-              <IconTrendingUp />
-              +12.5%
-            </Badge>
-          </CardAction>
-        </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Trending up this month <IconTrendingUp className="size-4" />
-          </div>
-          <div className="text-muted-foreground">
-            Visitors for the last 6 months
-          </div>
-        </CardFooter>
-      </Card>
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>New Customers</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            1,234
-          </CardTitle>
-          <CardAction>
-            <Badge variant="outline">
-              <IconTrendingDown />
-              -20%
-            </Badge>
-          </CardAction>
-        </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Down 20% this period <IconTrendingDown className="size-4" />
-          </div>
-          <div className="text-muted-foreground">
-            Acquisition needs attention
-          </div>
-        </CardFooter>
-      </Card>
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>Active Accounts</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            45,678
-          </CardTitle>
-          <CardAction>
-            <Badge variant="outline">
-              <IconTrendingUp />
-              +12.5%
-            </Badge>
-          </CardAction>
-        </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Strong user retention <IconTrendingUp className="size-4" />
-          </div>
-          <div className="text-muted-foreground">Engagement exceed targets</div>
-        </CardFooter>
-      </Card>
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>Growth Rate</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            4.5%
-          </CardTitle>
-          <CardAction>
-            <Badge variant="outline">
-              <IconTrendingUp />
-              +4.5%
-            </Badge>
-          </CardAction>
-        </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Steady performance increase <IconTrendingUp className="size-4" />
-          </div>
-          <div className="text-muted-foreground">Meets growth projections</div>
-        </CardFooter>
-      </Card>
+    <div className="grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4 dark:*:data-[slot=card]:bg-card">
+      {cards.map((card) => {
+        const Icon = card.icon;
+
+        return (
+          <Card key={card.label} className="@container/card">
+            <CardHeader className="gap-3">
+              <div className="flex items-start justify-between gap-3">
+                <div className="space-y-2">
+                  <CardDescription>{card.label}</CardDescription>
+                  <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                    {loading ? "--" : card.value.toLocaleString("en-MY")}
+                  </CardTitle>
+                </div>
+                <div className="rounded-lg border border-primary/10 bg-primary/5 p-2 text-primary">
+                  <Icon className="size-5" />
+                </div>
+              </div>
+            </CardHeader>
+            <CardFooter className="items-start text-sm text-muted-foreground">
+              {card.helper}
+            </CardFooter>
+          </Card>
+        );
+      })}
     </div>
-  )
+  );
 }
