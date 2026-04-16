@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addDoc } from "firebase/firestore";
+import { addDoc, serverTimestamp } from "firebase/firestore";
 import { attendanceCollection } from "@/lib/firebase";
 import { toast } from "sonner";
 
@@ -20,14 +20,17 @@ export const useAttendance = () => {
     };
 
     const submit = async () => {
-        if (!name) return;
+        const normalizedName = name.trim();
+
+        if (!normalizedName) return;
 
         setIsSubmitting(true);
         try {
             const docRef = await addDoc(attendanceCollection, {
-                name: name,
+                name: normalizedName,
                 isAttend: isAttend,
-                pax: isAttend ? pax : 0
+                pax: isAttend ? pax : 0,
+                createdAt: serverTimestamp(),
             });
             console.log("Document written with Id: ", docRef.id);
 
