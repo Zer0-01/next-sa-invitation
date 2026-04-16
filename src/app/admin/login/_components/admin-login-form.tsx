@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { AdminLoginGuard } from "@/components/admin-auth-guard";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -89,76 +90,78 @@ export function AdminLoginForm() {
   });
 
   return (
-    <Card className="relative z-10 w-full max-w-md border-white/60 bg-white/88 backdrop-blur-xl">
-      <CardHeader className="space-y-3 text-center">
-        <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/15">
-          <LockKeyhole className="size-6" />
-        </div>
-        <div className="space-y-1">
-          <CardTitle className="text-2xl tracking-tight">Admin Login</CardTitle>
-          <CardDescription className="text-sm leading-6">
-            Sign in with your Firebase admin credentials to access the admin
-            area.
-          </CardDescription>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <form className="space-y-6" onSubmit={onSubmit} noValidate>
-          <FieldGroup className="gap-5">
-            <Field data-invalid={Boolean(form.formState.errors.email)}>
-              <FieldLabel htmlFor="email">Email</FieldLabel>
-              <FieldContent>
-                <div className="relative">
-                  <Mail className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+    <AdminLoginGuard>
+      <Card className="relative z-10 w-full max-w-md border-white/60 bg-white/88 backdrop-blur-xl">
+        <CardHeader className="space-y-3 text-center">
+          <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/15">
+            <LockKeyhole className="size-6" />
+          </div>
+          <div className="space-y-1">
+            <CardTitle className="text-2xl tracking-tight">Admin Login</CardTitle>
+            <CardDescription className="text-sm leading-6">
+              Sign in with your Firebase admin credentials to access the admin
+              area.
+            </CardDescription>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <form className="space-y-6" onSubmit={onSubmit} noValidate>
+            <FieldGroup className="gap-5">
+              <Field data-invalid={Boolean(form.formState.errors.email)}>
+                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <FieldContent>
+                  <div className="relative">
+                    <Mail className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+                    <Input
+                      id="email"
+                      type="email"
+                      autoComplete="email"
+                      placeholder="admin@example.com"
+                      className="h-11 rounded-xl border-primary/15 bg-white pl-10"
+                      aria-invalid={Boolean(form.formState.errors.email)}
+                      {...form.register("email")}
+                    />
+                  </div>
+                  <FieldError errors={[form.formState.errors.email]} />
+                </FieldContent>
+              </Field>
+
+              <Field data-invalid={Boolean(form.formState.errors.password)}>
+                <FieldLabel htmlFor="password">Password</FieldLabel>
+                <FieldContent>
                   <Input
-                    id="email"
-                    type="email"
-                    autoComplete="email"
-                    placeholder="admin@example.com"
-                    className="h-11 rounded-xl border-primary/15 bg-white pl-10"
-                    aria-invalid={Boolean(form.formState.errors.email)}
-                    {...form.register("email")}
+                    id="password"
+                    type="password"
+                    autoComplete="current-password"
+                    placeholder="Enter your password"
+                    className="h-11 rounded-xl border-primary/15 bg-white"
+                    aria-invalid={Boolean(form.formState.errors.password)}
+                    {...form.register("password")}
                   />
-                </div>
-                <FieldError errors={[form.formState.errors.email]} />
-              </FieldContent>
-            </Field>
+                  <FieldError errors={[form.formState.errors.password]} />
+                </FieldContent>
+              </Field>
+            </FieldGroup>
 
-            <Field data-invalid={Boolean(form.formState.errors.password)}>
-              <FieldLabel htmlFor="password">Password</FieldLabel>
-              <FieldContent>
-                <Input
-                  id="password"
-                  type="password"
-                  autoComplete="current-password"
-                  placeholder="Enter your password"
-                  className="h-11 rounded-xl border-primary/15 bg-white"
-                  aria-invalid={Boolean(form.formState.errors.password)}
-                  {...form.register("password")}
-                />
-                <FieldError errors={[form.formState.errors.password]} />
-              </FieldContent>
-            </Field>
-          </FieldGroup>
+            <FieldError>{form.formState.errors.root?.message}</FieldError>
 
-          <FieldError>{form.formState.errors.root?.message}</FieldError>
-
-          <Button
-            type="submit"
-            className="h-11 w-full rounded-xl text-sm font-semibold tracking-wide"
-            disabled={loginMutation.isPending}
-          >
-            {loginMutation.isPending ? (
-              <>
-                <LoaderCircle className="size-4 animate-spin" />
-                Logging in...
-              </>
-            ) : (
-              "Login"
-            )}
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+            <Button
+              type="submit"
+              className="h-11 w-full rounded-xl text-sm font-semibold tracking-wide"
+              disabled={loginMutation.isPending}
+            >
+              {loginMutation.isPending ? (
+                <>
+                  <LoaderCircle className="size-4 animate-spin" />
+                  Logging in...
+                </>
+              ) : (
+                "Login"
+              )}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </AdminLoginGuard>
   );
 }
