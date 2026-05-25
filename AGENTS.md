@@ -16,6 +16,10 @@ Only run commands after user approval, except read-only inspection commands such
 ## Coding Style & Naming Conventions
 Write TypeScript with strict typing enabled. Follow the existing style: 2-space indentation in JSON/config files, double quotes in TS/TSX, and named exports for shared modules where practical. Keep route files in Next.js defaults such as `page.tsx` and `layout.tsx`.
 
+Styling uses Tailwind CSS. Prefer utility-first styling that aligns with the existing design tokens and patterns.
+
+The component library is shadcn/ui. Reuse existing primitives from `src/components/ui` before introducing new custom building blocks.
+
 Component filenames use kebab-case, for example `message-form-component.tsx`. React component identifiers inside files use PascalCase. Hooks should be named `use-*.ts` and start with `use`. Favor readable, maintainable, scalable code with low bug risk and minimal code smell.
 
 ## Testing Guidelines
