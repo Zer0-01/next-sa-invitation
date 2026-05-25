@@ -16,8 +16,8 @@ const parisienne = Parisienne({
 });
 
 export const metadata: Metadata = {
-  title: "SA Invitation",
-  description: "Wedding invitation and admin portal",
+  title: "Undangan Perkahwinan",
+  description: "Laman undangan perkahwinan dan portal pentadbir",
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ms">
       <body
         className={`${montserrat.variable} ${parisienne.variable} antialiased`}
       >
