@@ -65,11 +65,11 @@ const CountdownComponent = () => {
                 className="flex flex-col items-center gap-12"
             >
                 <div className="flex flex-col items-center gap-3">
-                    <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-primary-foreground/60 font-medium">Count the Days</span>
-                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-primary-foreground tracking-tight">The Celebration Begins In</h2>
+                    <span className="text-[10px] font-medium tracking-[0.4em] text-primary-foreground/60 uppercase">Count the Days</span>
+                    <h2 className="text-2xl font-serif font-bold tracking-tight text-primary-foreground">The Celebration Begins In</h2>
                 </div>
 
-                <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8">
+                <div className="flex flex-wrap items-center justify-center gap-4">
                     {[
                         { label: "Hari", value: timeLeft.days },
                         { label: "Jam", value: timeLeft.hours },
@@ -79,12 +79,12 @@ const CountdownComponent = () => {
                         <motion.div
                             key={index}
                             variants={itemVariants}
-                            className="flex flex-col items-center min-w-[80px] md:min-w-[120px] gap-2 p-4 md:p-8 bg-white/5 border border-white/10 backdrop-blur-sm rounded-xl shadow-lg"
+                            className="flex min-w-[80px] flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-4 shadow-lg backdrop-blur-sm"
                         >
-                            <span className="text-3xl md:text-5xl font-serif font-bold text-primary-foreground leading-none">
+                            <span className="text-3xl font-serif font-bold leading-none text-primary-foreground">
                                 {String(item.value).padStart(2, '0')}
                             </span>
-                            <span className="text-[10px] md:text-xs tracking-widest uppercase text-primary-foreground/70 font-light">
+                            <span className="text-[10px] font-light tracking-widest text-primary-foreground/70 uppercase">
                                 {item.label}
                             </span>
                         </motion.div>
@@ -96,4 +96,3 @@ const CountdownComponent = () => {
 };
 
 export default CountdownComponent;
-

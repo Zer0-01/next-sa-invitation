@@ -83,43 +83,43 @@ const InfoComponent = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
-                className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 w-full max-w-6xl"
+                className="grid w-full max-w-6xl grid-cols-1 gap-12"
             >
                 {/* VENUE */}
                 <motion.div variants={itemVariants} className="flex flex-col items-center space-y-4">
-                    <div className="w-10 h-px bg-primary/20 md:hidden" />
-                    <h3 className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-muted-foreground font-medium">Venue</h3>
+                    <div className="h-px w-10 bg-primary/20" />
+                    <h3 className="text-[10px] font-medium tracking-[0.3em] text-muted-foreground uppercase">Venue</h3>
                     <a
                         href="https://maps.app.goo.gl/B2xvTxge5uCbN6in6"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xl md:text-2xl font-serif font-semibold text-foreground hover:text-primary transition-colors text-center"
+                        className="text-center text-xl font-serif font-semibold text-foreground transition-colors hover:text-primary"
                     >
                         Riq Grand Ballroom
                     </a>
-                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed max-w-[240px] text-center font-light">
+                    <p className="max-w-[240px] text-center text-xs leading-relaxed font-light text-muted-foreground">
                         Ampang, Selangor
                     </p>
                 </motion.div>
 
                 {/* DATE */}
                 <motion.div variants={itemVariants} className="flex flex-col items-center space-y-4">
-                    <div className="w-10 h-px bg-primary/20 md:hidden" />
-                    <h3 className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-muted-foreground font-medium">Date</h3>
-                    <p className="text-xl md:text-2xl font-serif font-semibold text-foreground text-center">
+                    <div className="h-px w-10 bg-primary/20" />
+                    <h3 className="text-[10px] font-medium tracking-[0.3em] text-muted-foreground uppercase">Date</h3>
+                    <p className="text-center text-xl font-serif font-semibold text-foreground">
                         Sunday, 20th Dec 2026
                     </p>
-                    <p className="text-xs md:text-sm text-muted-foreground font-light italic">11 Rejab 1448H</p>
+                    <p className="text-xs font-light italic text-muted-foreground">11 Rejab 1448H</p>
                 </motion.div>
 
                 {/* TIME */}
                 <motion.div variants={itemVariants} className="flex flex-col items-center space-y-4">
-                    <div className="w-10 h-px bg-primary/20 md:hidden" />
-                    <h3 className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-muted-foreground font-medium">Time</h3>
-                    <p className="text-xl md:text-2xl font-serif font-semibold text-foreground text-center">
+                    <div className="h-px w-10 bg-primary/20" />
+                    <h3 className="text-[10px] font-medium tracking-[0.3em] text-muted-foreground uppercase">Time</h3>
+                    <p className="text-center text-xl font-serif font-semibold text-foreground">
                         11:00 AM – 4:30 PM
                     </p>
-                    <p className="text-xs md:text-sm text-muted-foreground font-light italic text-center">Ketibaan Pengantin: 12.30 PM</p>
+                    <p className="text-center text-xs font-light italic text-muted-foreground">Ketibaan Pengantin: 12.30 PM</p>
                 </motion.div>
             </motion.div>
 
@@ -132,7 +132,7 @@ const InfoComponent = () => {
             >
                 <Drawer>
                     <DrawerTrigger asChild>
-                        <Button className="mt-20 text-xs md:text-sm tracking-widest uppercase font-medium px-10 py-6 rounded-md shadow-sm">
+                        <Button className="mt-20 rounded-md px-10 py-6 text-xs font-medium tracking-widest uppercase shadow-sm">
                             Save The Date
                         </Button>
                     </DrawerTrigger>
@@ -173,4 +173,3 @@ const InfoComponent = () => {
 };
 
 export default InfoComponent;
-

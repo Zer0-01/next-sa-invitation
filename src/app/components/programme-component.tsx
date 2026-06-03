@@ -32,7 +32,7 @@ const ProgrammeComponent = () => {
             >
                 <Card className="border-none shadow-none bg-transparent">
                     <CardHeader className="p-0 mb-16">
-                        <CardTitle className="text-center text-3xl md:text-4xl font-serif font-bold tracking-tight text-foreground">
+                        <CardTitle className="text-center text-3xl font-serif font-bold tracking-tight text-foreground">
                             Programme
                         </CardTitle>
                         <div className="w-16 h-px bg-primary/20 mx-auto mt-6" />
@@ -44,7 +44,7 @@ const ProgrammeComponent = () => {
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
-                            className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10"
+                            className="grid grid-cols-1 gap-y-10"
                         >
                             {[
                                 { title: "Akad Nikah", time: "9:00 AM - 10:00 AM" },
@@ -54,12 +54,12 @@ const ProgrammeComponent = () => {
                                 <motion.div
                                     key={index}
                                     variants={itemVariants}
-                                    className="flex items-center justify-between border-b border-primary/5 pb-6 group"
+                                    className="group flex items-center justify-between border-b border-primary/5 pb-6"
                                 >
-                                    <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase font-semibold text-muted-foreground group-hover:text-primary transition-colors">
+                                    <span className="text-[10px] font-semibold tracking-[0.2em] text-muted-foreground uppercase transition-colors group-hover:text-primary">
                                         {item.title}
                                     </span>
-                                    <span className="font-serif text-lg md:text-xl text-foreground">
+                                    <span className="font-serif text-lg text-foreground">
                                         {item.time}
                                     </span>
                                 </motion.div>
@@ -73,4 +73,3 @@ const ProgrammeComponent = () => {
 }
 
 export default ProgrammeComponent
-

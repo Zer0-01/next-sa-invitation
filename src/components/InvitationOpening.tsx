@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { OpeningProvider, useOpening } from "./OpeningContext";
 
 const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) => {
@@ -22,7 +23,7 @@ const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) =
   if (!isMounted) return null;
 
   return (
-    <>
+    <div className="relative min-h-screen">
       <AnimatePresence>
         {!isOpen && (
           <motion.div
@@ -31,52 +32,58 @@ const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) =
               opacity: 0,
               transition: { duration: 1, ease: "easeInOut" },
             }}
-            className="fixed inset-0 z-100 flex items-center justify-center overflow-hidden"
+            className="absolute inset-0 z-100 flex min-h-screen items-center justify-center overflow-hidden"
           >
             <div className="absolute inset-0 bg-linear-to-br from-background via-sage/10 to-gold/10" />
-            <div className="absolute inset-y-0 left-[-18%] w-[72%] sm:left-0 sm:w-[56%] md:w-[40%]">
+            <div className="absolute inset-y-0 left-[-18%] w-[72%]">
               <Image
                 src="/images/opening-image.png"
                 alt="Ilustrasi bunga untuk pembukaan undangan"
                 fill
                 priority
-                className="scale-145 object-contain object-left-center opacity-95 sm:scale-120 md:scale-100"
-                sizes="(max-width: 640px) 72vw, (max-width: 768px) 56vw, 40vw"
+                className="scale-145 object-contain object-left-center opacity-95"
+                sizes="72vw"
               />
               <div className="absolute inset-0 bg-linear-to-r from-background/5 via-background/10 to-background/75" />
-              <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-background via-background/35 to-transparent md:h-36" />
+              <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-background via-background/35 to-transparent" />
             </div>
 
             <motion.div
               initial={{ scale: 0.96, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="relative z-10 flex min-h-screen w-full flex-col px-5 pt-12 pb-8 sm:px-6 md:px-16 md:pt-16 md:pb-10 lg:px-24"
+              className="relative z-10 flex min-h-screen w-full flex-col px-5 pt-12 pb-8"
             >
               <div className="flex flex-1 items-center">
-                <div className="ml-auto w-[50%] pt-4 text-right sm:w-[44%] md:flex md:w-full md:items-center md:justify-end md:pt-0">
-                  <div className="space-y-7 md:max-w-md md:space-y-8 md:text-left">
+                <div className="ml-auto w-[50%] pt-1 text-right">
+                  <div className="flex min-h-[28rem] flex-col">
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.5, duration: 1 }}
-                      className="space-y-2"
+                      className="-mt-12 space-y-2"
                     >
-                      <p className="font-serif text-5xl leading-none tracking-[0.08em] text-primary sm:text-5xl md:text-6xl">
+                      <p className="font-serif text-6xl leading-none font-bold tracking-[0.08em] text-primary">
                         AD
                       </p>
-                      <div className="space-y-1">
-                        <h2 className="font-sans text-4xl font-semibold uppercase tracking-[0.14em] text-foreground sm:text-4xl md:text-5xl">
-                          DANIAL
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.7, duration: 1 }}
+                      className="my-auto space-y-1 self-end"
+                    >
+                      <h2 className="font-sans text-4xl font-bold uppercase tracking-[0.14em] text-foreground">
+                        DANIAL
+                      </h2>
+                      <div className="flex items-baseline justify-end gap-2">
+                        <p className="font-serif text-4xl leading-none font-bold text-primary/70">
+                          &
+                        </p>
+                        <h2 className="font-sans text-4xl font-bold tracking-[0.08em] text-foreground">
+                          AIN
                         </h2>
-                        <div className="flex items-baseline justify-end gap-2 md:justify-start">
-                          <p className="font-serif text-4xl leading-none text-primary/70 sm:text-4xl md:text-5xl">
-                            &
-                          </p>
-                          <h2 className="font-sans text-4xl font-medium tracking-[0.08em] text-foreground sm:text-4xl md:text-5xl">
-                            Ain
-                          </h2>
-                        </div>
                       </div>
                     </motion.div>
 
@@ -84,17 +91,34 @@ const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) =
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 1, duration: 1 }}
-                      className="ml-auto h-px w-20 bg-gold/50 md:ml-0 md:w-16"
+                      className="ml-auto h-px w-20 self-end bg-gold/50"
                     />
 
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 1.2, duration: 1 }}
-                      className="space-y-1 text-base font-light text-muted-foreground sm:text-base md:space-y-2 md:text-base"
+                      className="space-y-4 pt-7 text-muted-foreground"
                     >
-                      <p>Ahad, 20 Disember 2026</p>
-                      <p>RIQ Glass Hall, Ampang</p>
+                      <div className="space-y-1">
+                        <p className="font-serif text-base font-normal lowercase">
+                          hari & tarikh
+                        </p>
+                        <p className="font-sans text-base font-normal">
+                          Ahad, 20 Disember 2026
+                        </p>
+                      </div>
+                      <div className="space-y-1">
+                        <p className="font-serif text-base font-normal lowercase">
+                          tempat
+                        </p>
+                        <p className="font-sans text-base font-normal uppercase">
+                          RIQ GLASS HALL
+                        </p>
+                        <p className="font-sans text-base font-normal uppercase">
+                          AMPANG
+                        </p>
+                      </div>
                     </motion.div>
                   </div>
                 </div>
@@ -106,36 +130,21 @@ const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) =
                 transition={{ delay: 1.4, duration: 1 }}
                 className="flex w-full justify-center pb-2"
               >
-                <button
+                <Button
                   onClick={() => setIsOpen(true)}
-                  className="group relative overflow-hidden rounded-full bg-primary px-8 py-3 text-primary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-primary/20 active:scale-95"
+                  className="rounded-full px-8 py-6 font-serif text-xs  tracking-widest shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-primary/20 active:scale-95"
                 >
-                  <span className="relative z-10 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest">
-                    Buka Undangan
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="transition-transform group-hover:translate-x-1"
-                    >
-                      <path d="m9 18 6-6-6-6" />
-                    </svg>
-                  </span>
-                  <div className="absolute inset-0 bg-white/10 opacity-0 transition-opacity group-hover:opacity-100" />
-                </button>
+                  Anda Dijemput!
+                </Button>
               </motion.div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-      <main className={!isOpen ? "h-screen overflow-hidden" : ""}>{children}</main>
-    </>
+      <main className={`relative z-0 ${!isOpen ? "h-screen overflow-hidden" : ""}`}>
+        {children}
+      </main>
+    </div>
   );
 };
 

@@ -37,9 +37,9 @@ const MessageComponent = () => {
                 transition={{ duration: 0.8 }}
                 className="flex flex-col items-center gap-4 mb-20 px-6"
             >
-                <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-muted-foreground font-medium text-center">Wishes</span>
-                <h2 className="text-3xl md:text-4xl font-serif font-bold tracking-tight text-center">Guest Book</h2>
-                <p className="text-sm md:text-base text-muted-foreground text-center max-w-sm leading-relaxed font-light mt-2">
+                <span className="text-[10px] font-medium tracking-[0.4em] text-muted-foreground uppercase text-center">Wishes</span>
+                <h2 className="text-3xl font-serif font-bold tracking-tight text-center">Guest Book</h2>
+                <p className="mt-2 max-w-sm text-center text-sm leading-relaxed font-light text-muted-foreground">
                     Leave a sweet message for the happy couple to cherish forever.
                 </p>
             </motion.div>
@@ -51,7 +51,7 @@ const MessageComponent = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.5, duration: 0.8 }}
-                className="flex flex-col sm:flex-row items-center sm:justify-center gap-4 mt-16 px-6"
+                className="mt-16 flex flex-col items-center gap-4 px-6"
             >
                 <AttendanceComponent />
                 <MessageFormComponent
@@ -71,4 +71,3 @@ const MessageComponent = () => {
 };
 
 export default MessageComponent;
-

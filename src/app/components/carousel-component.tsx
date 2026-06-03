@@ -6,8 +6,6 @@ import {
     Carousel,
     CarouselContent,
     CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
 } from "@/components/ui/carousel"
 
 const CarouselComponent = () => {
@@ -29,15 +27,15 @@ const CarouselComponent = () => {
                 className="flex flex-col items-center gap-16"
             >
                 <div className="flex flex-col items-center gap-3 px-6">
-                    <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-muted-foreground font-medium text-center">Gallery</span>
-                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-foreground tracking-tight text-center">Moments to Remember</h2>
+                    <span className="text-[10px] font-medium tracking-[0.4em] text-muted-foreground uppercase text-center">Gallery</span>
+                    <h2 className="text-2xl font-serif font-bold tracking-tight text-foreground text-center">Moments to Remember</h2>
                 </div>
 
-                <div className="w-full flex justify-center px-4 md:px-0">
-                    <Carousel className="w-full max-w-sm md:max-w-4xl">
-                        <CarouselContent className="-ml-2 md:-ml-4">
+                <div className="flex w-full justify-center px-4">
+                    <Carousel className="w-full max-w-sm">
+                        <CarouselContent className="-ml-2">
                             {images.map((src, index) => (
-                                <CarouselItem key={index} className="pl-2 md:pl-4 basis-full md:basis-1/3">
+                                <CarouselItem key={index} className="basis-full pl-2">
                                     <motion.div
                                         whileHover={{ scale: 1.02 }}
                                         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -54,8 +52,6 @@ const CarouselComponent = () => {
                                 </CarouselItem>
                             ))}
                         </CarouselContent>
-                        <CarouselPrevious className="hidden md:flex -left-12 bg-background border-primary/10 shadow-sm hover:bg-sage/10 text-primary" />
-                        <CarouselNext className="hidden md:flex -right-12 bg-background border-primary/10 shadow-sm hover:bg-sage/10 text-primary" />
                     </Carousel>
                 </div>
             </motion.div>
@@ -64,4 +60,3 @@ const CarouselComponent = () => {
 }
 
 export default CarouselComponent
-

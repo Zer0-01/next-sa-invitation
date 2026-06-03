@@ -43,14 +43,14 @@ const GiftComponent = () => {
                 transition={{ duration: 0.8 }}
                 className="flex flex-col items-center gap-4 mb-16 px-6 text-center"
             >
-                <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-muted-foreground font-medium">Digital Gift</span>
-                <h2 className="text-3xl md:text-4xl font-serif font-bold tracking-tight">Gift Corner</h2>
-                <p className="text-sm md:text-base text-muted-foreground max-w-sm leading-relaxed font-light mt-2">
+                <span className="text-[10px] font-medium tracking-[0.4em] text-muted-foreground uppercase">Digital Gift</span>
+                <h2 className="text-3xl font-serif font-bold tracking-tight">Gift Corner</h2>
+                <p className="mt-2 max-w-sm text-sm leading-relaxed font-light text-muted-foreground">
                     Your presence is the greatest gift. But if you wish to bless us with a token of love, you may do so here.
                 </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 px-6 max-w-4xl w-full">
+            <div className="grid w-full max-w-4xl grid-cols-1 gap-12 px-6">
                 {gifts.map((person, index) => (
                     <motion.div
                         key={index}
@@ -61,7 +61,7 @@ const GiftComponent = () => {
                         className="flex flex-col items-center gap-6"
                     >
                         <div className="relative group p-4 bg-white rounded-2xl shadow-sm border border-primary/5 transition-all duration-300 hover:shadow-md">
-                            <div className="relative w-48 h-48 md:w-56 md:h-56">
+                            <div className="relative h-48 w-48">
                                 <Image
                                     src={person.qr}
                                     alt={`${person.name} QR Code`}
@@ -76,7 +76,7 @@ const GiftComponent = () => {
                             <div className="flex flex-col items-center bg-sage/5 px-6 py-3 rounded-xl border border-primary/10">
                                 <span className="text-[10px] tracking-widest uppercase text-muted-foreground font-medium mb-1">{person.bank}</span>
                                 <div className="flex items-center gap-3">
-                                    <span className="text-sm md:text-base font-mono font-medium tracking-wider">{person.account}</span>
+                                    <span className="text-sm font-mono font-medium tracking-wider">{person.account}</span>
                                     <button
                                         onClick={() => copyToClipboard(person.account, person.setCopied)}
                                         className="text-primary hover:text-primary/70 transition-colors p-1"

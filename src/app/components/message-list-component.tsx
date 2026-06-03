@@ -50,7 +50,7 @@ const MessageListComponent = ({ messages, status }: MessageListComponentProps) =
                                 className={`flex ${msg.isUser ? "justify-end" : "justify-start"}`}
                             >
                                 <div
-                                    className={`max-w-[85%] md:max-w-[70%] px-5 py-3 shadow-md
+                                    className={`max-w-[85%] px-5 py-3 shadow-md
                                         ${msg.isUser
                                             ? "bg-primary text-primary-foreground rounded-2xl rounded-tr-none"
                                             : "bg-background border border-primary/10 text-foreground rounded-2xl rounded-tl-none shadow-primary/5"}`}
@@ -58,7 +58,7 @@ const MessageListComponent = ({ messages, status }: MessageListComponentProps) =
                                     <p className={`text-[10px] uppercase tracking-wider font-semibold mb-1 ${msg.isUser ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
                                         {msg.name}
                                     </p>
-                                    <p className="text-sm md:text-base leading-relaxed font-light">
+                                    <p className="text-sm leading-relaxed font-light">
                                         {msg.message}
                                     </p>
                                 </div>
@@ -78,4 +78,3 @@ const MessageListComponent = ({ messages, status }: MessageListComponentProps) =
 }
 
 export default MessageListComponent;
-

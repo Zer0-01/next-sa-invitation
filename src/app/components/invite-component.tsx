@@ -16,7 +16,7 @@ const InviteComponent = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2, duration: 0.8 }}
-                className="text-xs md:text-sm tracking-[0.3em] uppercase text-muted-foreground mb-12"
+                className="mb-12 text-xs tracking-[0.3em] uppercase text-muted-foreground"
             >
                 With Joy and Gratitude to Allah SWT
             </motion.p>
@@ -28,9 +28,9 @@ const InviteComponent = () => {
                 transition={{ delay: 0.4, duration: 0.8 }}
                 className="flex flex-col items-center mb-12 space-y-2"
             >
-                <h2 className="text-2xl md:text-3xl font-serif font-semibold text-foreground/90">Ahmad bin Abdullah</h2>
+                <h2 className="text-2xl font-serif font-semibold text-foreground/90">Ahmad bin Abdullah</h2>
                 <p className="text-xl font-serif font-light text-primary/40">&</p>
-                <h2 className="text-2xl md:text-3xl font-serif font-semibold text-foreground/90">Fatimah binti Abu</h2>
+                <h2 className="text-2xl font-serif font-semibold text-foreground/90">Fatimah binti Abu</h2>
             </motion.div>
 
             <motion.div
@@ -40,8 +40,8 @@ const InviteComponent = () => {
                 transition={{ delay: 0.6, duration: 0.8 }}
                 className="flex flex-col items-center mb-12 space-y-3"
             >
-                <p className="text-sm md:text-base text-muted-foreground tracking-wide font-light italic">cordially invite</p>
-                <p className="text-sm md:text-lg font-medium text-foreground tracking-widest uppercase">
+                <p className="text-sm tracking-wide font-light italic text-muted-foreground">cordially invite</p>
+                <p className="text-sm font-medium tracking-widest text-foreground uppercase">
                     Dato&apos; | Datin | Mr. | Mrs. | Ms.
                 </p>
             </motion.div>
@@ -53,11 +53,11 @@ const InviteComponent = () => {
                 transition={{ delay: 0.8, duration: 1 }}
                 className="flex flex-col items-center space-y-4"
             >
-                <h2 className="text-3xl md:text-5xl font-serif font-bold tracking-widest text-primary">
+                <h2 className="text-3xl font-serif font-bold tracking-widest text-primary">
                     NORADAM BIN AHMAD
                 </h2>
-                <p className="text-2xl md:text-3xl font-serif font-light text-primary/40">&</p>
-                <h2 className="text-3xl md:text-5xl font-serif font-bold tracking-widest text-primary">
+                <p className="text-2xl font-serif font-light text-primary/40">&</p>
+                <h2 className="text-3xl font-serif font-bold tracking-widest text-primary">
                     NUR HAWA BINTI ALI
                 </h2>
             </motion.div>
@@ -66,4 +66,3 @@ const InviteComponent = () => {
 };
 
 export default InviteComponent;
-
