@@ -18,7 +18,7 @@ const GallerySection = () => {
     ]
 
     return (
-        <section className="py-24 bg-background overflow-hidden border-t border-primary/10">
+        <section className="overflow-hidden py-24">
             <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}

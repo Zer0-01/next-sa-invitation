@@ -123,6 +123,30 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-white text-foreground;
   }
+}
+
+@utility invitation-surface {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.34) 0, transparent 30%),
+    radial-gradient(circle at 78% 14%, rgba(50, 61, 0, 0.04) 0, transparent 26%),
+    radial-gradient(circle at 50% 100%, rgba(88, 80, 72, 0.06) 0, transparent 28%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.028) 0,
+      rgba(255, 255, 255, 0.028) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(50, 61, 0, 0.016) 0,
+      rgba(50, 61, 0, 0.016) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  background-size: auto, auto, auto, 180px 180px, 220px 220px;
+  background-position: center, center, center, 0 0, 0 0;
 }

@@ -35,7 +35,7 @@ const GiftSection = () => {
     ];
 
     return (
-        <section id="gift" className="flex flex-col items-center py-24 bg-background text-foreground">
+        <section id="gift" className="flex flex-col items-center py-24 text-foreground">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -60,7 +60,7 @@ const GiftSection = () => {
                         transition={{ delay: index * 0.2, duration: 0.8 }}
                         className="flex flex-col items-center gap-6"
                     >
-                        <div className="relative group p-4 bg-white rounded-2xl shadow-sm border border-primary/5 transition-all duration-300 hover:shadow-md">
+                        <div className="group relative rounded-2xl border border-primary/10 bg-background/40 p-4 shadow-[0_12px_28px_rgba(33,31,24,0.06)] transition-all duration-300 hover:shadow-[0_16px_34px_rgba(33,31,24,0.09)]">
                             <div className="relative h-48 w-48">
                                 <Image
                                     src={person.qr}
@@ -73,7 +73,7 @@ const GiftSection = () => {
 
                         <div className="flex flex-col items-center gap-2">
                             <h3 className="text-lg font-serif font-semibold">{person.name}</h3>
-                            <div className="flex flex-col items-center bg-sage/5 px-6 py-3 rounded-xl border border-primary/10">
+                            <div className="flex flex-col items-center rounded-xl border border-primary/10 bg-background/35 px-6 py-3">
                                 <span className="text-[10px] tracking-widest uppercase text-muted-foreground font-medium mb-1">{person.bank}</span>
                                 <div className="flex items-center gap-3">
                                     <span className="text-sm font-mono font-medium tracking-wider">{person.account}</span>

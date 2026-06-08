@@ -22,7 +22,7 @@ const itemVariants = {
 
 const ProgrammeSection = () => {
     return (
-        <section className="py-24 bg-sage/5 px-6 border-y border-primary/5">
+        <section className="px-6 py-24">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -35,7 +35,6 @@ const ProgrammeSection = () => {
                         <CardTitle className="text-center text-3xl font-serif font-bold tracking-tight text-foreground">
                             Programme
                         </CardTitle>
-                        <div className="w-16 h-px bg-primary/20 mx-auto mt-6" />
                     </CardHeader>
 
                     <CardContent className="p-0">

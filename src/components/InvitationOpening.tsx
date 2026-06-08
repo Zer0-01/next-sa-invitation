@@ -37,7 +37,7 @@ const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) =
   if (!isMounted) return null;
 
   return (
-    <div className="relative min-h-screen">
+    <div className="invitation-surface relative min-h-screen">
       <AnimatePresence>
         {!isOpen && (
           <motion.div
@@ -46,7 +46,7 @@ const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) =
               opacity: 0,
               transition: { duration: 1, ease: "easeInOut" },
             }}
-            className="absolute inset-0 z-[100] min-h-dvh overflow-hidden bg-background"
+            className="invitation-surface absolute inset-0 z-[100] min-h-dvh overflow-hidden"
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_48%,rgba(139,152,112,0.12),transparent_42%)]" />
 

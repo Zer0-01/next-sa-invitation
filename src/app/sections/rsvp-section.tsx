@@ -29,7 +29,7 @@ const RSVPSection = () => {
 
 
     return (
-        <section className="flex flex-col items-center py-24 bg-sage/5 text-foreground border-y border-primary/5">
+        <section className="flex flex-col items-center py-24 text-foreground">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

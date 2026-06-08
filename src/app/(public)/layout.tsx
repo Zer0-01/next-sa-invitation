@@ -15,8 +15,8 @@ export default function PublicLayout({
 }>) {
   return (
     <>
-      <div className="min-h-screen bg-[#f7efc2] min-[431px]:flex min-[431px]:justify-center">
-        <div className="min-h-screen w-full bg-background min-[431px]:max-w-[430px] min-[431px]:overflow-hidden min-[431px]:border-x min-[431px]:border-primary/10 min-[431px]:shadow-[0_0_40px_rgba(71,83,67,0.12)]">
+      <div className="min-h-screen bg-white min-[431px]:flex min-[431px]:justify-center">
+        <div className="invitation-surface min-h-screen w-full min-[431px]:max-w-[430px] min-[431px]:overflow-hidden min-[431px]:shadow-[-18px_0_28px_rgba(23,22,18,0.08),18px_0_28px_rgba(23,22,18,0.08)]">
           <InvitationOpening>{children}</InvitationOpening>
         </div>
       </div>

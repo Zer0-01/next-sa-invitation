@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const FooterSection = () => {
     return (
-        <footer className="py-20 bg-background border-t border-primary/10 overflow-hidden">
+        <footer className="overflow-hidden py-20">
             <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -12,7 +12,6 @@ const FooterSection = () => {
                 transition={{ duration: 1 }}
                 className="flex flex-col items-center justify-center space-y-4"
             >
-                <div className="w-8 h-px bg-primary/20" />
                 <div className="flex flex-col items-center space-y-1">
                     <p className="text-[10px] tracking-[0.4em] uppercase text-muted-foreground font-medium">Created with love by</p>
                     <a href="https://lakarsoft.com/" target="_blank" rel="noopener noreferrer" className="text-xl font-serif font-bold tracking-tight text-foreground italic transition-colors hover:text-primary">LakarSoft</a>

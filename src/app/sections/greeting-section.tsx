@@ -9,7 +9,7 @@ const GreetingSection = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="flex flex-col items-center text-center px-6 py-24 bg-sage/5 text-foreground overflow-hidden border-y border-primary/5"
+            className="flex flex-col items-center overflow-hidden px-6 py-24 text-center text-foreground"
         >
             <motion.p
                 initial={{ y: 20, opacity: 0 }}

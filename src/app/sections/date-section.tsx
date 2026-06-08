@@ -111,7 +111,7 @@ const DateSection = () => {
     ];
 
     return (
-        <section className="relative overflow-hidden bg-background px-6 py-24 text-foreground">
+        <section className="relative overflow-hidden px-6 py-24 text-foreground">
             <motion.div
                 variants={containerVariants}
                 initial="hidden"
@@ -119,12 +119,6 @@ const DateSection = () => {
                 viewport={{ once: true }}
                 className="mx-auto flex w-full max-w-5xl flex-col items-center gap-12 sm:gap-14"
             >
-                <div className="flex w-full items-center justify-center gap-2 text-primary/55 sm:gap-3">
-                    <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/30 to-primary/45" />
-                    <span className="text-base leading-none sm:text-lg">✦</span>
-                    <div className="h-px flex-1 bg-gradient-to-l from-transparent via-primary/30 to-primary/45" />
-                </div>
-
                 <motion.div variants={itemVariants} className="flex flex-col items-center gap-3 text-center sm:gap-4">
                     <p className="font-serif text-[3.35rem] leading-[0.9] text-primary drop-shadow-[0_6px_18px_rgba(71,83,67,0.08)] sm:text-[4.35rem]">
                         Ahad
@@ -204,10 +198,10 @@ const DateSection = () => {
 
                 <motion.div
                     variants={itemVariants}
-                    className="w-full overflow-hidden rounded-[2rem] border border-primary/10 bg-gradient-to-b from-[#f6efe1] to-[#eadfc9] shadow-[0_24px_44px_rgba(71,83,67,0.12)]"
+                    className="w-full overflow-hidden rounded-[2rem] border border-primary/10 bg-background/45 shadow-[0_18px_40px_rgba(33,31,24,0.08)] backdrop-blur-[1px]"
                 >
-                    <div className="flex aspect-[4/5] w-full items-center justify-center bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.75),transparent_45%),linear-gradient(180deg,rgba(255,255,255,0.45)_0%,rgba(233,223,201,0.82)_100%)] p-8 sm:aspect-[16/9]">
-                        <div className="flex h-full w-full flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-primary/20 bg-white/35 text-center">
+                    <div className="flex aspect-[4/5] w-full items-center justify-center bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.22),transparent_45%),linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.02)_100%)] p-8 sm:aspect-[16/9]">
+                        <div className="flex h-full w-full flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-primary/20 bg-background/28 text-center">
                             <p className="font-serif text-[2.85rem] leading-[0.9] text-primary/75 sm:text-[4.1rem]">
                                 Placeholder
                             </p>

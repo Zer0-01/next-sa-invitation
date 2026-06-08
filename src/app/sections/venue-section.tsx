@@ -77,7 +77,7 @@ const itemVariants = {
 
 const VenueSection = () => {
     return (
-        <section className="flex flex-col items-center px-6 py-28 bg-background text-foreground border-y border-primary/10">
+        <section className="flex flex-col items-center px-6 py-28 text-foreground">
             <motion.div
                 variants={containerVariants}
                 initial="hidden"
@@ -87,7 +87,6 @@ const VenueSection = () => {
             >
                 {/* VENUE */}
                 <motion.div variants={itemVariants} className="flex flex-col items-center space-y-4">
-                    <div className="h-px w-10 bg-primary/20" />
                     <h3 className="text-[10px] font-medium tracking-[0.3em] text-muted-foreground uppercase">Venue</h3>
                     <a
                         href="https://maps.app.goo.gl/B2xvTxge5uCbN6in6"
@@ -102,25 +101,6 @@ const VenueSection = () => {
                     </p>
                 </motion.div>
 
-                {/* DATE */}
-                <motion.div variants={itemVariants} className="flex flex-col items-center space-y-4">
-                    <div className="h-px w-10 bg-primary/20" />
-                    <h3 className="text-[10px] font-medium tracking-[0.3em] text-muted-foreground uppercase">Date</h3>
-                    <p className="text-center text-xl font-serif font-semibold text-foreground">
-                        Sunday, 20th Dec 2026
-                    </p>
-                    <p className="text-xs font-light italic text-muted-foreground">11 Rejab 1448H</p>
-                </motion.div>
-
-                {/* TIME */}
-                <motion.div variants={itemVariants} className="flex flex-col items-center space-y-4">
-                    <div className="h-px w-10 bg-primary/20" />
-                    <h3 className="text-[10px] font-medium tracking-[0.3em] text-muted-foreground uppercase">Time</h3>
-                    <p className="text-center text-xl font-serif font-semibold text-foreground">
-                        11:00 AM – 4:30 PM
-                    </p>
-                    <p className="text-center text-xs font-light italic text-muted-foreground">Ketibaan Pengantin: 12.30 PM</p>
-                </motion.div>
             </motion.div>
 
             {/* DRAWER */}
