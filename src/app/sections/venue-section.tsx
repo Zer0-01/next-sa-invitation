@@ -2,59 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import {
-    Drawer,
-    DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
-} from "@/components/ui/drawer";
-import { DiApple } from "react-icons/di";
-import { FaGoogle } from "react-icons/fa";
-
-/**
- * Generate .ics calendar file for Apple Calendar & others.
- */
-const downloadICS = () => {
-    const icsContent = `
-BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VEVENT
-SUMMARY:The Wedding of Adam & Hawa
-DESCRIPTION:Join us in celebrating the wedding of Adam & Hawa.
-LOCATION:Riq Grand Ballroom, Ampang, Selangor
-DTSTART:20261220T030000Z
-DTEND:20261220T083000Z
-END:VEVENT
-END:VCALENDAR
-`;
-
-    const blob = new Blob([icsContent.trim()], { type: "text/calendar;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "wedding-invitation.ics";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-};
-
-/**
- * Generate Google Calendar event URL.
- */
-const addToGoogleCalendar = () => {
-    const params = new URLSearchParams({
-        action: "TEMPLATE",
-        text: "The Wedding of Adam & Hawa",
-        dates: "20261220T030000Z/20261220T083000Z", // UTC format YYYYMMDDTHHmmss (11am-4:30pm MYT)
-        details: "Join us in celebrating the wedding of Adam & Hawa.",
-        location: "Riq Grand Ballroom, Ampang, Selangor",
-    });
-    window.open(`https://www.google.com/calendar/render?${params.toString()}`, "_blank");
-};
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -75,78 +22,44 @@ const itemVariants = {
     }
 };
 
+const venueAddress = "Pandan Kapital, Ground Floor, Jalan Pandan Utama, Pandan Indah, 55100, Kuala Lumpur, Wilayah Persekutuan, Pandan Indah, 68000 Selangor";
+const venueMapUrl = "https://maps.app.goo.gl/oKhhmjWQJPmHLbu86";
+
 const VenueSection = () => {
     return (
-        <section className="flex flex-col items-center px-6 py-28 text-foreground">
+        <section className="px-6 py-28 text-foreground">
             <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
-                className="grid w-full max-w-6xl grid-cols-1 gap-12"
+                className="mx-auto flex w-full max-w-5xl flex-col items-center gap-12"
             >
-                {/* VENUE */}
-                <motion.div variants={itemVariants} className="flex flex-col items-center space-y-4">
-                    <h3 className="text-[10px] font-medium tracking-[0.3em] text-muted-foreground uppercase">Venue</h3>
-                    <a
-                        href="https://maps.app.goo.gl/B2xvTxge5uCbN6in6"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-center text-xl font-serif font-semibold text-foreground transition-colors hover:text-primary"
-                    >
-                        Riq Grand Ballroom
-                    </a>
-                    <p className="max-w-[240px] text-center text-xs leading-relaxed font-light text-muted-foreground">
-                        Ampang, Selangor
-                    </p>
+                <motion.div variants={itemVariants} className="flex max-w-2xl flex-col items-center gap-4 text-center">
+                    <h2 className="font-serif text-[2.3rem] leading-none text-primary sm:text-[3rem]">
+                        Lokasi Majlis
+                    </h2>
                 </motion.div>
 
-            </motion.div>
+                <motion.div variants={itemVariants} className="flex w-full max-w-3xl flex-col items-center gap-6 text-center">
+                    <div className="flex flex-col items-center gap-3">
+                        <p className="font-serif text-[2rem] leading-[0.95] text-foreground sm:text-[2.5rem]">
+                            Riq Glass Hall
+                        </p>
+                        <p className="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-[0.95rem]">
+                            {venueAddress}
+                        </p>
+                    </div>
 
-            {/* DRAWER */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.8, duration: 0.8 }}
-            >
-                <Drawer>
-                    <DrawerTrigger asChild>
-                        <Button className="mt-20 rounded-md px-10 py-6 text-xs font-medium tracking-widest uppercase shadow-sm">
-                            Save The Date
-                        </Button>
-                    </DrawerTrigger>
-
-                    <DrawerContent className="pb-10 bg-background border-t border-primary/10">
-                        <DrawerHeader className="text-center">
-                            <DrawerTitle className="text-xl font-serif font-semibold text-foreground">
-                                Sunday, 20th December 2026
-                            </DrawerTitle>
-                            <DrawerDescription className="text-sm text-muted-foreground font-light tracking-wide mt-2">
-                                11:00 AM – 4:30 PM
-                            </DrawerDescription>
-                        </DrawerHeader>
-
-                        <DrawerFooter className="flex flex-col gap-4 max-w-md mx-auto w-full px-6">
-                            <Button
-                                variant="outline"
-                                className="flex items-center justify-center gap-3 py-6 text-foreground border-primary/10 hover:bg-sage/10 rounded-md transition-colors"
-                                onClick={downloadICS}
-                            >
-                                <DiApple className="text-2xl" />
-                                <span className="text-xs tracking-widest uppercase font-medium">Add to Apple Calendar</span>
-                            </Button>
-                            <Button
-                                variant="outline"
-                                className="flex items-center justify-center gap-3 py-6 text-foreground border-primary/10 hover:bg-sage/10 rounded-md transition-colors"
-                                onClick={addToGoogleCalendar}
-                            >
-                                <FaGoogle className="text-xl" />
-                                <span className="text-xs tracking-widest uppercase font-medium">Add to Google Calendar</span>
-                            </Button>
-                        </DrawerFooter>
-                    </DrawerContent>
-                </Drawer>
+                    <Button
+                        asChild
+                        className="h-auto rounded-full bg-primary px-10 py-3 font-serif text-[1.45rem] leading-none font-normal text-primary-foreground shadow-[0_14px_26px_rgba(49,67,8,0.16)] transition-all duration-300 hover:scale-[1.02] hover:bg-primary/95 hover:shadow-[0_16px_30px_rgba(49,67,8,0.18)] active:scale-95 sm:px-12 sm:text-[1.7rem]"
+                    >
+                        <a href={venueMapUrl} target="_blank" rel="noopener noreferrer">
+                            Lokasi Majlis
+                        </a>
+                    </Button>
+                </motion.div>
             </motion.div>
         </section>
     );
