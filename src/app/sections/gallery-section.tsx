@@ -8,7 +8,7 @@ import {
     CarouselItem,
 } from "@/components/ui/carousel"
 
-const CarouselComponent = () => {
+const GallerySection = () => {
     const images = [
         "https://picsum.photos/id/1015/600/800",
         "https://picsum.photos/id/1024/600/800",
@@ -59,4 +59,4 @@ const CarouselComponent = () => {
     )
 }
 
-export default CarouselComponent
+export default GallerySection

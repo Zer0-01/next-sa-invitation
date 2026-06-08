@@ -1,13 +1,13 @@
 'use client'
 
 import { motion } from "framer-motion";
-import AttendanceComponent from "./attendance-component";
 import { useEffect } from "react";
 import { useMessages } from "@/hooks/use-messages";
-import MessageListComponent from "./message-list-component";
-import MessageFormComponent from "./message-form-component";
+import AttendanceComponent from "../components/attendance-component";
+import MessageFormComponent from "../components/message-form-component";
+import MessageListComponent from "../components/message-list-component";
 
-const MessageComponent = () => {
+const RSVPSection = () => {
     const {
         messages,
         getMessagesStatus,
@@ -70,4 +70,4 @@ const MessageComponent = () => {
     );
 };
 
-export default MessageComponent;
+export default RSVPSection;

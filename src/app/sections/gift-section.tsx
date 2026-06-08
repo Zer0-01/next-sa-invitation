@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 
-const GiftComponent = () => {
+const GiftSection = () => {
     const [copied1, setCopied1] = useState(false);
     const [copied2, setCopied2] = useState(false);
 
@@ -94,4 +94,4 @@ const GiftComponent = () => {
     );
 };
 
-export default GiftComponent;
+export default GiftSection;

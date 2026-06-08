@@ -75,7 +75,7 @@ const itemVariants = {
     }
 };
 
-const InfoComponent = () => {
+const VenueSection = () => {
     return (
         <section className="flex flex-col items-center px-6 py-28 bg-background text-foreground border-y border-primary/10">
             <motion.div
@@ -172,4 +172,4 @@ const InfoComponent = () => {
     );
 };
 
-export default InfoComponent;
+export default VenueSection;

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-const InviteComponent = () => {
+const GreetingSection = () => {
     return (
         <motion.section
             initial={{ opacity: 0 }}
@@ -65,4 +65,4 @@ const InviteComponent = () => {
     );
 };
 
-export default InviteComponent;
+export default GreetingSection;

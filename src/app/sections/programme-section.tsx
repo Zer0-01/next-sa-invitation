@@ -20,7 +20,7 @@ const itemVariants = {
     }
 };
 
-const ProgrammeComponent = () => {
+const ProgrammeSection = () => {
     return (
         <section className="py-24 bg-sage/5 px-6 border-y border-primary/5">
             <motion.div
@@ -72,4 +72,4 @@ const ProgrammeComponent = () => {
     )
 }
 
-export default ProgrammeComponent
+export default ProgrammeSection

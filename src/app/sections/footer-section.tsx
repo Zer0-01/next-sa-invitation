@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-const FooterComponent = () => {
+const FooterSection = () => {
     return (
         <footer className="py-20 bg-background border-t border-primary/10 overflow-hidden">
             <motion.div
@@ -25,4 +25,4 @@ const FooterComponent = () => {
     );
 };
 
-export default FooterComponent;
+export default FooterSection;

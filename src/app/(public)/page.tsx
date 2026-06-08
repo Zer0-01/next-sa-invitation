@@ -1,27 +1,25 @@
-import CarouselComponent from "../components/carousel-component";
-import CountdownComponent from "../components/countdown-component";
-import DoaComponent from "../components/doa-component";
-import FooterComponent from "../components/footer-component";
-import GiftComponent from "../components/gift-component";
-import InfoComponent from "../components/info-component";
-import InviteComponent from "../components/invite-component";
-import MessageComponent from "../components/message-component";
-import ProgrammeComponent from "../components/programme-component";
-import TitleComponent from "../components/title-component";
+import DateSection from "../sections/date-section";
+import FooterSection from "../sections/footer-section";
+import GallerySection from "../sections/gallery-section";
+import GiftSection from "../sections/gift-section";
+import GreetingSection from "../sections/greeting-section";
+import HeroSection from "../sections/hero-section";
+import ProgrammeSection from "../sections/programme-section";
+import RSVPSection from "../sections/rsvp-section";
+import VenueSection from "../sections/venue-section";
 
 export default function Home() {
   return (
     <div>
-      <TitleComponent />
-      <InviteComponent />
-      <InfoComponent />
-      <ProgrammeComponent />
-      <DoaComponent />
-      <CountdownComponent />
-      <CarouselComponent />
-      <MessageComponent />
-      <GiftComponent />
-      <FooterComponent />
+      <HeroSection />
+      <DateSection />
+      <GreetingSection />
+      <VenueSection />
+      <ProgrammeSection />
+      <GallerySection />
+      <RSVPSection />
+      <GiftSection />
+      <FooterSection />
     </div>
   );
 }

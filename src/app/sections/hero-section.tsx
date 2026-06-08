@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useOpening } from "@/components/OpeningContext";
 
-const TitleComponent = () => {
+const HeroSection = () => {
     const { isDismissed } = useOpening();
 
     return (
@@ -83,4 +83,4 @@ const TitleComponent = () => {
     );
 };
 
-export default TitleComponent;
+export default HeroSection;
