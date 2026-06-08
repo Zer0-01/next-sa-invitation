@@ -1,97 +1,55 @@
-'use client'
+"use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
-import { Copy, Check } from "lucide-react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import GiftDialogComponent from "../components/gift-dialog-component";
 
 const GiftSection = () => {
-    const [copied1, setCopied1] = useState(false);
-    const [copied2, setCopied2] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const copyToClipboard = (text: string, setCopied: (v: boolean) => void) => {
-        navigator.clipboard.writeText(text);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
+  return (
+    <section id="gift" className="overflow-hidden px-6 py-24 text-foreground">
+      <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mx-auto max-w-2xl text-center"
+        >
+          <h2 className="font-serif text-[2.3rem] leading-none text-primary sm:text-[3rem]">
+            Hadiah
+          </h2>
+          <p className="mt-5 text-sm leading-7 text-muted-foreground sm:text-[0.95rem]">
+            Kehadiran anda merupakan hadiah yang paling bermakna buat kami.
+            Namun, jika anda ingin menitipkan tanda kasih, anda boleh berbuat
+            demikian di sini.
+          </p>
+        </motion.div>
 
-    const gifts = [
-        {
-            name: "Person 1",
-            bank: "CIMB",
-            account: "7633771742",
-            qr: "/qr-image.jpeg",
-            copied: copied1,
-            setCopied: setCopied1
-        },
-        {
-            name: "Person 2",
-            bank: "CIMB",
-            account: "7627870603",
-            qr: "/qr-image-danial.jpeg",
-            copied: copied2,
-            setCopied: setCopied2
-        }
-    ];
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.12, duration: 0.85 }}
+          className="flex justify-center"
+        >
+          <Button
+            onClick={() => setIsDialogOpen(true)}
+            className="mt-8 h-auto rounded-full bg-primary px-10 py-3 font-serif text-[1.45rem] leading-none font-normal text-primary-foreground shadow-[0_14px_26px_rgba(49,67,8,0.16)] transition-all duration-300 hover:scale-[1.02] hover:bg-primary/95 hover:shadow-[0_16px_30px_rgba(49,67,8,0.18)] active:scale-95 sm:px-12 sm:text-[1.7rem]"
+          >
+            Bagi Hadiah
+          </Button>
+        </motion.div>
+      </div>
 
-    return (
-        <section id="gift" className="flex flex-col items-center py-24 text-foreground">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="flex flex-col items-center gap-4 mb-16 px-6 text-center"
-            >
-                <span className="text-[10px] font-medium tracking-[0.4em] text-muted-foreground uppercase">Digital Gift</span>
-                <h2 className="text-3xl font-serif font-bold tracking-tight">Gift Corner</h2>
-                <p className="mt-2 max-w-sm text-sm leading-relaxed font-light text-muted-foreground">
-                    Your presence is the greatest gift. But if you wish to bless us with a token of love, you may do so here.
-                </p>
-            </motion.div>
-
-            <div className="grid w-full max-w-4xl grid-cols-1 gap-12 px-6">
-                {gifts.map((person, index) => (
-                    <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.2, duration: 0.8 }}
-                        className="flex flex-col items-center gap-6"
-                    >
-                        <div className="group relative rounded-2xl border border-primary/10 bg-background/40 p-4 shadow-[0_12px_28px_rgba(33,31,24,0.06)] transition-all duration-300 hover:shadow-[0_16px_34px_rgba(33,31,24,0.09)]">
-                            <div className="relative h-48 w-48">
-                                <Image
-                                    src={person.qr}
-                                    alt={`${person.name} QR Code`}
-                                    fill
-                                    className="object-contain rounded-lg"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col items-center gap-2">
-                            <h3 className="text-lg font-serif font-semibold">{person.name}</h3>
-                            <div className="flex flex-col items-center rounded-xl border border-primary/10 bg-background/35 px-6 py-3">
-                                <span className="text-[10px] tracking-widest uppercase text-muted-foreground font-medium mb-1">{person.bank}</span>
-                                <div className="flex items-center gap-3">
-                                    <span className="text-sm font-mono font-medium tracking-wider">{person.account}</span>
-                                    <button
-                                        onClick={() => copyToClipboard(person.account, person.setCopied)}
-                                        className="text-primary hover:text-primary/70 transition-colors p-1"
-                                        title="Copy number"
-                                    >
-                                        {person.copied ? <Check size={16} /> : <Copy size={16} />}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-                ))}
-            </div>
-        </section>
-    );
+      <GiftDialogComponent
+        isOpen={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+      />
+    </section>
+  );
 };
 
 export default GiftSection;
