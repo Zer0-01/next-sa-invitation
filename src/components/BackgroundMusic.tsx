@@ -1,151 +1,131 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { Music, Volume2, VolumeX } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { Pause, Play } from "lucide-react";
+import { motion } from "framer-motion";
+import { useOpening } from "./OpeningContext";
 
 const BackgroundMusic = () => {
-    const audioRef = useRef<HTMLAudioElement | null>(null);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [isMuted, setIsMuted] = useState(false);
-    const [hasInteracted, setHasInteracted] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const hasStartedRef = useRef(false);
+  const { isDismissed, shouldPlayMusic } = useOpening();
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [playbackError, setPlaybackError] = useState(false);
 
-    useEffect(() => {
-        const audio = audioRef.current;
-        if (!audio) return;
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
 
-        const playAudio = async () => {
-            try {
-                await audio.play();
-                setIsPlaying(true);
-            } catch (err) {
-                console.log("Autoplay prevented or audio error:", err);
-                setIsPlaying(false);
-            }
-        };
-
-        if (hasInteracted) {
-            playAudio();
-        }
-
-        const handleInteraction = () => {
-            if (!hasInteracted) {
-                setHasInteracted(true);
-                playAudio();
-            }
-        };
-
-        window.addEventListener("click", handleInteraction);
-        window.addEventListener("scroll", handleInteraction);
-        window.addEventListener("touchstart", handleInteraction);
-
-        return () => {
-            window.removeEventListener("click", handleInteraction);
-            window.removeEventListener("scroll", handleInteraction);
-            window.removeEventListener("touchstart", handleInteraction);
-        };
-    }, [hasInteracted]);
-
-    const togglePlay = () => {
-        if (!audioRef.current) return;
-
-        if (isPlaying) {
-            audioRef.current.pause();
-            setIsPlaying(false);
-        } else {
-            audioRef.current.play();
-            setIsPlaying(true);
-        }
+    const syncPlayingState = () => {
+      setIsPlaying(!audio.paused);
     };
 
-    const toggleMute = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        if (!audioRef.current) return;
+    syncPlayingState();
+    audio.addEventListener("play", syncPlayingState);
+    audio.addEventListener("pause", syncPlayingState);
 
-        audioRef.current.muted = !isMuted;
-        setIsMuted(!isMuted);
+    return () => {
+      audio.removeEventListener("play", syncPlayingState);
+      audio.removeEventListener("pause", syncPlayingState);
+    };
+  }, []);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !isDismissed || !shouldPlayMusic || hasStartedRef.current) return;
+
+    const startPlayback = async () => {
+      try {
+        await audio.play();
+        hasStartedRef.current = true;
+        setIsPlaying(true);
+        setPlaybackError(false);
+      } catch {
+        setIsPlaying(false);
+        setPlaybackError(true);
+      }
     };
 
-    return (
-        <div className="fixed bottom-6 right-6 z-50">
-            <audio
-                ref={audioRef}
-                src="/song.mp3"
-                loop
-                preload="auto"
+    void startPlayback();
+  }, [isDismissed, shouldPlayMusic]);
+
+  const togglePlay = async () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (!audio.paused) {
+      audio.pause();
+      setIsPlaying(false);
+      setPlaybackError(false);
+      return;
+    }
+
+    try {
+      await audio.play();
+      hasStartedRef.current = true;
+      setIsPlaying(true);
+      setPlaybackError(false);
+    } catch {
+      setIsPlaying(false);
+      setPlaybackError(true);
+    }
+  };
+
+  if (!isDismissed) {
+    return null;
+  }
+
+  return (
+    <div className="pointer-events-none fixed right-5 bottom-5 z-50 min-[431px]:right-[calc(50%-215px+1.25rem)]">
+      <audio ref={audioRef} src="/song.mp3" loop preload="auto" />
+
+      <motion.button
+        initial={{ opacity: 0, y: 18, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={() => void togglePlay()}
+        className="pointer-events-auto flex h-14 w-14 items-center justify-center rounded-full border border-border/70 bg-card/92 text-primary shadow-[0_14px_34px_rgba(50,61,0,0.14)] backdrop-blur-md transition-colors hover:bg-card"
+        aria-label={isPlaying ? "Pause background music" : "Play background music"}
+        title={isPlaying ? "Pause music" : "Play music"}
+      >
+        <span
+          className={`flex h-11 w-11 items-center justify-center rounded-full shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] ${
+            isPlaying
+              ? "bg-primary text-primary-foreground"
+              : "bg-accent text-primary"
+          }`}
+        >
+          {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="ml-0.5 h-4 w-4" />}
+        </span>
+        <span className="sr-only">{isPlaying ? "Pause song" : "Play song"}</span>
+      </motion.button>
+
+      {isPlaying && (
+        <div className="pointer-events-none absolute right-16 bottom-4 flex items-end gap-1">
+          {[0, 1, 2].map((bar) => (
+            <motion.span
+              key={bar}
+              animate={{ opacity: [0.35, 1, 0.55], scaleY: [0.5, 1.15, 0.7] }}
+              transition={{
+                duration: 0.9,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: bar * 0.14,
+              }}
+              className="h-4 w-1 origin-bottom rounded-full bg-gold/90"
             />
-
-            <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="relative"
-            >
-                <button
-                    onClick={togglePlay}
-                    className="flex h-14 w-14 items-center justify-center rounded-full bg-white/80 shadow-lg backdrop-blur-md transition-all hover:bg-white dark:bg-zinc-900/80 dark:hover:bg-zinc-900"
-                    aria-label={isPlaying ? "Pause music" : "Play music"}
-                >
-                    {isPlaying ? (
-                        <motion.div
-                            animate={{
-                                rotate: [0, 360],
-                            }}
-                            transition={{
-                                duration: 4,
-                                repeat: Infinity,
-                                ease: "linear",
-                            }}
-                        >
-                            <Music className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
-                        </motion.div>
-                    ) : (
-                        <Music className="h-6 w-6 text-zinc-400" />
-                    )}
-                </button>
-
-                <AnimatePresence>
-                    {isPlaying && (
-                        <motion.button
-                            initial={{ opacity: 0, y: 10, scale: 0.5 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 10, scale: 0.5 }}
-                            onClick={toggleMute}
-                            className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-white shadow-sm transition-transform hover:scale-110"
-                            aria-label={isMuted ? "Unmute" : "Mute"}
-                        >
-                            {isMuted ? (
-                                <VolumeX className="h-3 w-3" />
-                            ) : (
-                                <Volume2 className="h-3 w-3" />
-                            )}
-                        </motion.button>
-                    )}
-                </AnimatePresence>
-
-                {/* Animated Sound Waves when playing */}
-                {isPlaying && !isMuted && (
-                    <div className="absolute -top-1 -left-1 flex h-4 w-4 space-x-0.5">
-                        {[1, 2, 3].map((i) => (
-                            <motion.div
-                                key={i}
-                                animate={{
-                                    height: [4, 12, 4],
-                                }}
-                                transition={{
-                                    duration: 0.8,
-                                    repeat: Infinity,
-                                    delay: i * 0.2,
-                                }}
-                                className="w-1 rounded-full bg-emerald-500"
-                            />
-                        ))}
-                    </div>
-                )}
-            </motion.div>
+          ))}
         </div>
-    );
+      )}
+
+      {playbackError && (
+        <p className="mt-2 pr-2 text-right text-[0.68rem] tracking-[0.08em] text-primary/70">
+          Tap to start the music.
+        </p>
+      )}
+    </div>
+  );
 };
 
 export default BackgroundMusic;

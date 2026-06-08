@@ -3,11 +3,12 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import BackgroundMusic from "@/components/BackgroundMusic";
 import { Button } from "@/components/ui/button";
 import { OpeningProvider, useOpening } from "./OpeningContext";
 
 const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) => {
-  const { isOpen, setIsOpen } = useOpening();
+  const { isOpen, setIsOpen, requestMusicStart } = useOpening();
   const [isMounted, setIsMounted] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const closeTimerRef = useRef<number | null>(null);
@@ -28,6 +29,7 @@ const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) =
   const handleOpenInvitation = () => {
     if (isClosing) return;
 
+    requestMusicStart();
     setIsClosing(true);
     closeTimerRef.current = window.setTimeout(() => {
       setIsOpen(true);
@@ -207,6 +209,7 @@ const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) =
       </AnimatePresence>
       <main className={`relative z-0 ${!isOpen ? "h-screen overflow-hidden" : ""}`}>
         {children}
+        <BackgroundMusic />
       </main>
     </div>
   );
