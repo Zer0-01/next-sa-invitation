@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
@@ -60,9 +59,9 @@ const MessageFormComponent = ({
             <Button
                 variant="outline"
                 onClick={openModal}
-                className="text-xs tracking-widest uppercase font-medium px-8 py-6 rounded-md shadow-sm"
+                className="h-auto rounded-full border-primary/15 bg-background/65 px-10 py-3 font-serif text-[1.35rem] leading-none font-normal text-primary shadow-[0_12px_24px_rgba(33,31,24,0.06)] transition-all duration-300 hover:scale-[1.02] hover:bg-sage/10 hover:text-primary active:scale-95 sm:px-12 sm:text-[1.6rem]"
             >
-                Leave a Wish
+                Pesanan & Doa
             </Button>
 
             <Dialog open={isModalOpen} onOpenChange={(open) => (open ? openModal() : closeModal())}>
@@ -129,4 +128,3 @@ const MessageFormComponent = ({
 }
 
 export default MessageFormComponent
-

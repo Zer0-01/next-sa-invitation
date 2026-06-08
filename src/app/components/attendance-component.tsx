@@ -1,5 +1,6 @@
 'use client'
 
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
@@ -10,11 +11,9 @@ import {
 } from "@/components/ui/dialog"
 import {
     Field,
-    FieldDescription,
     FieldGroup,
     FieldLabel,
     FieldSet,
-    FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -54,9 +53,9 @@ const AttendanceComponent = () => {
         <div className="flex flex-col items-center">
             <Button
                 onClick={openModal}
-                className="text-xs tracking-widest uppercase font-medium px-8 py-6 rounded-md shadow-sm"
+                className="h-auto rounded-full bg-primary px-10 py-3 font-serif text-[1.45rem] leading-none font-normal text-primary-foreground shadow-[0_14px_26px_rgba(49,67,8,0.16)] transition-all duration-300 hover:scale-[1.02] hover:bg-primary/95 hover:shadow-[0_16px_30px_rgba(49,67,8,0.18)] active:scale-95 sm:px-12 sm:text-[1.7rem]"
             >
-                RSVP Now
+                Sahkan kehadiran
             </Button>
 
             <Dialog
@@ -149,6 +148,4 @@ const AttendanceComponent = () => {
     )
 }
 
-import { motion } from "framer-motion"
 export default AttendanceComponent
-

@@ -27,45 +27,62 @@ const RSVPSection = () => {
         getMessages()
     }, [getMessages])
 
-
     return (
-        <section className="flex flex-col items-center py-24 text-foreground">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="flex flex-col items-center gap-4 mb-20 px-6"
-            >
-                <span className="text-[10px] font-medium tracking-[0.4em] text-muted-foreground uppercase text-center">Wishes</span>
-                <h2 className="text-3xl font-serif font-bold tracking-tight text-center">Guest Book</h2>
-                <p className="mt-2 max-w-sm text-center text-sm leading-relaxed font-light text-muted-foreground">
-                    Leave a sweet message for the happy couple to cherish forever.
-                </p>
-            </motion.div>
+        <section className="overflow-hidden px-6 py-24 text-foreground">
+            <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-12">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="mx-auto max-w-2xl text-center"
+                >
+                    <h2 className="font-serif text-[2.3rem] leading-none text-primary sm:text-[3rem]">
+                        RSVP
+                    </h2>
+                    <p className="mt-5 text-sm leading-7 text-muted-foreground sm:text-[0.95rem]">
+                        PENGESAHAN KEHADIRAN (RSVP) BOLEH DILAKUKAN DI BAWAH, KEHADIRAN TUAN/PUAN AMAT KAMI HARGAI:
+                    </p>
+                </motion.div>
 
-            <MessageListComponent messages={messages} status={getMessagesStatus} />
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.12, duration: 0.85 }}
+                    className="flex w-full max-w-3xl flex-col items-center gap-4"
+                >
+                    <AttendanceComponent />
+                    <MessageFormComponent
+                        isModalOpen={isModalOpen}
+                        openModal={openModal}
+                        closeModal={closeModal}
+                        name={name}
+                        setName={setName}
+                        message={message}
+                        setMessage={setMessage}
+                        submit={submit}
+                        isSubmitting={isSubmitting}
+                    />
+                </motion.div>
 
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-                className="mt-16 flex flex-col items-center gap-4 px-6"
-            >
-                <AttendanceComponent />
-                <MessageFormComponent
-                    isModalOpen={isModalOpen}
-                    openModal={openModal}
-                    closeModal={closeModal}
-                    name={name}
-                    setName={setName}
-                    message={message}
-                    setMessage={setMessage}
-                    submit={submit}
-                    isSubmitting={isSubmitting}
-                />
-            </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.18, duration: 0.85 }}
+                    className="relative w-full max-w-4xl rounded-[2rem] border border-primary/10 bg-background/45 px-5 py-6 shadow-[0_18px_40px_rgba(33,31,24,0.07)] backdrop-blur-[1px] sm:px-8 sm:py-8"
+                >
+                    <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-primary/18 to-transparent" />
+                    <div className="absolute inset-x-8 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/12 to-transparent" />
+                    <div className="mb-6 flex flex-col items-center gap-2 text-center">
+                        <h3 className="font-serif text-[1.85rem] leading-none text-primary sm:text-[2.2rem]">
+                            Pesanan & Doa
+                        </h3>
+                    </div>
+                    <MessageListComponent messages={messages} status={getMessagesStatus} />
+                </motion.div>
+            </div>
         </section>
     );
 };
