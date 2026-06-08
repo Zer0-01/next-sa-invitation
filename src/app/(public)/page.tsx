@@ -18,9 +18,9 @@ export default function Home() {
       <SectionSeparator />
       <GreetingSection />
       <SectionSeparator />
-      <VenueSection />
-      <SectionSeparator />
       <ProgrammeSection />
+      <SectionSeparator />
+      <VenueSection />
       <SectionSeparator />
       <GallerySection />
       <SectionSeparator />
