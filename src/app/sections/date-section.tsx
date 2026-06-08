@@ -117,38 +117,43 @@ const DateSection = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="mx-auto flex w-full max-w-5xl flex-col items-center gap-12 sm:gap-14"
+                className="relative mx-auto flex w-full max-w-5xl flex-col items-center gap-12 sm:gap-14"
             >
-                <motion.div variants={itemVariants} className="flex flex-col items-center gap-3 text-center sm:gap-4">
-                    <p className="font-serif text-[3.35rem] leading-[0.9] text-primary drop-shadow-[0_6px_18px_rgba(71,83,67,0.08)] sm:text-[4.35rem]">
-                        Ahad
-                    </p>
-                    <p className="text-base font-medium uppercase tracking-[0.32em] text-primary/70 sm:text-lg sm:tracking-[0.42em]">
-                        20 Dis 2026
-                    </p>
-                </motion.div>
+                <motion.p
+                    variants={itemVariants}
+                    className="text-center font-serif text-[2.3rem] leading-none text-primary sm:text-[3rem]"
+                >
+                    20.12.2026
+                </motion.p>
 
-                <div className="flex w-full max-w-4xl items-stretch justify-center gap-3 sm:gap-6">
-                    {countdownItems.map((item, index) => (
-                        <motion.div
-                            key={index}
-                            variants={itemVariants}
-                            className="flex min-h-44 flex-1 flex-col items-center justify-center rounded-[2rem] bg-primary px-3 py-6 text-primary-foreground shadow-[0_18px_30px_rgba(49,67,8,0.15)] sm:px-4"
-                        >
-                            <span className="font-sans text-[2.1rem] font-semibold leading-none tracking-[0.12em] text-primary-foreground sm:text-[2.75rem]">
-                                {String(item.value).padStart(2, "0")}
-                            </span>
-                            <span className="mt-3 text-[10px] font-medium uppercase tracking-[0.26em] text-primary-foreground/72 sm:mt-4 sm:text-[11px] sm:tracking-[0.32em]">
-                                {item.label}
-                            </span>
-                        </motion.div>
-                    ))}
-                </div>
+                <motion.div
+                    variants={itemVariants}
+                    className="w-full max-w-4xl rounded-[2rem] border border-white/10 bg-secondary px-3 py-4 text-secondary-foreground shadow-[0_18px_30px_rgba(88,80,72,0.22)] sm:px-5 sm:py-5"
+                >
+                    <div className="grid grid-cols-4 gap-2 sm:gap-4">
+                        {countdownItems.map((item, index) => (
+                            <motion.div
+                                key={index}
+                                variants={itemVariants}
+                                className="flex min-w-0 flex-col items-center justify-center rounded-[1.35rem] border border-white/8 bg-white/4 px-2 py-4 sm:py-5"
+                            >
+                                <span className="font-sans text-[1.65rem] font-semibold leading-none tracking-[0.12em] text-secondary-foreground sm:text-[2.5rem]">
+                                    {String(item.value).padStart(2, "0")}
+                                </span>
+                                <span className="mt-2 text-[9px] font-medium uppercase tracking-[0.24em] text-secondary-foreground/72 sm:mt-3 sm:text-[11px] sm:tracking-[0.32em]">
+                                    {item.label}
+                                </span>
+                            </motion.div>
+                        ))}
+                    </div>
+                </motion.div>
 
                 <motion.div variants={itemVariants}>
                     <Drawer>
                         <DrawerTrigger asChild>
-                            <Button className="h-auto rounded-full bg-primary px-10 py-3 font-serif text-[1.55rem] leading-none font-normal tracking-[0.01em] text-primary-foreground shadow-[0_14px_26px_rgba(49,67,8,0.16)] transition-all duration-300 hover:scale-[1.02] hover:bg-primary/95 hover:shadow-[0_16px_30px_rgba(49,67,8,0.18)] active:scale-95 sm:px-12 sm:text-[1.8rem]">
+                            <Button
+                                className="h-auto rounded-full px-10 py-3 font-serif text-[1.45rem] leading-none font-normal tracking-[0.01em] shadow-[0_14px_26px_rgba(49,67,8,0.16)] transition-all duration-300 hover:scale-[1.02] hover:bg-primary/95 hover:shadow-[0_16px_30px_rgba(49,67,8,0.18)] active:scale-95 sm:px-12 sm:text-[1.7rem]"
+                            >
                                 Tarikh Jemputan
                             </Button>
                         </DrawerTrigger>
@@ -187,29 +192,6 @@ const DateSection = () => {
                             </DrawerFooter>
                         </DrawerContent>
                     </Drawer>
-                </motion.div>
-
-                <motion.p
-                    variants={itemVariants}
-                    className="pt-1 font-serif text-[2.45rem] leading-[0.96] text-primary/88 drop-shadow-[0_3px_6px_rgba(49,67,8,0.1)] sm:text-[3.2rem]"
-                >
-                    #destineDcAlways
-                </motion.p>
-
-                <motion.div
-                    variants={itemVariants}
-                    className="w-full overflow-hidden rounded-[2rem] border border-primary/10 bg-background/45 shadow-[0_18px_40px_rgba(33,31,24,0.08)] backdrop-blur-[1px]"
-                >
-                    <div className="flex aspect-[4/5] w-full items-center justify-center bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.22),transparent_45%),linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.02)_100%)] p-8 sm:aspect-[16/9]">
-                        <div className="flex h-full w-full flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-primary/20 bg-background/28 text-center">
-                            <p className="font-serif text-[2.85rem] leading-[0.9] text-primary/75 sm:text-[4.1rem]">
-                                Placeholder
-                            </p>
-                            <p className="mt-3 max-w-xs text-[10px] font-medium uppercase tracking-[0.28em] text-primary/55 sm:text-xs sm:tracking-[0.3em]">
-                                Couple photo mock area
-                            </p>
-                        </div>
-                    </div>
                 </motion.div>
             </motion.div>
         </section>
