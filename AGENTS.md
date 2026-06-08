@@ -17,8 +17,11 @@ Only run commands after user approval, except read-only inspection commands such
 Write TypeScript with strict typing enabled. Follow the existing style: 2-space indentation in JSON/config files, double quotes in TS/TSX, and named exports for shared modules where practical. Keep route files in Next.js defaults such as `page.tsx` and `layout.tsx`.
 
 Styling uses Tailwind CSS. Prefer utility-first styling that aligns with the existing design tokens and patterns.
+Use Tailwind CSS as the default styling approach unless a better approach is necessary or Tailwind cannot reasonably implement the requested outcome. Any exception requires user approval.
 
 The component library is shadcn/ui. Reuse existing primitives from `src/components/ui` before introducing new custom building blocks.
+Use shadcn/ui as the default component library unless a better approach is necessary or shadcn/ui cannot reasonably implement the requested outcome. Any exception requires user approval.
+Use `src/app/globals.css` as the default source of design tokens unless a better approach is necessary or it cannot reasonably implement the requested outcome. Any exception requires user approval.
 
 Component filenames use kebab-case, for example `message-form-component.tsx`. React component identifiers inside files use PascalCase. Hooks should be named `use-*.ts` and start with `use`. Favor readable, maintainable, scalable code with low bug risk and minimal code smell.
 
@@ -37,5 +40,7 @@ Firebase config is read from `NEXT_PUBLIC_FIREBASE_*` variables in `src/lib/fire
 Do not make assumptions when requirements, architecture, or expected behavior are unclear. Ask for clarification first. Follow best practices and preserve the existing project structure, architecture, design patterns, and folder organization unless a better approach is justified and approved by the user first.
 
 For UI work, follow the existing design tokens and current visual system. Avoid introducing changes that conflict with the established component patterns. Prefer changes that are readable, maintainable, scalable, and unlikely to introduce regressions.
+UI-related changes must remain modern, minimalist, calm, wedding-focused, romantic, garden-oriented, consistent, and should not look AI-generated.
 
 Do not manually edit generated files. If a generated artifact must change, update its source or generator and get user approval before regenerating.
+Do not manually modify generated files in `src/components/ui`.
