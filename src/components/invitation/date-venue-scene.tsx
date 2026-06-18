@@ -1,0 +1,51 @@
+"use client";
+
+import { motion, type MotionValue } from "framer-motion";
+import { invitationContent } from "@/lib/invitation-content";
+
+interface DateVenueSceneProps {
+  opacity: MotionValue<number>;
+  contentY: MotionValue<number>;
+}
+
+export function DateVenueScene({ opacity, contentY }: DateVenueSceneProps) {
+  const { title, schedule, venueLines } = invitationContent.invitationScenes.dateVenue;
+
+  return (
+    <motion.div
+      style={{ opacity, y: contentY }}
+      className="absolute inset-0 flex items-center justify-center px-5 py-7 sm:px-7 sm:py-9"
+    >
+      <div className="flex w-full max-w-md flex-col items-center justify-center text-center">
+        <h2 className="font-serif text-[1.7rem] leading-none whitespace-nowrap text-primary sm:text-[2rem]">
+          {title}
+        </h2>
+
+        <div className="mt-6 space-y-4">
+          {schedule.map((item) => (
+            <div key={`${item.title}-${item.time}`} className="flex flex-col items-center text-center">
+              <p className="font-serif text-[1.15rem] leading-tight text-primary sm:text-[1.3rem]">
+                {item.title}
+              </p>
+              {item.note ? (
+                <p className="mt-1 text-sm leading-6 text-primary/68">{item.note}</p>
+              ) : null}
+              <p className="mt-2 text-[0.72rem] uppercase tracking-[0.22em] text-primary/58">
+                {item.time}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-5 flex flex-col items-center text-center">
+          <p className="font-serif text-[1.2rem] leading-tight text-primary sm:text-[1.35rem]">
+            {invitationContent.event.venueName}
+          </p>
+          <p className="mt-2 text-sm leading-6 text-primary/72">
+            {venueLines.join(" ")}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
