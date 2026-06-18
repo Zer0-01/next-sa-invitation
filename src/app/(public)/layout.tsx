@@ -13,8 +13,8 @@ export default function PublicLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen bg-white min-[431px]:flex min-[431px]:justify-center">
-      <div className="invitation-surface min-h-screen w-full min-[431px]:max-w-[430px] min-[431px]:overflow-hidden min-[431px]:shadow-[-18px_0_28px_rgba(23,22,18,0.08),18px_0_28px_rgba(23,22,18,0.08)]">
+    <div className="min-h-screen bg-[linear-gradient(180deg,#f9f4ed_0%,#f4efe7_100%)] md:h-screen md:overflow-hidden md:bg-[url('/images/bg-7.png')] md:bg-cover md:bg-center md:bg-no-repeat">
+      <div className="min-h-screen w-full overflow-hidden md:mx-auto md:grid md:h-screen md:place-items-center md:px-6 md:py-8">
         <InvitationOpening>{children}</InvitationOpening>
       </div>
     </div>

@@ -11,12 +11,36 @@ const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) =
   const { isOpen, setIsOpen, requestMusicStart } = useOpening();
   const [isMounted, setIsMounted] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [isDesktopFrame, setIsDesktopFrame] = useState(false);
   const closeTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
+  }, []);
 
-    document.body.style.overflow = isOpen ? "unset" : "hidden";
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+
+    const updateViewportMode = (event?: MediaQueryListEvent) => {
+      const matches = event ? event.matches : mediaQuery.matches;
+      setIsDesktopFrame(matches);
+      document.body.style.overflow = !isOpen || matches ? "hidden" : "unset";
+    };
+
+    updateViewportMode();
+    mediaQuery.addEventListener("change", updateViewportMode);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateViewportMode);
+    };
+  }, [isMounted, isOpen]);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
+    document.body.style.overflow = !isOpen || isDesktopFrame ? "hidden" : "unset";
 
     return () => {
       if (closeTimerRef.current) {
@@ -24,7 +48,7 @@ const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) =
       }
       document.body.style.overflow = "unset";
     };
-  }, [isOpen]);
+  }, [isDesktopFrame, isMounted, isOpen]);
 
   const handleOpenInvitation = () => {
     if (isClosing) return;
@@ -39,7 +63,7 @@ const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) =
   if (!isMounted) return null;
 
   return (
-    <div className="invitation-surface relative min-h-screen">
+    <div className="relative min-h-screen md:min-h-0 md:h-[calc(100vh-4rem)] md:max-h-[860px] md:w-[420px] md:max-w-full md:overflow-hidden md:rounded-[2rem] md:border-[6px] md:border-white md:shadow-[0_28px_70px_rgba(42,31,18,0.22)]">
       <AnimatePresence>
         {!isOpen && (
           <motion.div
@@ -48,7 +72,7 @@ const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) =
               opacity: 0,
               transition: { duration: 1, ease: "easeInOut" },
             }}
-            className="invitation-surface absolute inset-0 z-[100] min-h-dvh overflow-hidden"
+            className="invitation-surface absolute inset-0 z-[100] min-h-dvh overflow-hidden md:min-h-0"
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_48%,rgba(139,152,112,0.12),transparent_42%)]" />
 
@@ -207,7 +231,13 @@ const InvitationOpeningContent = ({ children }: { children: React.ReactNode }) =
           </motion.div>
         )}
       </AnimatePresence>
-      <main className={`relative z-0 ${!isOpen ? "h-screen overflow-hidden" : ""}`}>
+      <main
+        className={`relative z-0 min-h-screen md:h-full md:min-h-0 ${
+          !isOpen
+            ? "h-screen overflow-hidden md:h-full"
+            : "md:overflow-y-auto md:overscroll-contain md:[-ms-overflow-style:none] md:[scrollbar-width:none] md:[&::-webkit-scrollbar]:hidden"
+        }`}
+      >
         {children}
         <BackgroundMusic />
       </main>
