@@ -76,7 +76,7 @@ const BackgroundMusic = () => {
   }
 
   return (
-    <div className="pointer-events-none fixed right-5 bottom-5 z-50 md:right-[max(1.25rem,calc(50%-210px+1rem))] md:bottom-[max(1.25rem,calc(5vh+1rem))]">
+    <div className="pointer-events-none fixed right-5 bottom-5 z-50 lg:right-[max(1.25rem,calc(50%-210px+1rem))] lg:bottom-[max(1.25rem,calc(5vh+1rem))]">
       <audio ref={audioRef} src="/song.mp3" loop preload="auto" />
 
       <motion.button

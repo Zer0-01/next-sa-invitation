@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { Clock3, Flower2, Gift, HeartHandshake, MapPinned, Sparkles } from "lucide-react";
-import { ParallaxHero } from "@/components/invitation/parallax-hero";
 import { CountdownSection } from "@/components/invitation/countdown-section";
 import { FloatingImage } from "@/components/invitation/floating-image";
+import { InvitationHero } from "@/components/invitation/invitation-hero";
 import { ParallaxSection } from "@/components/invitation/parallax-section";
 import { RSVPForm } from "@/components/invitation/rsvp-form";
 import { Badge } from "@/components/ui/badge";
@@ -40,9 +40,13 @@ function InfoCard({
 export function WeddingInvitationPage() {
   return (
     <div className="overflow-x-clip text-foreground">
-      <ParallaxHero />
+      <InvitationHero />
 
-      <section id="details" className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-10">
+      <section
+        id="details"
+        data-opening-next-section="true"
+        className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-10"
+      >
         <div className="absolute inset-x-0 top-0 -z-10 h-[30rem] opacity-22">
           <Image
             src="/images/bg-2.png"
