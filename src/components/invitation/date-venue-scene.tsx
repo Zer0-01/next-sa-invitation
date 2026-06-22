@@ -15,9 +15,9 @@ export function DateVenueScene({ opacity, contentY }: DateVenueSceneProps) {
   return (
     <motion.div
       style={{ opacity, y: contentY }}
-      className="absolute inset-0 flex items-center justify-center px-5 py-7 sm:px-7 sm:py-9"
+      className="absolute inset-0 flex items-start justify-center px-5 pt-10 pb-7 sm:px-7 sm:pt-12 sm:pb-9"
     >
-      <div className="flex w-full max-w-md flex-col items-center justify-center text-center">
+      <div className="flex w-full max-w-md flex-col items-center text-center">
         <h2 className="font-serif text-[1.35rem] leading-none whitespace-nowrap text-white sm:text-[1.55rem]">
           {title}
         </h2>

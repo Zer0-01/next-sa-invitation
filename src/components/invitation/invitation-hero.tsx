@@ -86,7 +86,7 @@ export function InvitationHero() {
         className="absolute inset-x-0 -top-[8%] -bottom-[8%]"
       >
         <Image
-          src="/images/bg-8.png"
+          src="/images/bg-15.png"
           alt="Romantic wedding backdrop"
           fill
           priority

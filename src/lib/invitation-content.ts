@@ -49,7 +49,7 @@ export const invitationContent = {
     greeting: {
       title: "Majlis perkahwinan kami",
       arabicFallback: "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
-      backgroundSrc: "/images/bg-6.png",
+      backgroundSrc: "/images/bg-14.png",
       bismillahSrc: "/images/assalam.png",
       coupleImages: {
         groom: "/images/groom.png",
@@ -58,7 +58,7 @@ export const invitationContent = {
       separator: "dan",
     },
     dateVenue: {
-      backgroundSrc: "/images/bg-2.png",
+      backgroundSrc: "/images/bg-13.png",
       title: "Ahad, 20 Disember 2026",
       venueLines: [
         "Riq Glass Hall, Pandan Kapital",
@@ -83,7 +83,7 @@ export const invitationContent = {
       ] satisfies readonly ScheduleItem[],
     },
     countdown: {
-      backgroundSrc: "/images/bg-5.png",
+      backgroundSrc: "/images/bg-12.png",
       title: "Menuju Hari Bahagia",
       expiredMessage: "Hari bahagia kami telah tiba. Terima kasih atas doa dan kasih sayang anda.",
     },

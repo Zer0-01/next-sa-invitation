@@ -42,15 +42,15 @@ function CouplePortrait({
 }
 
 export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
-  const { greeting, arabicFallback, bismillahSrc, coupleImages, separator } =
+  const { title, arabicFallback, bismillahSrc, coupleImages, separator } =
     invitationContent.invitationScenes.greeting;
 
   return (
     <motion.div
       style={{ opacity, y: contentY }}
-      className="absolute inset-0 flex items-center justify-center px-5 py-7 sm:px-7 sm:py-9"
+      className="absolute inset-0 flex items-start justify-center px-5 pt-10 pb-7 sm:px-7 sm:pt-12 sm:pb-9"
     >
-      <div className="flex w-full max-w-md flex-col justify-center text-center">
+      <div className="flex w-full max-w-md flex-col text-center">
         <div className="mx-auto w-full max-w-[18rem] sm:max-w-[20rem]">
           {bismillahSrc ? (
             <div className="relative mx-auto aspect-[5/1.1] w-full">
@@ -69,7 +69,7 @@ export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
 
         <div className="mt-4">
           <h2 className="mt-3 font-serif text-[1.4rem] leading-[1.02] text-white sm:text-[1.7rem]">
-            {greeting}
+            {title}
           </h2>
           <p className="mx-auto mt-3 max-w-[20rem] text-[0.72rem] leading-5 text-white/78 sm:text-[0.78rem] sm:leading-6">
             {invitationContent.greetingText}
