@@ -1,3 +1,9 @@
+type ScheduleItem = {
+  title: string;
+  time: string;
+  note?: string;
+};
+
 export const invitationContent = {
   couple: {
     groom: {
@@ -74,7 +80,7 @@ export const invitationContent = {
           title: "Ketibaan Pengantin",
           time: "12.30 PM",
         },
-      ],
+      ] satisfies readonly ScheduleItem[],
     },
     countdown: {
       backgroundSrc: "/images/bg-5.png",

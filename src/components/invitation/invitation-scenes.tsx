@@ -6,6 +6,7 @@ import {
   useReducedMotion,
   useScroll,
   useTransform,
+  type UseScrollOptions,
 } from "framer-motion";
 import { CountdownScene } from "@/components/invitation/countdown-scene";
 import { DateVenueScene } from "@/components/invitation/date-venue-scene";
@@ -14,6 +15,10 @@ import { SceneBackground } from "@/components/invitation/scene-background";
 import { invitationContent } from "@/lib/invitation-content";
 
 const DEFAULT_MOBILE_SCENE_HEIGHT = 900;
+const SCROLL_OFFSETS: NonNullable<UseScrollOptions["offset"]> = [
+  "start start",
+  "end end",
+];
 
 export function InvitationScenes() {
   const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(null);
@@ -51,7 +56,9 @@ export function InvitationScenes() {
         ? new ResizeObserver(syncHeight)
         : null;
 
-    resizeObserver?.observe(scrollContainer);
+    if (resizeObserver && scrollContainer) {
+      resizeObserver.observe(scrollContainer);
+    }
     mediaQuery.addEventListener("change", syncContainerMode);
     mediaQuery.addEventListener("change", syncHeight);
     window.addEventListener("resize", syncHeight);
@@ -87,7 +94,7 @@ function InvitationScenesContent({
   const scrollOptions = useMemo(
     () => ({
       target: ref,
-      offset: ["start start", "end end"] as const,
+      offset: SCROLL_OFFSETS,
       ...(scrollContainer ? { container: containerRef } : {}),
     }),
     [scrollContainer]

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, type MotionValue } from "framer-motion";
+import { Button } from "@/components/ui/button";
 import { invitationContent } from "@/lib/invitation-content";
 
 interface DateVenueSceneProps {
@@ -44,6 +45,18 @@ export function DateVenueScene({ opacity, contentY }: DateVenueSceneProps) {
           <p className="mt-2 text-sm leading-6 text-primary/72">
             {venueLines.join(" ")}
           </p>
+          <Button
+            asChild
+            className="mt-4 h-auto rounded-full px-6 py-3 text-[0.72rem] uppercase tracking-[0.2em]"
+          >
+            <a
+              href="https://maps.app.goo.gl/frYmShGxKaU9TR5V6"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Buka lokasi
+            </a>
+          </Button>
         </div>
       </div>
     </motion.div>

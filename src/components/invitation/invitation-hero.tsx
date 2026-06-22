@@ -58,7 +58,9 @@ export function InvitationHero() {
         ? new ResizeObserver(syncHeroHeight)
         : null;
 
-    resizeObserver?.observe(scrollContainer);
+    if (resizeObserver && scrollContainer) {
+      resizeObserver.observe(scrollContainer);
+    }
     mediaQuery.addEventListener("change", syncHeroHeight);
     window.addEventListener("resize", syncHeroHeight);
 
