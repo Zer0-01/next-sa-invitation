@@ -143,7 +143,7 @@ export function InvitationHero() {
                 visible: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 1.05, ease: "easeOut" }}
-              className="whitespace-nowrap font-serif text-[2.45rem] leading-[0.92] tracking-[-0.025em] text-white drop-shadow-[0_10px_28px_rgba(37,25,17,0.28)] min-[380px]:text-[2.7rem] sm:text-[4.15rem]"
+              className="whitespace-nowrap font-serif text-[1.9rem] leading-[0.92] tracking-[-0.025em] text-white drop-shadow-[0_10px_28px_rgba(37,25,17,0.28)] min-[380px]:text-[2.1rem] sm:text-[3.1rem]"
             >
               Danial <span className="mx-2 inline-block text-[0.88em] text-[#f1dec2]">&</span> Ain
             </motion.h1>
@@ -154,7 +154,7 @@ export function InvitationHero() {
                 visible: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="font-sans text-sm font-medium tracking-[0.34em] text-white/88 uppercase"
+              className="font-sans text-[0.62rem] font-medium tracking-[0.34em] text-white/88 uppercase"
             >
               20.12.26
             </motion.p>
@@ -170,7 +170,7 @@ export function InvitationHero() {
               type="button"
               onClick={unlockInvitation}
               disabled={isUnlocked}
-              className="h-auto rounded-full border border-white/32 bg-white/86 px-8 py-3.5 text-sm font-medium uppercase tracking-[0.24em] text-primary shadow-[0_18px_45px_rgba(39,28,20,0.22)] transition-all duration-300 hover:scale-[1.02] hover:bg-white disabled:pointer-events-none disabled:opacity-100"
+              className="h-auto rounded-full border border-white/32 bg-white/86 px-8 py-3.5 text-[0.62rem] font-medium uppercase tracking-[0.24em] text-primary shadow-[0_18px_45px_rgba(39,28,20,0.22)] transition-all duration-300 hover:scale-[1.02] hover:bg-white disabled:pointer-events-none disabled:opacity-100"
             >
               Buka Undangan
             </Button>

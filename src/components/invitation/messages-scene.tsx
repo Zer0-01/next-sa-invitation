@@ -88,7 +88,7 @@ export function MessagesScene() {
         className="mx-auto flex w-full max-w-2xl flex-col"
       >
         <div className="text-center">
-          <h2 className="mt-4 font-serif text-[2rem] leading-[0.98] text-primary sm:text-[2.35rem]">
+          <h2 className="mt-4 font-serif text-[1.45rem] leading-[0.98] text-primary sm:text-[1.7rem]">
             Ucapan & Doa
           </h2>
         </div>
@@ -101,19 +101,19 @@ export function MessagesScene() {
             className="max-h-[62svh] space-y-3 overflow-y-auto pr-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {status === "loading" || status === "initial" ? (
-              <div className="flex min-h-[18rem] items-center justify-center text-xs text-primary/56">
+              <div className="flex min-h-[18rem] items-center justify-center text-[0.68rem] text-primary/56">
                 Memuatkan ucapan...
               </div>
             ) : null}
 
             {status === "error" ? (
-              <div className="flex min-h-[18rem] items-center justify-center text-center text-xs leading-6 text-primary/56">
+              <div className="flex min-h-[18rem] items-center justify-center text-center text-[0.68rem] leading-5 text-primary/56">
                 Ucapan belum dapat dimuatkan buat masa ini.
               </div>
             ) : null}
 
             {status === "success" && visibleMessages.length === 0 ? (
-              <div className="flex min-h-[18rem] items-center justify-center text-center text-xs leading-6 text-primary/56">
+              <div className="flex min-h-[18rem] items-center justify-center text-center text-[0.68rem] leading-5 text-primary/56">
                 Belum ada ucapan lagi. Jadilah yang pertama meninggalkan doa.
               </div>
             ) : null}
@@ -138,10 +138,10 @@ export function MessagesScene() {
                           alignRight ? "rounded-br-md" : "rounded-bl-md"
                         }`}
                       >
-                        <p className="text-[0.62rem] uppercase tracking-[0.22em] text-primary/50">
+                        <p className="text-[0.56rem] uppercase tracking-[0.22em] text-primary/50">
                           {author}
                         </p>
-                        <p className="mt-2 text-xs leading-6 text-primary/78">
+                        <p className="mt-2 text-[0.68rem] leading-5 text-primary/78">
                           {entry.message}
                         </p>
                       </div>
