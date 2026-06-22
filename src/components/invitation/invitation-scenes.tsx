@@ -157,7 +157,6 @@ function InvitationScenesContent({
     [0, 1],
     shouldReduceMotion ? [1, 1] : [1.06, 1.12]
   );
-  const glowOpacity = useTransform(scrollYProgress, [0.28, 0.5, 0.82], [0.12, 0, 0.14]);
 
   return (
     <section
@@ -185,7 +184,7 @@ function InvitationScenesContent({
           opacity={sceneTwoOpacity}
           y={bgTwoY}
           scale={bgScale}
-          overlayClassName="bg-[linear-gradient(180deg,rgba(36,25,16,0.22)_0%,rgba(247,241,233,0.4)_48%,rgba(247,241,233,0.84)_100%)]"
+          overlayClassName="bg-[linear-gradient(180deg,rgba(36,25,16,0.22)_0%,rgba(64,48,36,0.16)_48%,rgba(32,23,17,0.24)_100%)]"
         />
         <SceneBackground
           src={invitationContent.invitationScenes.countdown.backgroundSrc}
@@ -193,17 +192,12 @@ function InvitationScenesContent({
           opacity={sceneThreeOpacity}
           y={bgThreeY}
           scale={bgScale}
-          overlayClassName="bg-[linear-gradient(180deg,rgba(31,23,17,0.24)_0%,rgba(247,241,233,0.36)_46%,rgba(247,241,233,0.82)_100%)]"
+          overlayClassName="bg-[linear-gradient(180deg,rgba(31,23,17,0.24)_0%,rgba(58,44,33,0.15)_46%,rgba(28,21,16,0.22)_100%)]"
         />
 
         <GreetingScene opacity={sceneOneOpacity} contentY={contentOneY} />
         <DateVenueScene opacity={sceneTwoOpacity} contentY={contentTwoY} />
         <CountdownScene opacity={sceneThreeOpacity} contentY={contentThreeY} />
-
-        <motion.div
-          style={{ opacity: glowOpacity }}
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(180deg,transparent_0%,rgba(247,241,233,0.42)_100%)]"
-        />
       </div>
     </section>
   );

@@ -20,9 +20,9 @@ function CouplePortrait({
 }) {
   if (!src) {
     return (
-      <div className="flex aspect-[4/5] items-center justify-center rounded-[1.7rem] border border-dashed border-white/40 bg-white/24">
+      <div className="flex aspect-[4/5] items-center justify-center rounded-[1.7rem] border border-dashed border-white/40 bg-white/12">
         <div className="text-center">
-          <span className="font-serif text-[2rem] text-primary/75">{initial}</span>
+          <span className="font-serif text-[2rem] text-white/80">{initial}</span>
         </div>
       </div>
     );
@@ -63,15 +63,15 @@ export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
               />
             </div>
           ) : (
-            <p className="font-serif text-[1rem] leading-relaxed text-primary">{arabicFallback}</p>
+            <p className="font-serif text-[1rem] leading-relaxed text-white/90">{arabicFallback}</p>
           )}
         </div>
 
         <div className="mt-4">
-          <h2 className="mt-3 font-serif text-[1.4rem] leading-[1.02] text-primary sm:text-[1.7rem]">
+          <h2 className="mt-3 font-serif text-[1.4rem] leading-[1.02] text-white sm:text-[1.7rem]">
             {greeting}
           </h2>
-          <p className="mx-auto mt-3 max-w-[20rem] text-[0.72rem] leading-5 text-primary/72 sm:text-[0.78rem] sm:leading-6">
+          <p className="mx-auto mt-3 max-w-[20rem] text-[0.72rem] leading-5 text-white/78 sm:text-[0.78rem] sm:leading-6">
             {invitationContent.greetingText}
           </p>
         </div>
@@ -91,24 +91,24 @@ export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
 
         <div className="mt-5 space-y-4 text-center">
           <div>
-            <h3 className="font-serif text-[1.1rem] leading-tight text-primary sm:text-[1.25rem]">
+            <h3 className="font-serif text-[1.1rem] leading-tight text-white sm:text-[1.25rem]">
               {invitationContent.couple.groom.fullName}
             </h3>
-            <p className="mt-2 text-[0.72rem] leading-5 text-primary/72">Anakanda kepada</p>
-            <div className="mt-1 text-[0.72rem] leading-5 text-primary/72">
+            <p className="mt-2 text-[0.72rem] leading-5 text-white/72">Anakanda kepada</p>
+            <div className="mt-1 text-[0.72rem] leading-5 text-white/72">
               <p>{invitationContent.couple.groom.parents[0].replace("Anakanda kepada ", "")} &</p>
               <p>{invitationContent.couple.groom.parents[1].replace("dan ", "")}</p>
             </div>
           </div>
 
-          <p className="font-serif text-[1.1rem] text-gold/90">{separator}</p>
+          <p className="font-serif text-[1.1rem] text-[#f1dec2]">{separator}</p>
 
           <div>
-            <h3 className="font-serif text-[1.1rem] leading-tight text-primary sm:text-[1.25rem]">
+            <h3 className="font-serif text-[1.1rem] leading-tight text-white sm:text-[1.25rem]">
               {invitationContent.couple.bride.fullName}
             </h3>
-            <p className="mt-2 text-[0.72rem] leading-5 text-primary/72">Anakanda kepada</p>
-            <div className="mt-1 text-[0.72rem] leading-5 text-primary/72">
+            <p className="mt-2 text-[0.72rem] leading-5 text-white/72">Anakanda kepada</p>
+            <div className="mt-1 text-[0.72rem] leading-5 text-white/72">
               <p>{invitationContent.couple.bride.parents[0].replace("Anakanda kepada ", "")} &</p>
               <p>{invitationContent.couple.bride.parents[1].replace("dan ", "")}</p>
             </div>

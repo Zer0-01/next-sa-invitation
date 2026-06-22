@@ -43,11 +43,11 @@ export function SceneBackground({
       />
       <div
         className={cn(
-          "absolute inset-0 bg-[linear-gradient(180deg,rgba(28,20,14,0.26)_0%,rgba(77,60,46,0.18)_24%,rgba(247,241,233,0.34)_56%,rgba(247,241,233,0.82)_100%)]",
+          "absolute inset-0 bg-[linear-gradient(180deg,rgba(28,20,14,0.26)_0%,rgba(77,60,46,0.18)_30%,rgba(71,56,44,0.14)_62%,rgba(34,24,18,0.24)_100%)]",
           overlayClassName
         )}
       />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.34),transparent_35%),radial-gradient(circle_at_20%_80%,rgba(255,244,232,0.18),transparent_28%),linear-gradient(180deg,rgba(46,33,24,0.08)_0%,rgba(46,33,24,0.16)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(46,33,24,0.1)_0%,rgba(46,33,24,0.18)_100%)]" />
     </motion.div>
   );
 }

@@ -95,8 +95,8 @@ export function InvitationHero() {
         />
       </motion.div>
 
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(28,18,12,0.26)_0%,rgba(55,39,28,0.24)_26%,rgba(247,241,233,0.22)_62%,rgba(247,241,233,0.64)_100%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.35),transparent_36%),radial-gradient(circle_at_50%_68%,rgba(255,247,235,0.16),transparent_26%),linear-gradient(180deg,rgba(85,68,52,0.05)_0%,rgba(85,68,52,0.18)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(28,18,12,0.26)_0%,rgba(55,39,28,0.24)_26%,rgba(70,52,39,0.16)_62%,rgba(30,21,16,0.24)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(85,68,52,0.08)_0%,rgba(52,38,28,0.18)_100%)]" />
 
       <motion.div
         style={
