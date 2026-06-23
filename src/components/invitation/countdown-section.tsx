@@ -6,46 +6,13 @@ import { FaGoogle } from "react-icons/fa";
 import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  downloadInvitationCalendarEvent,
+  openInvitationGoogleCalendar,
+} from "@/lib/calendar";
 import { invitationContent } from "@/lib/invitation-content";
 
 const targetDate = new Date("2026-12-20T11:00:00+08:00").getTime();
-
-function downloadICS() {
-  const icsContent = `
-BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VEVENT
-SUMMARY:The Wedding of ${invitationContent.couple.groom.shortName} & ${invitationContent.couple.bride.shortName}
-DESCRIPTION:Join us in celebrating the wedding of ${invitationContent.couple.groom.shortName} & ${invitationContent.couple.bride.shortName}.
-LOCATION:${invitationContent.event.venueName}, ${invitationContent.event.venueAddress}
-DTSTART:${invitationContent.event.icsStart}
-DTEND:${invitationContent.event.icsEnd}
-END:VEVENT
-END:VCALENDAR
-`;
-
-  const blob = new Blob([icsContent.trim()], { type: "text/calendar;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "wedding-invitation.ics";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
-}
-
-function addToGoogleCalendar() {
-  const params = new URLSearchParams({
-    action: "TEMPLATE",
-    text: `The Wedding of ${invitationContent.couple.groom.shortName} & ${invitationContent.couple.bride.shortName}`,
-    dates: invitationContent.event.googleCalendarDates,
-    details: invitationContent.intro,
-    location: `${invitationContent.event.venueName}, ${invitationContent.event.venueAddress}`,
-  });
-
-  window.open(`https://www.google.com/calendar/render?${params.toString()}`, "_blank");
-}
 
 export function CountdownSection() {
   const shouldReduceMotion = useReducedMotion();
@@ -129,7 +96,7 @@ export function CountdownSection() {
             <Button
               type="button"
               variant="outline"
-              onClick={downloadICS}
+              onClick={downloadInvitationCalendarEvent}
               className="justify-start rounded-full border-primary/15 bg-white/65 px-5 py-6 text-left text-primary"
             >
               <DiApple className="mr-3 h-5 w-5 shrink-0" />
@@ -138,7 +105,7 @@ export function CountdownSection() {
             <Button
               type="button"
               variant="outline"
-              onClick={addToGoogleCalendar}
+              onClick={openInvitationGoogleCalendar}
               className="justify-start rounded-full border-primary/15 bg-white/65 px-5 py-6 text-left text-primary"
             >
               <FaGoogle className="mr-3 h-4 w-4 shrink-0" />

@@ -47,7 +47,7 @@ export const invitationContent = {
     "An invitation to witness a day of love, prayer, and a beginning written with grace.",
   invitationScenes: {
     greeting: {
-      title: "Majlis perkahwinan kami",
+      title: "Majlis Perkahwinan Kami",
       arabicFallback: "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
       backgroundSrc: "/images/bg-14.png",
       bismillahSrc: "/images/assalam.png",
