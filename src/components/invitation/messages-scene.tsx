@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getDocs, orderBy, query } from "firebase/firestore";
 import { motion, useReducedMotion } from "framer-motion";
@@ -88,6 +89,15 @@ export function MessagesScene() {
         className="mx-auto flex w-full max-w-2xl flex-col"
       >
         <div className="text-center">
+          <div className="relative mx-auto aspect-square w-full max-w-[5.5rem] sm:max-w-[6rem]">
+            <Image
+              src="/images/message-image.png"
+              alt="Sampul surat bunga untuk bahagian ucapan"
+              fill
+              sizes="96px"
+              className="object-contain drop-shadow-[0_18px_34px_rgba(74,58,44,0.12)]"
+            />
+          </div>
           <h2 className="mt-4 font-serif text-[1.45rem] leading-[0.98] text-primary sm:text-[1.7rem]">
             Ucapan & Doa
           </h2>

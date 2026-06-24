@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import { addDoc, serverTimestamp } from "firebase/firestore";
 import { Loader2 } from "lucide-react";
@@ -107,7 +108,16 @@ export function RSVPScene() {
         className="mx-auto w-full max-w-xl"
       >
         <div className="mx-auto max-w-lg text-center">
-          <h2 className="font-serif text-[1.35rem] leading-[0.98] text-primary sm:text-[1.55rem]">
+          <div className="relative mx-auto aspect-square w-full max-w-[5.5rem] sm:max-w-[6rem]">
+            <Image
+              src="/images/rsvp-image.png"
+              alt="Ilustrasi bunga untuk bahagian RSVP"
+              fill
+              sizes="96px"
+              className="object-contain drop-shadow-[0_18px_34px_rgba(74,58,44,0.12)]"
+            />
+          </div>
+          <h2 className="mt-4 font-serif text-[1.35rem] leading-[0.98] text-primary sm:text-[1.55rem]">
             RSVP
           </h2>
         </div>
