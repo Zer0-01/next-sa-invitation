@@ -78,7 +78,7 @@ export function MessagesScene() {
   return (
     <section
       id="messages"
-      className="relative flex min-h-[100svh] items-center bg-[#f4eee6] px-5 py-16 sm:px-7 lg:px-10"
+      className="relative bg-[#efe7de] px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
     >
       <motion.div
         initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
@@ -93,12 +93,10 @@ export function MessagesScene() {
           </h2>
         </div>
 
-        <div
-          className="mt-8 rounded-[1.6rem] border border-primary/10 bg-white/45 p-3 sm:p-4"
-        >
+        <div className="mt-8 rounded-[1.6rem] border border-primary/10 bg-white/45 p-3 sm:mt-10 sm:p-4">
           <div
             ref={scrollerRef}
-            className="max-h-[62svh] space-y-3 overflow-y-auto pr-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="max-h-[36rem] space-y-3 overflow-y-auto pr-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {status === "loading" || status === "initial" ? (
               <div className="flex min-h-[18rem] items-center justify-center text-[0.68rem] text-primary/56">

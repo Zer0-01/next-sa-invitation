@@ -29,16 +29,26 @@ export function GiftScene() {
   return (
     <section
       id="gift"
-      className="relative flex min-h-[100svh] items-center bg-[#f5efe8] px-5 py-16 sm:px-7 lg:px-10"
+      className="relative bg-[#f2ebe1] px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
     >
       <motion.div
         initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
         whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.25 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="mx-auto w-full max-w-xl text-center"
+        className="mx-auto flex w-full max-w-3xl flex-col items-center text-center"
       >
-        <h2 className="font-serif text-[1.35rem] leading-[0.98] text-primary sm:text-[1.55rem]">
+        <div className="relative aspect-square w-full max-w-[5.5rem] sm:max-w-[6rem]">
+          <Image
+            src="/images/gift-image.png"
+            alt="Ilustrasi hadiah bunga"
+            fill
+            sizes="96px"
+            className="object-contain drop-shadow-[0_22px_46px_rgba(88,68,55,0.14)]"
+          />
+        </div>
+
+        <h2 className="mt-4 font-serif text-[1.35rem] leading-[0.98] text-primary sm:text-[1.55rem]">
           Kirim hadiah
         </h2>
         <p className="mx-auto mt-3 max-w-lg text-[0.72rem] leading-5 text-primary/70 sm:text-[0.78rem]">
@@ -46,7 +56,7 @@ export function GiftScene() {
           tanda kasih, maklumatnya tersedia di sini.
         </p>
 
-        <div className="mt-10">
+        <div className="mt-10 sm:mt-12">
           <Button
             type="button"
             onClick={() => setOpen(true)}

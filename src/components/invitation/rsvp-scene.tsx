@@ -97,7 +97,7 @@ export function RSVPScene() {
   return (
     <section
       id="rsvp"
-      className="relative flex min-h-[100svh] items-center bg-[#f7f1e9] px-5 py-16 sm:px-7 lg:px-10"
+      className="relative bg-[#f7f0e7] px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
     >
       <motion.div
         initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
@@ -107,15 +107,12 @@ export function RSVPScene() {
         className="mx-auto w-full max-w-xl"
       >
         <div className="mx-auto max-w-lg text-center">
-          <p className="text-[0.6rem] uppercase tracking-[0.32em] text-primary/52">
+          <h2 className="font-serif text-[1.35rem] leading-[0.98] text-primary sm:text-[1.55rem]">
             RSVP
-          </p>
-          <h2 className="mt-4 font-serif text-[1.35rem] leading-[0.98] text-primary sm:text-[1.55rem]">
-            Sahkan kehadiran anda
           </h2>
         </div>
 
-        <form onSubmit={handleSubmit} className="mt-10 space-y-5">
+        <form onSubmit={handleSubmit} className="mt-10 space-y-5 sm:mt-12">
           <div className="space-y-2">
             <label className="text-[0.58rem] uppercase tracking-[0.22em] text-primary/58">
               Nama
