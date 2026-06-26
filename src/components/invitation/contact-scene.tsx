@@ -41,7 +41,7 @@ export function ContactScene() {
         </div>
 
         <div className="w-full">
-          <div className="grid gap-4 sm:auto-rows-fr sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-4 auto-rows-fr">
             {contacts.map((contact, index) => {
               const normalizedPhoneNumber = normalizePhoneNumber(contact.phoneNumber);
               const callHref = `tel:+${normalizedPhoneNumber}`;

@@ -109,7 +109,7 @@ export function InvitationHero() {
         }
         className="relative z-10 flex h-full min-h-full w-full flex-col justify-center px-6 py-10 text-center sm:px-8 md:px-8 lg:px-10"
       >
-        <div className="ml-auto flex w-full max-w-sm flex-1 flex-col items-center justify-center sm:max-w-md sm:items-end sm:pr-4 sm:text-right md:pr-4 lg:pr-8">
+        <div className="ml-auto flex w-full max-w-sm flex-1 flex-col items-end justify-center pr-3 text-right sm:max-w-md sm:pr-4 md:pr-4 lg:pr-8">
           <motion.div
             initial={shouldReduceMotion ? false : { opacity: 0, y: 22 }}
             animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
