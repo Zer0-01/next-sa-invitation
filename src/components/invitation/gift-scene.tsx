@@ -68,7 +68,7 @@ export function GiftScene() {
       </motion.div>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-h-[calc(100svh-2rem)] w-[min(calc(100vw-2rem),22rem)] max-w-[22rem] overflow-y-auto rounded-[1.75rem] border-primary/10 bg-[#f8f4ee] px-4 py-6 sm:px-5">
+        <DialogContent className="max-h-[calc(100svh-2rem)] w-[min(calc(100vw-2rem),22rem)] max-w-[22rem] overflow-y-auto rounded-[1.75rem] border-primary/10 bg-[#f8f4ee] bg-[url('/images/bg-18.png')] bg-cover bg-center bg-no-repeat px-4 py-6 sm:px-5">
           <DialogTitle className="sr-only">Maklumat hadiah</DialogTitle>
           <div className="grid grid-cols-1 gap-7">
             {invitationContent.gifts.map((gift) => {

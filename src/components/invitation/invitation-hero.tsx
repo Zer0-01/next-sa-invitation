@@ -5,12 +5,15 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { useEffect, useRef, useState } from "react";
 import { useOpening } from "@/components/OpeningContext";
 import { Button } from "@/components/ui/button";
+import { invitationContent } from "@/lib/invitation-content";
 
 export function InvitationHero() {
   const ref = useRef<HTMLElement | null>(null);
   const [heroHeight, setHeroHeight] = useState<number | null>(null);
   const shouldReduceMotion = useReducedMotion();
   const { unlockInvitation, isUnlocked } = useOpening();
+  const groomName = invitationContent.couple.groom.shortName;
+  const brideName = invitationContent.couple.bride.shortName;
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -37,7 +40,7 @@ export function InvitationHero() {
       return;
     }
 
-    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
     const scrollContainer = document.querySelector<HTMLElement>(
       "[data-invitation-scroll-container='true']"
     );
@@ -75,7 +78,7 @@ export function InvitationHero() {
     <motion.section
       ref={ref}
       style={heroHeight ? { height: `${heroHeight}px`, minHeight: `${heroHeight}px` } : undefined}
-      className="relative min-h-screen overflow-hidden lg:min-h-0"
+      className="relative min-h-screen overflow-hidden md:min-h-0"
     >
       <motion.div
         style={
@@ -86,17 +89,17 @@ export function InvitationHero() {
         className="absolute inset-x-0 -top-[8%] -bottom-[8%]"
       >
         <Image
-          src="/images/bg-15.png"
-          alt="Romantic wedding backdrop"
+          src="/images/bg-16.png"
+          alt="Floral wedding backdrop"
           fill
           priority
-          sizes="(max-width: 1023px) 100vw, 420px"
-          className="object-cover object-center"
+          sizes="(max-width: 767px) 100vw, 420px"
+          className="object-cover object-left"
         />
       </motion.div>
 
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(28,18,12,0.26)_0%,rgba(55,39,28,0.24)_26%,rgba(70,52,39,0.16)_62%,rgba(30,21,16,0.24)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(85,68,52,0.08)_0%,rgba(52,38,28,0.18)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,242,233,0.38)_0%,rgba(247,242,233,0.18)_36%,rgba(239,233,221,0.34)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,242,233,0.12)_0%,rgba(247,242,233,0.08)_30%,rgba(247,242,233,0.52)_100%)]" />
 
       <motion.div
         style={
@@ -104,21 +107,21 @@ export function InvitationHero() {
             ? undefined
             : { y: contentY, opacity: contentOpacity }
         }
-        className="relative z-10 flex h-full min-h-full w-full flex-col items-center justify-center px-6 py-10 text-center"
+        className="relative z-10 flex h-full min-h-full w-full flex-col justify-center px-6 py-10 text-center sm:px-8 md:px-8 lg:px-10"
       >
-        <div className="flex w-full max-w-sm flex-1 flex-col items-center justify-center">
+        <div className="ml-auto flex w-full max-w-sm flex-1 flex-col items-center justify-center sm:max-w-md sm:items-end sm:pr-4 sm:text-right md:pr-4 lg:pr-8">
           <motion.div
             initial={shouldReduceMotion ? false : { opacity: 0, y: 22 }}
             animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="relative h-28 w-28 sm:h-32 sm:w-32"
+            className="relative h-22 w-22 sm:h-24 sm:w-24"
           >
             <Image
-              src="/images/logo.png"
+              src="/images/logo-black.png"
               alt="Danial and Ain monogram"
               fill
               priority
-              sizes="128px"
+              sizes="96px"
               className="object-contain drop-shadow-[0_12px_30px_rgba(43,32,23,0.18)]"
             />
           </motion.div>
@@ -135,18 +138,18 @@ export function InvitationHero() {
                 },
               },
             }}
-            className="mt-8 space-y-4"
+            className="mt-6 space-y-2.5 sm:mt-7"
           >
-            <motion.h1
+            <motion.p
               variants={{
                 hidden: { opacity: 0, y: 18 },
                 visible: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 1.05, ease: "easeOut" }}
-              className="whitespace-nowrap font-serif text-[1.9rem] leading-[0.92] tracking-[-0.025em] text-white drop-shadow-[0_10px_28px_rgba(37,25,17,0.28)] min-[380px]:text-[2.1rem] sm:text-[3.1rem]"
+              className="font-cinzel-decorative text-[1.7rem] leading-[0.95] tracking-[0.03em] text-primary drop-shadow-[0_10px_24px_rgba(94,82,60,0.1)] min-[380px]:text-[1.9rem] sm:text-[2.4rem]"
             >
-              Danial <span className="mx-2 inline-block text-[0.88em] text-[#f1dec2]">&</span> Ain
-            </motion.h1>
+              {groomName}
+            </motion.p>
 
             <motion.p
               variants={{
@@ -154,7 +157,29 @@ export function InvitationHero() {
                 visible: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="font-sans text-[0.62rem] font-medium tracking-[0.34em] text-white/88 uppercase"
+              className="font-spartan text-[0.92rem] uppercase tracking-[0.28em] text-primary/72"
+            >
+              &
+            </motion.p>
+
+            <motion.p
+              variants={{
+                hidden: { opacity: 0, y: 18 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="font-cinzel-decorative text-[1.7rem] leading-[0.95] tracking-[0.03em] text-primary drop-shadow-[0_10px_24px_rgba(94,82,60,0.1)] min-[380px]:text-[1.9rem] sm:text-[2.4rem]"
+            >
+              {brideName}
+            </motion.p>
+
+            <motion.p
+              variants={{
+                hidden: { opacity: 0, y: 18 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="font-spartan text-[0.72rem] uppercase tracking-[0.32em] text-primary/70"
             >
               20.12.26
             </motion.p>
@@ -164,13 +189,13 @@ export function InvitationHero() {
             initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
             animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ delay: 0.95, duration: 1.05, ease: "easeOut" }}
-            className="mt-10"
+            className="mt-8 sm:mt-9"
           >
             <Button
               type="button"
               onClick={unlockInvitation}
               disabled={isUnlocked}
-              className="h-auto rounded-full border border-white/32 bg-white/86 px-8 py-3.5 text-[0.62rem] font-medium uppercase tracking-[0.24em] text-primary shadow-[0_18px_45px_rgba(39,28,20,0.22)] transition-all duration-300 hover:scale-[1.02] hover:bg-white disabled:pointer-events-none disabled:opacity-100"
+              className="h-auto rounded-full border border-primary/18 bg-white/84 px-8 py-3.5 font-spartan text-[0.62rem] font-medium uppercase tracking-[0.24em] text-primary shadow-[0_18px_45px_rgba(39,28,20,0.12)] transition-all duration-300 hover:scale-[1.02] hover:bg-white disabled:pointer-events-none disabled:opacity-100"
             >
               Buka Undangan
             </Button>

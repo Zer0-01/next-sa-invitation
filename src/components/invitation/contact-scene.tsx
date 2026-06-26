@@ -58,7 +58,7 @@ export function ContactScene() {
                     delay: shouldReduceMotion ? 0 : index * 0.06,
                     ease: "easeOut",
                   }}
-                  className="relative flex h-full flex-col rounded-[1.8rem] border border-primary/10 bg-white/66 p-5 pb-9 shadow-[0_22px_48px_rgba(74,58,44,0.08)] backdrop-blur-[1.5px] sm:p-6 sm:pb-10"
+                  className="relative flex h-full flex-col rounded-[1.8rem] border border-primary/10 bg-[#fbf5eb] bg-[url('/images/bg-17.png')] bg-cover bg-center bg-no-repeat p-5 pb-9 shadow-[0_22px_48px_rgba(74,58,44,0.08)] sm:p-6 sm:pb-10"
                 >
                   <h3 className="font-spartan text-[1.18rem] leading-tight text-primary sm:text-[1.26rem]">
                     {contact.name}
