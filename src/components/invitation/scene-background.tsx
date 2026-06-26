@@ -38,7 +38,7 @@ export function SceneBackground({
         alt={alt}
         fill
         priority={priority}
-        sizes="(max-width: 1023px) 100vw, 420px"
+        sizes="(max-width: 767px) 100vw, 420px"
         className="object-cover object-center"
       />
       <div

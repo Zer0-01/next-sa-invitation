@@ -71,7 +71,7 @@ export const OpeningProvider = ({ children }: { children: React.ReactNode }) => 
       return;
     }
 
-    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
     const previousHtmlOverflow = document.documentElement.style.overflow;
     const previousBodyOverflow = document.body.style.overflow;
 
@@ -116,7 +116,7 @@ export const OpeningProvider = ({ children }: { children: React.ReactNode }) => 
         return;
       }
 
-      const mediaQuery = window.matchMedia("(min-width: 1024px)");
+      const mediaQuery = window.matchMedia("(min-width: 768px)");
       const container = document.querySelector<HTMLElement>("[data-invitation-scroll-container='true']");
       const duration = 2600;
 

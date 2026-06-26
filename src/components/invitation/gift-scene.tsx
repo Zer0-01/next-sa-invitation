@@ -29,28 +29,38 @@ export function GiftScene() {
   return (
     <section
       id="gift"
-      className="relative flex min-h-[100svh] items-center bg-[#f5efe8] px-5 py-16 sm:px-7 lg:px-10"
+      className="relative bg-[#f2ebe1] px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
     >
       <motion.div
         initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
         whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.25 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="mx-auto w-full max-w-xl text-center"
+        className="mx-auto flex w-full max-w-3xl flex-col items-center text-center"
       >
-        <h2 className="font-serif text-[1.35rem] leading-[0.98] text-primary sm:text-[1.55rem]">
+        <div className="relative aspect-square w-full max-w-[5.5rem] sm:max-w-[6rem]">
+          <Image
+            src="/images/gift-image.png"
+            alt="Ilustrasi hadiah bunga"
+            fill
+            sizes="96px"
+            className="object-contain drop-shadow-[0_22px_46px_rgba(88,68,55,0.14)]"
+          />
+        </div>
+
+        <h2 className="mt-4 font-spartan text-[1.35rem] leading-[0.98] text-primary sm:text-[1.55rem]">
           Kirim hadiah
         </h2>
-        <p className="mx-auto mt-3 max-w-lg text-[0.72rem] leading-5 text-primary/70 sm:text-[0.78rem]">
+        <p className="mx-auto mt-3 max-w-lg font-spartan text-[0.72rem] leading-5 text-primary/70 sm:text-[0.78rem]">
           Kehadiran anda adalah hadiah paling bermakna. Jika ingin menitipkan
           tanda kasih, maklumatnya tersedia di sini.
         </p>
 
-        <div className="mt-10">
+        <div className="mt-10 sm:mt-12">
           <Button
             type="button"
             onClick={() => setOpen(true)}
-            className="h-auto rounded-full px-6 py-3 text-[0.6rem] uppercase tracking-[0.18em]"
+            className="h-auto rounded-full px-6 py-3 font-spartan text-[0.6rem] uppercase tracking-[0.18em]"
           >
             Kirim Hadiah
           </Button>
@@ -58,7 +68,7 @@ export function GiftScene() {
       </motion.div>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-h-[calc(100svh-2rem)] w-[min(calc(100vw-2rem),22rem)] max-w-[22rem] overflow-y-auto rounded-[1.75rem] border-primary/10 bg-[#f8f4ee] px-4 py-6 sm:px-5">
+        <DialogContent className="max-h-[calc(100svh-2rem)] w-[min(calc(100vw-2rem),22rem)] max-w-[22rem] overflow-y-auto rounded-[1.75rem] border-primary/10 bg-[#f8f4ee] bg-[url('/images/bg-18.png')] bg-cover bg-center bg-no-repeat px-4 py-6 sm:px-5">
           <DialogTitle className="sr-only">Maklumat hadiah</DialogTitle>
           <div className="grid grid-cols-1 gap-7">
             {invitationContent.gifts.map((gift) => {
@@ -66,10 +76,10 @@ export function GiftScene() {
 
               return (
                 <div key={gift.account} className="text-center">
-                  <p className="font-serif text-[1.1rem] leading-none text-primary">
+                  <p className="font-spartan text-[1.1rem] leading-none text-primary">
                     {gift.name}
                   </p>
-                  <p className="mt-2 text-[0.56rem] uppercase tracking-[0.22em] text-primary/52">
+                  <p className="mt-2 font-spartan text-[0.56rem] uppercase tracking-[0.22em] text-primary/52">
                     {gift.bank}
                   </p>
 
@@ -84,11 +94,11 @@ export function GiftScene() {
                   </div>
 
                   <div className="mt-4 space-y-2">
-                    <p className="text-[0.56rem] uppercase tracking-[0.22em] text-primary/52">
+                    <p className="font-spartan text-[0.56rem] uppercase tracking-[0.22em] text-primary/52">
                       Nombor akaun
                     </p>
                     <div className="flex items-center justify-center gap-2">
-                      <p className="font-mono text-[0.68rem] tracking-[0.2em] text-primary/78">
+                      <p className="font-spartan text-[0.68rem] tracking-[0.2em] text-primary/78">
                         {gift.account}
                       </p>
                       <Button

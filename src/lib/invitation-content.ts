@@ -4,6 +4,12 @@ type ScheduleItem = {
   note?: string;
 };
 
+type ContactPerson = {
+  name: string;
+  role: string;
+  phoneNumber: string;
+};
+
 export const invitationContent = {
   couple: {
     groom: {
@@ -163,6 +169,32 @@ export const invitationContent = {
       qr: "/qr-image-danial.jpeg",
     },
   ],
+  contactScene: {
+    title: "Hubungi",
+    imageSrc: "/images/contact-image.png",
+  },
+  contacts: [
+    {
+      name: "Ain",
+      role: "Pengantin Perempuan",
+      phoneNumber: "+60 11-2938 3135",
+    },
+    {
+      name: "Danial",
+      role: "Pengantin Lelaki",
+      phoneNumber: "+60 11-7227 6952",
+    },
+    {
+      name: "Shida",
+      role: "Ibu Saudara Pengantin",
+      phoneNumber: "+60 18-977 4577",
+    },
+    {
+      name: "Durra",
+      role: "Adik Pengantin",
+      phoneNumber: "+60 11-2710 1242",
+    },
+  ] satisfies readonly ContactPerson[],
 } as const;
 
 export type InvitationContent = typeof invitationContent;

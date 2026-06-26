@@ -29,7 +29,7 @@ export function InvitationScenes() {
       return;
     }
 
-    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
     const scrollContainer = document.querySelector<HTMLElement>(
       "[data-invitation-scroll-container='true']"
     );

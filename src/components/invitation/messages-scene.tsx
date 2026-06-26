@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getDocs, orderBy, query } from "firebase/firestore";
 import { motion, useReducedMotion } from "framer-motion";
@@ -78,7 +79,7 @@ export function MessagesScene() {
   return (
     <section
       id="messages"
-      className="relative flex min-h-[100svh] items-center bg-[#f4eee6] px-5 py-16 sm:px-7 lg:px-10"
+      className="relative bg-[#efe7de] px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
     >
       <motion.div
         initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
@@ -88,32 +89,39 @@ export function MessagesScene() {
         className="mx-auto flex w-full max-w-2xl flex-col"
       >
         <div className="text-center">
-          <h2 className="mt-4 font-serif text-[1.45rem] leading-[0.98] text-primary sm:text-[1.7rem]">
+          <div className="relative mx-auto aspect-square w-full max-w-[5.5rem] sm:max-w-[6rem]">
+            <Image
+              src="/images/message-image.png"
+              alt="Sampul surat bunga untuk bahagian ucapan"
+              fill
+              sizes="96px"
+              className="object-contain drop-shadow-[0_18px_34px_rgba(74,58,44,0.12)]"
+            />
+          </div>
+          <h2 className="mt-4 font-spartan text-[1.45rem] leading-[0.98] text-primary sm:text-[1.7rem]">
             Ucapan & Doa
           </h2>
         </div>
 
-        <div
-          className="mt-8 rounded-[1.6rem] border border-primary/10 bg-white/45 p-3 sm:p-4"
-        >
+        <div className="mt-8 rounded-[1.6rem] border border-primary/10 bg-white/45 p-3 sm:mt-10 sm:p-4">
           <div
             ref={scrollerRef}
-            className="max-h-[62svh] space-y-3 overflow-y-auto pr-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="max-h-[36rem] space-y-3 overflow-y-auto rounded-[1.3rem] bg-[#eef0e3] bg-[url('/images/bg-15.png')] bg-cover bg-center bg-no-repeat p-4 pr-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {status === "loading" || status === "initial" ? (
-              <div className="flex min-h-[18rem] items-center justify-center text-[0.68rem] text-primary/56">
+              <div className="flex min-h-[18rem] items-center justify-center font-spartan text-[0.68rem] text-primary/56">
                 Memuatkan ucapan...
               </div>
             ) : null}
 
             {status === "error" ? (
-              <div className="flex min-h-[18rem] items-center justify-center text-center text-[0.68rem] leading-5 text-primary/56">
+              <div className="flex min-h-[18rem] items-center justify-center text-center font-spartan text-[0.68rem] leading-5 text-primary/56">
                 Ucapan belum dapat dimuatkan buat masa ini.
               </div>
             ) : null}
 
             {status === "success" && visibleMessages.length === 0 ? (
-              <div className="flex min-h-[18rem] items-center justify-center text-center text-[0.68rem] leading-5 text-primary/56">
+              <div className="flex min-h-[18rem] items-center justify-center text-center font-spartan text-[0.68rem] leading-5 text-primary/56">
                 Belum ada ucapan lagi. Jadilah yang pertama meninggalkan doa.
               </div>
             ) : null}
@@ -138,10 +146,10 @@ export function MessagesScene() {
                           alignRight ? "rounded-br-md" : "rounded-bl-md"
                         }`}
                       >
-                        <p className="text-[0.56rem] uppercase tracking-[0.22em] text-primary/50">
+                        <p className="font-spartan text-[0.56rem] uppercase tracking-[0.22em] text-primary/50">
                           {author}
                         </p>
-                        <p className="mt-2 text-[0.68rem] leading-5 text-primary/78">
+                        <p className="mt-2 font-spartan text-[0.68rem] leading-5 text-primary/78">
                           {entry.message}
                         </p>
                       </div>
