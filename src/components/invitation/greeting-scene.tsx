@@ -2,7 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion, useMotionValueEvent, type MotionValue } from "framer-motion";
+import {
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  type MotionValue,
+} from "framer-motion";
 import { invitationContent } from "@/lib/invitation-content";
 
 interface GreetingSceneProps {
@@ -45,10 +50,19 @@ function CouplePortrait({
 export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
   const { title, arabicFallback, bismillahSrc, coupleImages, separator } =
     invitationContent.invitationScenes.greeting;
+  const shouldReduceMotion = useReducedMotion();
   const [isInteractive, setIsInteractive] = useState(() => opacity.get() > 0.05);
+  const [showSwipeHint, setShowSwipeHint] = useState(
+    () => opacity.get() > 0.35 && contentY.get() > -6
+  );
 
   useMotionValueEvent(opacity, "change", (value) => {
     setIsInteractive(value > 0.05);
+    setShowSwipeHint(value > 0.35 && contentY.get() > -6);
+  });
+
+  useMotionValueEvent(contentY, "change", (value) => {
+    setShowSwipeHint(opacity.get() > 0.35 && value > -6);
   });
 
   return (
@@ -126,6 +140,35 @@ export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
             </div>
           </div>
         </div>
+
+        <motion.div
+          initial={false}
+          animate={{
+            opacity: showSwipeHint ? 1 : 0,
+            y: showSwipeHint && !shouldReduceMotion ? [0, -4, 0] : 0,
+          }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0.24, ease: "easeOut" }
+              : {
+                  opacity: { duration: 0.24, ease: "easeOut" },
+                  y: {
+                    duration: 1.8,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                  },
+                }
+          }
+          className="pointer-events-none mt-6 flex flex-col items-center gap-2 text-white/78"
+          aria-hidden="true"
+        >
+          <span className="font-spartan text-[0.58rem] uppercase tracking-[0.28em]">
+            Skrol ke bawah
+          </span>
+          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-[2px]">
+            <span className="font-serif text-[1rem] leading-none text-white/84">↓</span>
+          </div>
+        </motion.div>
       </div>
     </motion.div>
   );
