@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useOpening } from "@/components/OpeningContext";
 
-const FULL_ANIMATION_MS = 1680;
+const FULL_ANIMATION_MS = 2400;
 const REDUCED_ANIMATION_MS = 280;
 
 export function EnvelopeOpeningOverlay() {
@@ -44,7 +44,7 @@ export function EnvelopeOpeningOverlay() {
     <motion.div
       initial={false}
       animate={
-        isUnlocked
+        isUnlocked || hasStarted
           ? {
               opacity: 0,
               scale: shouldReduceMotion ? 1 : 0.985,
@@ -56,7 +56,11 @@ export function EnvelopeOpeningOverlay() {
               filter: "blur(0px)",
             }
       }
-      transition={{ duration: shouldReduceMotion ? 0.18 : 0.34, ease: "easeOut" }}
+      transition={{
+        duration: shouldReduceMotion ? 0.18 : 1.85,
+        ease: "easeOut",
+        delay: shouldReduceMotion ? 0 : 0.55,
+      }}
       className="absolute inset-0 z-40 overflow-hidden bg-[linear-gradient(180deg,rgba(247,241,233,0.98)_0%,rgba(242,236,226,0.98)_100%)] md:rounded-[calc(2rem-6px)]"
       aria-hidden={isUnlocked}
     >
@@ -83,7 +87,7 @@ export function EnvelopeOpeningOverlay() {
                     }
               }
               transition={{
-                duration: shouldReduceMotion ? 0.22 : 1.1,
+                duration: shouldReduceMotion ? 0.22 : 1.8,
                 ease: [0.2, 0.8, 0.2, 1],
                 delay: shouldReduceMotion ? 0 : 0.18,
               }}
@@ -119,19 +123,11 @@ export function EnvelopeOpeningOverlay() {
               onClick={handleOpen}
               disabled={hasStarted || isOpening || isUnlocked}
               initial={false}
-              animate={
-                hasStarted
-                  ? {
-                      opacity: 0,
-                      scale: shouldReduceMotion ? 0.96 : 0.76,
-                      y: shouldReduceMotion ? 0 : 4,
-                    }
-                  : {
-                      opacity: 1,
-                      scale: 1,
-                      y: 0,
-                    }
-              }
+              animate={{
+                opacity: 1,
+                scale: 1,
+                y: 0,
+              }}
               whileHover={hasStarted ? undefined : { scale: 1.03 }}
               whileTap={hasStarted ? undefined : { scale: 0.94 }}
               transition={{ duration: 0.22, ease: "easeOut" }}

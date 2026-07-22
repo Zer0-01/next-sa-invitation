@@ -17,7 +17,8 @@ export function InvitationHero() {
   const [heroHeight, setHeroHeight] = useState<number | null>(null);
   const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
-  const { isUnlocked } = useOpening();
+  const { isOpening, isUnlocked } = useOpening();
+  const shouldRevealContent = isOpening || isUnlocked;
   const groomName = invitationContent.couple.groom.shortName;
   const brideName = invitationContent.couple.bride.shortName;
   containerRef.current = scrollContainer;
@@ -128,7 +129,7 @@ export function InvitationHero() {
             animate={
               shouldReduceMotion
                 ? undefined
-                : isUnlocked
+                : shouldRevealContent
                   ? { opacity: 1, y: 0 }
                   : { opacity: 0, y: 22 }
             }
@@ -147,7 +148,7 @@ export function InvitationHero() {
 
           <motion.div
             initial={false}
-            animate={shouldReduceMotion ? undefined : isUnlocked ? "visible" : "hidden"}
+            animate={shouldReduceMotion ? undefined : shouldRevealContent ? "visible" : "hidden"}
             variants={{
               hidden: {},
               visible: {
