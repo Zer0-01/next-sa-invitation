@@ -175,14 +175,9 @@ export const invitationContent = {
   },
   contacts: [
     {
-      name: "Ain",
-      role: "Pengantin Perempuan",
-      phoneNumber: "+60 11-2938 3135",
-    },
-    {
-      name: "Danial",
-      role: "Pengantin Lelaki",
-      phoneNumber: "+60 11-7227 6952",
+      name: "Danish",
+      role: "Adik Pengantin",
+      phoneNumber: "+60 17-319 8743",
     },
     {
       name: "Shida",

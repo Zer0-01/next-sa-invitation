@@ -67,8 +67,8 @@ export function EnvelopeOpeningOverlay() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.72),transparent_40%),linear-gradient(135deg,rgba(99,88,72,0.06),transparent_45%),repeating-linear-gradient(90deg,rgba(126,108,84,0.03)_0,rgba(126,108,84,0.03)_1px,transparent_1px,transparent_6px)]" />
 
       <div className="relative flex h-full flex-col items-center justify-center px-5 py-4 sm:px-7 sm:py-6">
-        <div className="relative flex w-full max-w-[22rem] flex-1 items-center justify-center">
-          <div className="relative h-[min(31rem,calc(100vh-2.5rem))] w-full max-w-[21rem] [perspective:1600px] sm:h-[min(31rem,calc(100vh-4rem))]">
+        <div className="relative flex w-full max-w-88 flex-1 items-center justify-center">
+          <div className="relative h-[min(31rem,calc(100vh-2.5rem))] w-full max-w-84 perspective-[1600px] sm:h-[min(31rem,calc(100vh-4rem))]">
             <div className="absolute inset-x-[6%] bottom-[12%] h-[4.2rem] rounded-full bg-[radial-gradient(circle,rgba(62,46,30,0.18)_0%,rgba(62,46,30,0.08)_45%,transparent_72%)] blur-xl" />
 
             <motion.div
@@ -94,10 +94,10 @@ export function EnvelopeOpeningOverlay() {
               className="absolute inset-x-[12%] bottom-[20.6%] z-20"
             >
               <div className="overflow-hidden rounded-[1.75rem] border border-[#e1d5c6] bg-[#fffdf9] p-2 shadow-[0_24px_60px_rgba(61,50,33,0.16)]">
-                <div className="relative aspect-[9/16] overflow-hidden rounded-[1.35rem] bg-[#f6f1e8]">
+                <div className="relative aspect-3/4 overflow-hidden rounded-[1.35rem] bg-[#f6f1e8]">
                   <Image
-                    src="/images/canva-image.png"
-                    alt="Wedding invitation card for Danial and Ain"
+                    src="/images/envelope-image.png"
+                    alt="Danial and Ain wedding invitation artwork"
                     fill
                     priority
                     sizes="(max-width: 767px) 78vw, 280px"
@@ -107,8 +107,8 @@ export function EnvelopeOpeningOverlay() {
               </div>
             </motion.div>
 
-            <div className="absolute inset-x-[4%] bottom-[18%] z-0 h-[15.5rem] rounded-[2rem] border border-[#e8d9c8] bg-[linear-gradient(180deg,#fbf4ea_0%,#f1dfc9_100%)] shadow-[0_26px_65px_rgba(55,43,29,0.14)]" />
-            <div className="absolute inset-x-[8%] bottom-[39.6%] z-10 h-[1.5rem] rounded-t-[1.35rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.84)_0%,rgba(247,236,223,0.4)_100%)]" />
+            <div className="absolute inset-x-[4%] bottom-[18%] z-0 h-62 rounded-4xl border border-[#e8d9c8] bg-[linear-gradient(180deg,#fbf4ea_0%,#f1dfc9_100%)] shadow-[0_26px_65px_rgba(55,43,29,0.14)]" />
+            <div className="absolute inset-x-[8%] bottom-[39.6%] z-10 h-6 rounded-t-[1.35rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.84)_0%,rgba(247,236,223,0.4)_100%)]" />
             <div className="absolute inset-x-[7%] bottom-[20.5%] z-10 h-[12.6rem] rounded-b-[1.8rem] bg-[linear-gradient(180deg,#f4e6d5_0%,#e9d6bf_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.76)]" />
 
             <div

@@ -41,11 +41,12 @@ export function ContactScene() {
         </div>
 
         <div className="w-full">
-          <div className="grid grid-cols-2 gap-4 auto-rows-fr">
+          <div className="grid grid-cols-2 gap-4 auto-rows-fr sm:mx-auto sm:max-w-[38rem]">
             {contacts.map((contact, index) => {
               const normalizedPhoneNumber = normalizePhoneNumber(contact.phoneNumber);
               const callHref = `tel:+${normalizedPhoneNumber}`;
               const whatsappHref = `https://wa.me/${normalizedPhoneNumber}`;
+              const pyramidClassName = index === 0 ? "col-span-2 mx-auto w-[calc(50%_-_0.5rem)]" : "";
 
               return (
                 <motion.article
@@ -58,7 +59,7 @@ export function ContactScene() {
                     delay: shouldReduceMotion ? 0 : index * 0.06,
                     ease: "easeOut",
                   }}
-                  className="relative flex h-full flex-col rounded-[1.8rem] border border-primary/10 bg-[#fbf5eb] bg-[url('/images/bg-17.png')] bg-cover bg-center bg-no-repeat p-5 pb-9 shadow-[0_22px_48px_rgba(74,58,44,0.08)] sm:p-6 sm:pb-10"
+                  className={`relative flex h-full flex-col rounded-[1.8rem] border border-primary/10 bg-[#fbf5eb] bg-[url('/images/bg-17.png')] bg-cover bg-center bg-no-repeat p-5 pb-9 shadow-[0_22px_48px_rgba(74,58,44,0.08)] sm:p-6 sm:pb-10 ${pyramidClassName}`}
                 >
                   <h3 className="font-spartan text-[1.18rem] leading-tight text-primary sm:text-[1.26rem]">
                     {contact.name}

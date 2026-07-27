@@ -15,40 +15,8 @@ interface GreetingSceneProps {
   contentY: MotionValue<number>;
 }
 
-function CouplePortrait({
-  src,
-  alt,
-  initial,
-}: {
-  src?: string;
-  alt: string;
-  initial: string;
-}) {
-  if (!src) {
-    return (
-      <div className="flex aspect-[4/5] items-center justify-center rounded-[1.7rem] border border-dashed border-white/40 bg-white/12">
-        <div className="text-center">
-          <span className="font-serif text-[2rem] text-white/80">{initial}</span>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="relative aspect-[4/5] overflow-hidden rounded-[1.7rem]">
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes="(max-width: 640px) 40vw, 160px"
-        className="object-cover object-center"
-      />
-    </div>
-  );
-}
-
 export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
-  const { title, arabicFallback, bismillahSrc, coupleImages, separator } =
+  const { title, arabicFallback, bismillahSrc, separator } =
     invitationContent.invitationScenes.greeting;
   const shouldReduceMotion = useReducedMotion();
   const [isInteractive, setIsInteractive] = useState(() => opacity.get() > 0.05);
@@ -96,19 +64,6 @@ export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
           <p className="mx-auto mt-3 max-w-[17rem] font-spartan text-[0.66rem] leading-[1.45] text-white/78 sm:max-w-[18rem] sm:text-[0.72rem] sm:leading-5">
             {invitationContent.greetingText}
           </p>
-        </div>
-
-        <div className="mx-auto mt-5 grid w-full max-w-[14.5rem] grid-cols-2 gap-2.5 sm:max-w-[15.5rem]">
-          <CouplePortrait
-            src={coupleImages.bride}
-            alt={invitationContent.couple.bride.fullName}
-            initial="A"
-          />
-          <CouplePortrait
-            src={coupleImages.groom}
-            alt={invitationContent.couple.groom.fullName}
-            initial="D"
-          />
         </div>
 
         <div className="mt-5 space-y-3.5 text-center">
