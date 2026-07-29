@@ -131,7 +131,7 @@ export function EnvelopeOpeningOverlay() {
               whileHover={hasStarted ? undefined : { scale: 1.03 }}
               whileTap={hasStarted ? undefined : { scale: 0.94 }}
               transition={{ duration: 0.22, ease: "easeOut" }}
-              className="absolute left-1/2 bottom-[29.2%] z-40 flex h-[3.7rem] w-[3.7rem] -translate-x-1/2 items-center justify-center rounded-full border border-[#5b1218]/28 bg-[radial-gradient(circle,#8f1f2a_0%,#761722_58%,#5a1019_100%)] text-[0.62rem] font-semibold tracking-[0.14em] text-[#fff7f2] shadow-[0_8px_14px_rgba(72,14,21,0.18),0_14px_24px_rgba(72,14,21,0.14),inset_0_-3px_6px_rgba(52,7,14,0.2)] transition-transform duration-300 disabled:pointer-events-none"
+              className="absolute left-1/2 bottom-[29.2%] z-40 flex h-[3.7rem] w-[3.7rem] -translate-x-1/2 items-center justify-center rounded-full border border-[#5b1218]/28 bg-[radial-gradient(circle,#8f1f2a_0%,#761722_58%,#5a1019_100%)] text-[0.76rem] font-semibold tracking-[0.08em] text-[#fff7f2] shadow-[0_8px_14px_rgba(72,14,21,0.18),0_14px_24px_rgba(72,14,21,0.14),inset_0_-3px_6px_rgba(52,7,14,0.2)] transition-transform duration-300 disabled:pointer-events-none"
               aria-label="Open invitation"
             >
               <span

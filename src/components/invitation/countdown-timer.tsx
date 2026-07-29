@@ -96,7 +96,7 @@ export function CountdownTimer({ className }: CountdownTimerProps) {
             <p className="font-spartan text-[1.45rem] leading-none text-white sm:text-[2rem]">
               {String(item.value).padStart(2, "0")}
             </p>
-            <p className="mt-2 font-spartan text-[0.52rem] uppercase tracking-[0.22em] text-white/68 sm:text-[0.6rem]">
+            <p className="mt-2 font-spartan text-[0.7rem] uppercase tracking-[0.16em] text-white/68 sm:text-[0.76rem]">
               {item.label}
             </p>
           </motion.div>

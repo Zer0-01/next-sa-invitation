@@ -30,7 +30,7 @@ export function CountdownScene({ opacity, contentY }: CountdownSceneProps) {
         <Button
           type="button"
           onClick={downloadInvitationCalendarEvent}
-          className="mt-7 h-auto rounded-full border border-white/28 bg-white/14 px-6 py-3 font-spartan text-[0.62rem] uppercase tracking-[0.2em] text-white shadow-none hover:bg-white/20"
+          className="mt-7 h-auto rounded-full border border-white/28 bg-white/14 px-6 py-3 font-spartan text-[0.76rem] uppercase tracking-[0.16em] text-white shadow-none hover:bg-white/20"
         >
           Simpan kalendar
         </Button>

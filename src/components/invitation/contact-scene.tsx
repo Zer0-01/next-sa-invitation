@@ -64,7 +64,7 @@ export function ContactScene() {
                   <h3 className="font-spartan text-[1.18rem] leading-tight text-primary sm:text-[1.26rem]">
                     {contact.name}
                   </h3>
-                  <p className="mt-2 font-spartan text-[0.56rem] uppercase tracking-[0.24em] text-primary/48">
+                  <p className="mt-2 font-spartan text-[0.74rem] uppercase tracking-[0.16em] text-primary/48">
                     {contact.role}
                   </p>
 

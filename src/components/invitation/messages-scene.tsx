@@ -109,19 +109,19 @@ export function MessagesScene() {
             className="max-h-[36rem] space-y-3 overflow-y-auto rounded-[1.3rem] bg-[#eef0e3] bg-[url('/images/bg-15.png')] bg-cover bg-center bg-no-repeat p-4 pr-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {status === "loading" || status === "initial" ? (
-              <div className="flex min-h-[18rem] items-center justify-center font-spartan text-[0.68rem] text-primary/56">
+              <div className="flex min-h-[18rem] items-center justify-center font-spartan text-[0.86rem] text-primary/56">
                 Memuatkan ucapan...
               </div>
             ) : null}
 
             {status === "error" ? (
-              <div className="flex min-h-[18rem] items-center justify-center text-center font-spartan text-[0.68rem] leading-5 text-primary/56">
+              <div className="flex min-h-[18rem] items-center justify-center text-center font-spartan text-[0.86rem] leading-6 text-primary/56">
                 Ucapan belum dapat dimuatkan buat masa ini.
               </div>
             ) : null}
 
             {status === "success" && visibleMessages.length === 0 ? (
-              <div className="flex min-h-[18rem] items-center justify-center text-center font-spartan text-[0.68rem] leading-5 text-primary/56">
+              <div className="flex min-h-[18rem] items-center justify-center text-center font-spartan text-[0.86rem] leading-6 text-primary/56">
                 Belum ada ucapan lagi. Jadilah yang pertama meninggalkan doa.
               </div>
             ) : null}
@@ -146,10 +146,10 @@ export function MessagesScene() {
                           alignRight ? "rounded-br-md" : "rounded-bl-md"
                         }`}
                       >
-                        <p className="font-spartan text-[0.56rem] uppercase tracking-[0.22em] text-primary/50">
+                        <p className="font-spartan text-[0.74rem] uppercase tracking-[0.16em] text-primary/50">
                           {author}
                         </p>
-                        <p className="mt-2 font-spartan text-[0.68rem] leading-5 text-primary/78">
+                        <p className="mt-2 font-spartan text-[0.86rem] leading-6 text-primary/78">
                           {entry.message}
                         </p>
                       </div>
