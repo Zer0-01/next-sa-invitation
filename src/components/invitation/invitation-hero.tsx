@@ -102,6 +102,17 @@ export function InvitationHero() {
       style={heroHeight ? { height: `${heroHeight}px`, minHeight: `${heroHeight}px` } : undefined}
       className="relative min-h-screen overflow-hidden bg-[#f7f2e9] md:min-h-0"
     >
+      <div className="absolute inset-y-0 left-1/2 aspect-[1410/2000] h-full -translate-x-1/2">
+        <Image
+          src="/images/dal ain transparent bg.png"
+          alt=""
+          fill
+          priority
+          sizes="71vh"
+          className="object-contain object-center"
+        />
+      </div>
+
       <motion.div
         style={shouldReduceMotion ? undefined : { y: backgroundY }}
         className="absolute left-[-58%] top-[3%] bottom-[-5%] w-[166%] sm:left-[-52%] sm:w-[142%] md:left-[-40%] md:w-[122%]"
@@ -115,17 +126,6 @@ export function InvitationHero() {
           className="object-contain object-left"
         />
       </motion.div>
-
-      <div className="absolute inset-y-0 left-1/2 aspect-[1410/2000] h-full -translate-x-1/2">
-        <Image
-          src="/images/dal ain transparent bg.png"
-          alt=""
-          fill
-          priority
-          sizes="71vh"
-          className="object-contain object-center"
-        />
-      </div>
 
       <motion.div
         style={shouldReduceMotion ? undefined : { y: contentY, opacity: contentOpacity }}
