@@ -7,7 +7,7 @@ import { RSVPScene } from "@/components/invitation/rsvp-scene";
 
 export function WeddingInvitationPage() {
   return (
-    <div className="overflow-x-clip text-[12px] text-foreground">
+    <div className="overflow-x-clip text-foreground">
       <InvitationHero />
       <InvitationScenes />
       <RSVPScene />

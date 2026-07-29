@@ -15,40 +15,8 @@ interface GreetingSceneProps {
   contentY: MotionValue<number>;
 }
 
-function CouplePortrait({
-  src,
-  alt,
-  initial,
-}: {
-  src?: string;
-  alt: string;
-  initial: string;
-}) {
-  if (!src) {
-    return (
-      <div className="flex aspect-[4/5] items-center justify-center rounded-[1.7rem] border border-dashed border-white/40 bg-white/12">
-        <div className="text-center">
-          <span className="font-serif text-[2rem] text-white/80">{initial}</span>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="relative aspect-[4/5] overflow-hidden rounded-[1.7rem]">
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes="(max-width: 640px) 40vw, 160px"
-        className="object-cover object-center"
-      />
-    </div>
-  );
-}
-
 export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
-  const { title, arabicFallback, bismillahSrc, coupleImages, separator } =
+  const { title, arabicFallback, bismillahSrc, separator } =
     invitationContent.invitationScenes.greeting;
   const shouldReduceMotion = useReducedMotion();
   const [isInteractive, setIsInteractive] = useState(() => opacity.get() > 0.05);
@@ -85,7 +53,7 @@ export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
               />
             </div>
           ) : (
-            <p className="font-serif text-[0.92rem] leading-relaxed text-white/90">{arabicFallback}</p>
+            <p className="font-serif text-[1.05rem] leading-relaxed text-white/90">{arabicFallback}</p>
           )}
         </div>
 
@@ -93,22 +61,9 @@ export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
           <h2 className="mt-3 font-spartan text-[1.2rem] leading-[1.02] text-white sm:text-[1.45rem]">
             {title}
           </h2>
-          <p className="mx-auto mt-3 max-w-[17rem] font-spartan text-[0.66rem] leading-[1.45] text-white/78 sm:max-w-[18rem] sm:text-[0.72rem] sm:leading-5">
+          <p className="mx-auto mt-3 max-w-[17rem] font-spartan text-[0.84rem] leading-[1.5] text-white/78 sm:max-w-[18rem] sm:text-[0.9rem] sm:leading-6">
             {invitationContent.greetingText}
           </p>
-        </div>
-
-        <div className="mx-auto mt-5 grid w-full max-w-[14.5rem] grid-cols-2 gap-2.5 sm:max-w-[15.5rem]">
-          <CouplePortrait
-            src={coupleImages.bride}
-            alt={invitationContent.couple.bride.fullName}
-            initial="A"
-          />
-          <CouplePortrait
-            src={coupleImages.groom}
-            alt={invitationContent.couple.groom.fullName}
-            initial="D"
-          />
         </div>
 
         <div className="mt-5 space-y-3.5 text-center">
@@ -116,10 +71,10 @@ export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
             <h3 className="font-cinzel-decorative text-[0.98rem] leading-tight text-white sm:text-[1.12rem]">
               {invitationContent.couple.groom.fullName}
             </h3>
-            <p className="mt-1.5 font-spartan text-[0.66rem] leading-4.5 text-white/72 sm:text-[0.7rem]">
+            <p className="mt-1.5 font-spartan text-[0.82rem] leading-5 text-white/72 sm:text-[0.86rem]">
               Anakanda kepada
             </p>
-            <div className="mt-1 font-spartan text-[0.66rem] leading-4.5 text-white/72 sm:text-[0.7rem]">
+            <div className="mt-1 font-spartan text-[0.82rem] leading-5 text-white/72 sm:text-[0.86rem]">
               <p>{invitationContent.couple.groom.parents[0].replace("Anakanda kepada ", "")} &</p>
               <p>{invitationContent.couple.groom.parents[1].replace("dan ", "")}</p>
             </div>
@@ -131,10 +86,10 @@ export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
             <h3 className="font-cinzel-decorative text-[0.98rem] leading-tight text-white sm:text-[1.12rem]">
               {invitationContent.couple.bride.fullName}
             </h3>
-            <p className="mt-1.5 font-spartan text-[0.66rem] leading-4.5 text-white/72 sm:text-[0.7rem]">
+            <p className="mt-1.5 font-spartan text-[0.82rem] leading-5 text-white/72 sm:text-[0.86rem]">
               Anakanda kepada
             </p>
-            <div className="mt-1 font-spartan text-[0.66rem] leading-4.5 text-white/72 sm:text-[0.7rem]">
+            <div className="mt-1 font-spartan text-[0.82rem] leading-5 text-white/72 sm:text-[0.86rem]">
               <p>{invitationContent.couple.bride.parents[0].replace("Anakanda kepada ", "")} &</p>
               <p>{invitationContent.couple.bride.parents[1].replace("dan ", "")}</p>
             </div>
@@ -162,7 +117,7 @@ export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
           className="pointer-events-none mt-6 flex flex-col items-center gap-2 text-white/78"
           aria-hidden="true"
         >
-          <span className="font-spartan text-[0.58rem] uppercase tracking-[0.28em]">
+          <span className="font-spartan text-[0.74rem] uppercase tracking-[0.2em]">
             Skrol ke bawah
           </span>
           <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-[2px]">

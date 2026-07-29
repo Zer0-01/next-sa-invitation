@@ -124,30 +124,30 @@ export function RSVPScene() {
 
         <form onSubmit={handleSubmit} className="mt-10 space-y-5 sm:mt-12">
           <div className="space-y-2">
-            <label className="font-spartan text-[0.58rem] uppercase tracking-[0.22em] text-primary/58">
+            <label className="font-spartan text-[0.76rem] uppercase tracking-[0.16em] text-primary/58">
               Nama
             </label>
             <Input
               value={name}
               onChange={(event) => setName(event.target.value)}
               placeholder="Nama penuh anda"
-              className="h-11 rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[0.72rem]"
+              className="h-11 rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[0.88rem]"
               aria-invalid={errors.name ? true : undefined}
             />
             {errors.name ? (
-              <p className="font-spartan text-[0.68rem] text-destructive">{errors.name}</p>
+              <p className="font-spartan text-[0.84rem] text-destructive">{errors.name}</p>
             ) : null}
           </div>
 
           <div className="space-y-2">
-            <label className="font-spartan text-[0.58rem] uppercase tracking-[0.22em] text-primary/58">
+            <label className="font-spartan text-[0.76rem] uppercase tracking-[0.16em] text-primary/58">
               Kehadiran
             </label>
             <Select
               value={attendance}
               onValueChange={(value: AttendanceOption) => setAttendance(value)}
             >
-              <SelectTrigger className="h-11 w-full rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[0.68rem]">
+              <SelectTrigger className="h-11 w-full rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[0.86rem]">
                 <SelectValue placeholder="Pilih kehadiran" />
               </SelectTrigger>
               <SelectContent>
@@ -159,12 +159,12 @@ export function RSVPScene() {
 
           {attendance === "hadir" ? (
             <div className="space-y-2">
-              <label className="font-spartan text-[0.58rem] uppercase tracking-[0.22em] text-primary/58">
+              <label className="font-spartan text-[0.76rem] uppercase tracking-[0.16em] text-primary/58">
                 Bilangan pax
               </label>
               <Select value={pax} onValueChange={setPax}>
                 <SelectTrigger
-                  className="h-11 w-full rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[0.68rem]"
+                  className="h-11 w-full rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[0.86rem]"
                   aria-invalid={errors.pax ? true : undefined}
                 >
                   <SelectValue placeholder="Pilih pax" />
@@ -178,13 +178,13 @@ export function RSVPScene() {
                 </SelectContent>
               </Select>
               {errors.pax ? (
-                <p className="font-spartan text-[0.68rem] text-destructive">{errors.pax}</p>
+                <p className="font-spartan text-[0.84rem] text-destructive">{errors.pax}</p>
               ) : null}
             </div>
           ) : null}
 
           <div className="space-y-2">
-            <label className="font-spartan text-[0.58rem] uppercase tracking-[0.22em] text-primary/58">
+            <label className="font-spartan text-[0.76rem] uppercase tracking-[0.16em] text-primary/58">
               Ucapan & doa
             </label>
             <Textarea
@@ -192,7 +192,7 @@ export function RSVPScene() {
               onChange={(event) => setMessage(event.target.value)}
               placeholder="Semoga majlis ini dipermudahkan dan diberkati."
               rows={5}
-              className="rounded-[1.3rem] border-primary/12 bg-white/88 px-4 py-3 font-spartan text-[0.72rem]"
+              className="rounded-[1.3rem] border-primary/12 bg-white/88 px-4 py-3 font-spartan text-[0.88rem]"
             />
           </div>
 
@@ -200,7 +200,7 @@ export function RSVPScene() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="h-auto rounded-full px-6 py-3 font-spartan text-[0.6rem] uppercase tracking-[0.18em]"
+              className="h-auto rounded-full px-6 py-3 font-spartan text-[0.76rem] uppercase tracking-[0.14em]"
             >
               {isSubmitting ? (
                 <>

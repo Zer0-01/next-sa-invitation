@@ -51,7 +51,7 @@ export function GiftScene() {
         <h2 className="mt-4 font-spartan text-[1.35rem] leading-[0.98] text-primary sm:text-[1.55rem]">
           Kirim hadiah
         </h2>
-        <p className="mx-auto mt-3 max-w-lg font-spartan text-[0.72rem] leading-5 text-primary/70 sm:text-[0.78rem]">
+        <p className="mx-auto mt-3 max-w-lg font-spartan text-[0.9rem] leading-6 text-primary/70 sm:text-[0.94rem]">
           Kehadiran anda adalah hadiah paling bermakna. Jika ingin menitipkan
           tanda kasih, maklumatnya tersedia di sini.
         </p>
@@ -60,7 +60,7 @@ export function GiftScene() {
           <Button
             type="button"
             onClick={() => setOpen(true)}
-            className="h-auto rounded-full px-6 py-3 font-spartan text-[0.6rem] uppercase tracking-[0.18em]"
+            className="h-auto rounded-full px-6 py-3 font-spartan text-[0.76rem] uppercase tracking-[0.14em]"
           >
             Kirim Hadiah
           </Button>
@@ -79,7 +79,7 @@ export function GiftScene() {
                   <p className="font-spartan text-[1.1rem] leading-none text-primary">
                     {gift.name}
                   </p>
-                  <p className="mt-2 font-spartan text-[0.56rem] uppercase tracking-[0.22em] text-primary/52">
+                  <p className="mt-2 font-spartan text-[0.74rem] uppercase tracking-[0.16em] text-primary/52">
                     {gift.bank}
                   </p>
 
@@ -94,11 +94,11 @@ export function GiftScene() {
                   </div>
 
                   <div className="mt-4 space-y-2">
-                    <p className="font-spartan text-[0.56rem] uppercase tracking-[0.22em] text-primary/52">
+                    <p className="font-spartan text-[0.74rem] uppercase tracking-[0.16em] text-primary/52">
                       Nombor akaun
                     </p>
                     <div className="flex items-center justify-center gap-2">
-                      <p className="font-spartan text-[0.68rem] tracking-[0.2em] text-primary/78">
+                      <p className="font-spartan text-[0.86rem] tracking-[0.14em] text-primary/78">
                         {gift.account}
                       </p>
                       <Button
