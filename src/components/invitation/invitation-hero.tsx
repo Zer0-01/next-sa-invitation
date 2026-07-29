@@ -142,14 +142,14 @@ export function InvitationHero() {
                   : { opacity: 0, y: 22 }
             }
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="relative h-36 w-36 sm:h-42 sm:w-42"
+            className="relative h-42 w-42"
           >
             <Image
               src="/images/logo-black.png"
               alt="Danial and Ain monogram"
               fill
               priority
-              sizes="(max-width: 639px) 144px, 168px"
+              sizes="168px"
               className="object-contain drop-shadow-[0_12px_30px_rgba(43,32,23,0.18)]"
             />
           </motion.div>
@@ -166,7 +166,7 @@ export function InvitationHero() {
                 },
               },
             }}
-            className="mt-6 space-y-3 sm:mt-7 sm:space-y-3.5"
+            className="mt-7 space-y-3.5"
           >
             <motion.p
               variants={{
@@ -174,7 +174,7 @@ export function InvitationHero() {
                 visible: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 1.05, ease: "easeOut" }}
-              className="font-cinzel-decorative text-[2.3rem] leading-[0.9] tracking-[0.03em] text-primary drop-shadow-[0_10px_24px_rgba(94,82,60,0.1)] min-[380px]:text-[2.65rem] sm:text-[3.35rem]"
+              className="font-cinzel-decorative text-[3.35rem] leading-[0.9] tracking-[0.03em] text-primary drop-shadow-[0_10px_24px_rgba(94,82,60,0.1)]"
             >
               {groomName}
             </motion.p>
@@ -185,7 +185,7 @@ export function InvitationHero() {
                 visible: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="font-spartan text-[1.15rem] uppercase tracking-[0.28em] text-primary/72 sm:text-[1.35rem]"
+              className="font-spartan text-[1.35rem] uppercase tracking-[0.28em] text-primary/72"
             >
               &
             </motion.p>
@@ -196,7 +196,7 @@ export function InvitationHero() {
                 visible: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="font-cinzel-decorative text-[2.3rem] leading-[0.9] tracking-[0.03em] text-primary drop-shadow-[0_10px_24px_rgba(94,82,60,0.1)] min-[380px]:text-[2.65rem] sm:text-[3.35rem]"
+              className="font-cinzel-decorative text-[3.35rem] leading-[0.9] tracking-[0.03em] text-primary drop-shadow-[0_10px_24px_rgba(94,82,60,0.1)]"
             >
               {brideName}
             </motion.p>
@@ -207,7 +207,7 @@ export function InvitationHero() {
                 visible: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="font-spartan text-[0.9rem] uppercase tracking-[0.32em] text-primary/70 sm:text-[1.05rem]"
+              className="font-spartan text-[1.05rem] uppercase tracking-[0.32em] text-primary/70"
             >
               20.12.26
             </motion.p>
