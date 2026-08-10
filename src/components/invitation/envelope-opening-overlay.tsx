@@ -69,6 +69,27 @@ export function EnvelopeOpeningOverlay() {
       <div className="relative flex h-full flex-col items-center justify-center px-5 py-4 sm:px-7 sm:py-6">
         <div className="relative flex w-full max-w-88 flex-1 items-center justify-center">
           <div className="relative h-[min(31rem,calc(100vh-2.5rem))] w-full max-w-84 perspective-[1600px] sm:h-[min(31rem,calc(100vh-4rem))]">
+            <div
+              className={`absolute top-[0.5%] flex w-full items-center justify-center gap-3 px-3 sm:gap-4 ${
+                hasStarted ? "z-10" : "z-40"
+              }`}
+            >
+              <span
+                aria-hidden="true"
+                className="h-px flex-1 bg-linear-to-r from-transparent via-gold/70 to-gold/20"
+              />
+              <div className="flex shrink-0 items-center gap-2 text-primary/84">
+                <span aria-hidden="true" className="h-1 w-1 rotate-45 border border-gold/75" />
+                <p className="font-cinzel-decorative text-[0.95rem] leading-none tracking-[0.1em] sm:text-[1.05rem]">
+                  Anda Dijemput
+                </p>
+                <span aria-hidden="true" className="h-1 w-1 rotate-45 border border-gold/75" />
+              </div>
+              <span
+                aria-hidden="true"
+                className="h-px flex-1 bg-linear-to-l from-transparent via-gold/70 to-gold/20"
+              />
+            </div>
             <div className="absolute inset-x-[6%] bottom-[12%] h-[4.2rem] rounded-full bg-[radial-gradient(circle,rgba(62,46,30,0.18)_0%,rgba(62,46,30,0.08)_45%,transparent_72%)] blur-xl" />
 
             <motion.div
@@ -96,7 +117,7 @@ export function EnvelopeOpeningOverlay() {
               <div className="overflow-hidden rounded-[1.75rem] border border-[#e1d5c6] bg-[#fffdf9] p-2 shadow-[0_24px_60px_rgba(61,50,33,0.16)]">
                 <div className="relative aspect-3/4 overflow-hidden rounded-[1.35rem] bg-[#f6f1e8]">
                   <Image
-                    src="/images/envelope-image.png"
+                    src="/images/envelope-image-1.png"
                     alt="Danial and Ain wedding invitation artwork"
                     fill
                     priority
@@ -132,13 +153,13 @@ export function EnvelopeOpeningOverlay() {
               whileTap={hasStarted ? undefined : { scale: 0.94 }}
               transition={{ duration: 0.22, ease: "easeOut" }}
               className="absolute left-1/2 bottom-[29.2%] z-40 flex h-[3.7rem] w-[3.7rem] -translate-x-1/2 items-center justify-center rounded-full border border-[#5b1218]/28 bg-[radial-gradient(circle,#8f1f2a_0%,#761722_58%,#5a1019_100%)] text-[0.76rem] font-semibold tracking-[0.08em] text-[#fff7f2] shadow-[0_8px_14px_rgba(72,14,21,0.18),0_14px_24px_rgba(72,14,21,0.14),inset_0_-3px_6px_rgba(52,7,14,0.2)] transition-transform duration-300 disabled:pointer-events-none"
-              aria-label="Open invitation"
+              aria-label="Buka jemputan"
             >
               <span
                 aria-hidden="true"
                 className="absolute inset-[0.34rem] rounded-full border border-black/10 opacity-35"
               />
-              <span className="relative -mt-0.5 lowercase">open</span>
+              <span className="relative -mt-0.5 lowercase">buka</span>
             </motion.button>
           </div>
         </div>

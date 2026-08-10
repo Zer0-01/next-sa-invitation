@@ -35,7 +35,7 @@ export function ContactScene() {
               className="object-contain drop-shadow-[0_18px_34px_rgba(74,58,44,0.12)]"
             />
           </div>
-          <h2 className="mt-4 font-spartan text-[1.45rem] leading-[0.98] text-primary sm:text-[1.7rem]">
+          <h2 className="mt-4 font-spartan text-[1.65rem] leading-[0.98] text-primary sm:text-[1.95rem]">
             {contactScene.title}
           </h2>
         </div>
@@ -61,10 +61,10 @@ export function ContactScene() {
                   }}
                   className={`relative flex h-full flex-col rounded-[1.8rem] border border-primary/10 bg-[#fbf5eb] bg-[url('/images/bg-17.png')] bg-cover bg-center bg-no-repeat p-5 pb-9 shadow-[0_22px_48px_rgba(74,58,44,0.08)] sm:p-6 sm:pb-10 ${pyramidClassName}`}
                 >
-                  <h3 className="font-spartan text-[1.18rem] leading-tight text-primary sm:text-[1.26rem]">
+                  <h3 className="font-spartan text-[1.35rem] leading-tight text-primary sm:text-[1.45rem]">
                     {contact.name}
                   </h3>
-                  <p className="mt-2 font-spartan text-[0.74rem] uppercase tracking-[0.16em] text-primary/48">
+                  <p className="mt-2 font-spartan text-[0.86rem] uppercase tracking-[0.16em] text-primary/48">
                     {contact.role}
                   </p>
 
