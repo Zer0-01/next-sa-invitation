@@ -75,7 +75,7 @@ export function CountdownTimer({ className }: CountdownTimerProps) {
   if (timeLeft.isMounted && timeLeft.isExpired) {
     return (
       <div className={className}>
-        <p className="text-center font-spartan text-[1.35rem] leading-tight text-white sm:text-[1.55rem]">
+        <p className="text-center font-spartan text-[1.55rem] leading-tight text-white sm:text-[1.8rem]">
           {invitationContent.invitationScenes.countdown.expiredMessage}
         </p>
       </div>
@@ -93,10 +93,10 @@ export function CountdownTimer({ className }: CountdownTimerProps) {
             transition={{ duration: 0.55, delay: 0.15 + index * 0.08 }}
             className="text-center"
           >
-            <p className="font-spartan text-[1.45rem] leading-none text-white sm:text-[2rem]">
+            <p className="font-spartan text-[1.65rem] leading-none text-white sm:text-[2.3rem]">
               {String(item.value).padStart(2, "0")}
             </p>
-            <p className="mt-2 font-spartan text-[0.7rem] uppercase tracking-[0.16em] text-white/68 sm:text-[0.76rem]">
+            <p className="mt-2 font-spartan text-[0.8rem] uppercase tracking-[0.16em] text-white/68 sm:text-[0.88rem]">
               {item.label}
             </p>
           </motion.div>

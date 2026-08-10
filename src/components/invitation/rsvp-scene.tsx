@@ -117,74 +117,74 @@ export function RSVPScene() {
               className="object-contain drop-shadow-[0_18px_34px_rgba(74,58,44,0.12)]"
             />
           </div>
-          <h2 className="mt-4 font-spartan text-[1.35rem] leading-[0.98] text-primary sm:text-[1.55rem]">
+          <h2 className="mt-4 font-spartan text-[1.55rem] leading-[0.98] text-primary sm:text-[1.8rem]">
             RSVP
           </h2>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-10 space-y-5 sm:mt-12">
           <div className="space-y-2">
-            <label className="font-spartan text-[0.76rem] uppercase tracking-[0.16em] text-primary/58">
+            <label className="font-spartan text-[0.88rem] uppercase tracking-[0.16em] text-primary/58">
               Nama
             </label>
             <Input
               value={name}
               onChange={(event) => setName(event.target.value)}
               placeholder="Nama penuh anda"
-              className="h-11 rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[0.88rem]"
+              className="h-12 rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[1rem]"
               aria-invalid={errors.name ? true : undefined}
             />
             {errors.name ? (
-              <p className="font-spartan text-[0.84rem] text-destructive">{errors.name}</p>
+              <p className="font-spartan text-[0.96rem] text-destructive">{errors.name}</p>
             ) : null}
           </div>
 
           <div className="space-y-2">
-            <label className="font-spartan text-[0.76rem] uppercase tracking-[0.16em] text-primary/58">
+            <label className="font-spartan text-[0.88rem] uppercase tracking-[0.16em] text-primary/58">
               Kehadiran
             </label>
             <Select
               value={attendance}
               onValueChange={(value: AttendanceOption) => setAttendance(value)}
             >
-              <SelectTrigger className="h-11 w-full rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[0.86rem]">
+              <SelectTrigger className="h-12 w-full rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[1rem]">
                 <SelectValue placeholder="Pilih kehadiran" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="hadir">Hadir</SelectItem>
-                <SelectItem value="tidak-hadir">Tidak hadir</SelectItem>
+              <SelectContent className="font-spartan">
+                <SelectItem className="py-2 text-[1rem]" value="hadir">Hadir</SelectItem>
+                <SelectItem className="py-2 text-[1rem]" value="tidak-hadir">Tidak hadir</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           {attendance === "hadir" ? (
             <div className="space-y-2">
-              <label className="font-spartan text-[0.76rem] uppercase tracking-[0.16em] text-primary/58">
+              <label className="font-spartan text-[0.88rem] uppercase tracking-[0.16em] text-primary/58">
                 Bilangan pax
               </label>
               <Select value={pax} onValueChange={setPax}>
                 <SelectTrigger
-                  className="h-11 w-full rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[0.86rem]"
+                  className="h-12 w-full rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[1rem]"
                   aria-invalid={errors.pax ? true : undefined}
                 >
                   <SelectValue placeholder="Pilih pax" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="font-spartan">
                   {Array.from({ length: 10 }, (_, index) => index + 1).map((value) => (
-                    <SelectItem key={value} value={String(value)}>
+                    <SelectItem className="py-2 text-[1rem]" key={value} value={String(value)}>
                       {value}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
               {errors.pax ? (
-                <p className="font-spartan text-[0.84rem] text-destructive">{errors.pax}</p>
+                <p className="font-spartan text-[0.96rem] text-destructive">{errors.pax}</p>
               ) : null}
             </div>
           ) : null}
 
           <div className="space-y-2">
-            <label className="font-spartan text-[0.76rem] uppercase tracking-[0.16em] text-primary/58">
+            <label className="font-spartan text-[0.88rem] uppercase tracking-[0.16em] text-primary/58">
               Ucapan & doa
             </label>
             <Textarea
@@ -192,7 +192,7 @@ export function RSVPScene() {
               onChange={(event) => setMessage(event.target.value)}
               placeholder="Semoga majlis ini dipermudahkan dan diberkati."
               rows={5}
-              className="rounded-[1.3rem] border-primary/12 bg-white/88 px-4 py-3 font-spartan text-[0.88rem]"
+              className="rounded-[1.3rem] border-primary/12 bg-white/88 px-4 py-3 font-spartan text-[1rem]"
             />
           </div>
 
@@ -200,7 +200,7 @@ export function RSVPScene() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="h-auto rounded-full px-6 py-3 font-spartan text-[0.76rem] uppercase tracking-[0.14em]"
+              className="h-auto rounded-full px-6 py-3 font-spartan text-[0.88rem] uppercase tracking-[0.14em]"
             >
               {isSubmitting ? (
                 <>

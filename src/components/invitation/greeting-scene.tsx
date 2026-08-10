@@ -53,43 +53,43 @@ export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
               />
             </div>
           ) : (
-            <p className="font-serif text-[1.05rem] leading-relaxed text-white/90">{arabicFallback}</p>
+            <p className="font-serif text-[1.2rem] leading-relaxed text-white/90">{arabicFallback}</p>
           )}
         </div>
 
         <div className="mt-3.5">
-          <h2 className="mt-3 font-spartan text-[1.2rem] leading-[1.02] text-white sm:text-[1.45rem]">
+          <h2 className="mt-3 font-spartan text-[1.4rem] leading-[1.02] text-white sm:text-[1.65rem]">
             {title}
           </h2>
-          <p className="mx-auto mt-3 max-w-[17rem] font-spartan text-[0.84rem] leading-[1.5] text-white/78 sm:max-w-[18rem] sm:text-[0.9rem] sm:leading-6">
+          <p className="mx-auto mt-3 max-w-[18rem] font-spartan text-[0.96rem] leading-[1.5] text-white/78 sm:max-w-[20rem] sm:text-[1.04rem] sm:leading-7">
             {invitationContent.greetingText}
           </p>
         </div>
 
         <div className="mt-5 space-y-3.5 text-center">
           <div>
-            <h3 className="font-cinzel-decorative text-[0.98rem] leading-tight text-white sm:text-[1.12rem]">
+            <h3 className="font-cinzel-decorative text-[1.12rem] leading-tight text-white sm:text-[1.3rem]">
               {invitationContent.couple.groom.fullName}
             </h3>
-            <p className="mt-1.5 font-spartan text-[0.82rem] leading-5 text-white/72 sm:text-[0.86rem]">
+            <p className="mt-1.5 font-spartan text-[0.94rem] leading-6 text-white/72 sm:text-[1rem]">
               Anakanda kepada
             </p>
-            <div className="mt-1 font-spartan text-[0.82rem] leading-5 text-white/72 sm:text-[0.86rem]">
+            <div className="mt-1 font-spartan text-[0.94rem] leading-6 text-white/72 sm:text-[1rem]">
               <p>{invitationContent.couple.groom.parents[0].replace("Anakanda kepada ", "")} &</p>
               <p>{invitationContent.couple.groom.parents[1].replace("dan ", "")}</p>
             </div>
           </div>
 
-          <p className="font-spartan text-[1rem] text-[#f1dec2]">{separator}</p>
+          <p className="font-spartan text-[1.15rem] text-[#f1dec2]">{separator}</p>
 
           <div>
-            <h3 className="font-cinzel-decorative text-[0.98rem] leading-tight text-white sm:text-[1.12rem]">
+            <h3 className="font-cinzel-decorative text-[1.12rem] leading-tight text-white sm:text-[1.3rem]">
               {invitationContent.couple.bride.fullName}
             </h3>
-            <p className="mt-1.5 font-spartan text-[0.82rem] leading-5 text-white/72 sm:text-[0.86rem]">
+            <p className="mt-1.5 font-spartan text-[0.94rem] leading-6 text-white/72 sm:text-[1rem]">
               Anakanda kepada
             </p>
-            <div className="mt-1 font-spartan text-[0.82rem] leading-5 text-white/72 sm:text-[0.86rem]">
+            <div className="mt-1 font-spartan text-[0.94rem] leading-6 text-white/72 sm:text-[1rem]">
               <p>{invitationContent.couple.bride.parents[0].replace("Anakanda kepada ", "")} &</p>
               <p>{invitationContent.couple.bride.parents[1].replace("dan ", "")}</p>
             </div>
@@ -117,11 +117,11 @@ export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
           className="pointer-events-none mt-6 flex flex-col items-center gap-2 text-white/78"
           aria-hidden="true"
         >
-          <span className="font-spartan text-[0.74rem] uppercase tracking-[0.2em]">
+          <span className="font-spartan text-[0.86rem] uppercase tracking-[0.2em]">
             Skrol ke bawah
           </span>
           <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-[2px]">
-            <span className="font-serif text-[1rem] leading-none text-white/84">↓</span>
+            <span className="font-serif text-[1.15rem] leading-none text-white/84">↓</span>
           </div>
         </motion.div>
       </div>
