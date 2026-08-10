@@ -68,10 +68,28 @@ export function EnvelopeOpeningOverlay() {
 
       <div className="relative flex h-full flex-col items-center justify-center px-5 py-4 sm:px-7 sm:py-6">
         <div className="relative flex w-full max-w-88 flex-1 items-center justify-center">
-          <p className="absolute top-[4%] z-40 font-spartan text-[0.76rem] uppercase tracking-[0.24em] text-primary/72">
-            Anda Dijemput
-          </p>
           <div className="relative h-[min(31rem,calc(100vh-2.5rem))] w-full max-w-84 perspective-[1600px] sm:h-[min(31rem,calc(100vh-4rem))]">
+            <div
+              className={`absolute top-[0.5%] flex w-full items-center justify-center gap-3 px-3 sm:gap-4 ${
+                hasStarted ? "z-10" : "z-40"
+              }`}
+            >
+              <span
+                aria-hidden="true"
+                className="h-px flex-1 bg-linear-to-r from-transparent via-gold/70 to-gold/20"
+              />
+              <div className="flex shrink-0 items-center gap-2 text-primary/84">
+                <span aria-hidden="true" className="h-1 w-1 rotate-45 border border-gold/75" />
+                <p className="font-cinzel-decorative text-[0.95rem] leading-none tracking-[0.1em] sm:text-[1.05rem]">
+                  Anda Dijemput
+                </p>
+                <span aria-hidden="true" className="h-1 w-1 rotate-45 border border-gold/75" />
+              </div>
+              <span
+                aria-hidden="true"
+                className="h-px flex-1 bg-linear-to-l from-transparent via-gold/70 to-gold/20"
+              />
+            </div>
             <div className="absolute inset-x-[6%] bottom-[12%] h-[4.2rem] rounded-full bg-[radial-gradient(circle,rgba(62,46,30,0.18)_0%,rgba(62,46,30,0.08)_45%,transparent_72%)] blur-xl" />
 
             <motion.div
