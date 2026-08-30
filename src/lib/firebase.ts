@@ -1,5 +1,6 @@
-import { initializeApp } from "firebase/app";
+import { getApp, getApps, initializeApp } from "firebase/app";
 
+import { getAuth } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -12,17 +13,12 @@ const clientCredentials = {
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const app = initializeApp(clientCredentials);
+const app = getApps().length ? getApp() : initializeApp(clientCredentials);
 
-const db = getFirestore(app);
-const storage = getStorage(app);
-const attendanceCollection = collection(db, "attendance");
-const messageCollection = collection(db, "message");
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
+export const attendanceCollection = collection(db, "attendance");
+export const messageCollection = collection(db, "message");
 
-export {
-    app,
-    db,
-    storage,
-    attendanceCollection,
-    messageCollection
-}
+export default app;
