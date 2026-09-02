@@ -135,24 +135,39 @@ export const invitationContent = {
   ],
   galleryImages: [
     {
-      src: "/images/bg-4.png",
-      alt: "Floral artwork detail",
-      className: "md:translate-y-12",
+      src: "/images/gallery-1.jpeg",
+      alt: "Danial dan Ain dalam busana sedondon merah",
+      sizes: "(min-width: 768px) 360px, (min-width: 640px) calc(100vw - 3.5rem), calc(100vw - 2.5rem)",
     },
     {
-      src: "/images/bg-5.png",
-      alt: "Soft pastel garden painting",
-      className: "md:-translate-y-4",
+      src: "/images/gallery-2.jpeg",
+      alt: "Momen indah Danial dan Ain bersama",
+      sizes: "(min-width: 768px) 360px, (min-width: 640px) calc(100vw - 3.5rem), calc(100vw - 2.5rem)",
     },
     {
-      src: "/images/bg-8.png",
-      alt: "Romantic seascape painting",
-      className: "md:translate-y-8",
+      src: "/images/gallery-3.jpeg",
+      alt: "Potret Danial dan Ain",
+      sizes: "(min-width: 768px) 360px, (min-width: 640px) calc(100vw - 3.5rem), calc(100vw - 2.5rem)",
     },
     {
-      src: "/images/bg-9.png",
-      alt: "Dreamy garden landscape",
-      className: "md:-translate-y-10",
+      src: "/images/gallery-4.jpeg",
+      alt: "Senyuman Danial dan Ain",
+      sizes: "(min-width: 768px) 360px, (min-width: 640px) calc(100vw - 3.5rem), calc(100vw - 2.5rem)",
+    },
+    {
+      src: "/images/gallery-5.jpeg",
+      alt: "Kenangan manis Danial dan Ain",
+      sizes: "(min-width: 768px) 360px, (min-width: 640px) calc(100vw - 3.5rem), calc(100vw - 2.5rem)",
+    },
+    {
+      src: "/images/gallery-6.jpeg",
+      alt: "Detik kebersamaan Danial dan Ain",
+      sizes: "(min-width: 768px) 360px, (min-width: 640px) calc(100vw - 3.5rem), calc(100vw - 2.5rem)",
+    },
+    {
+      src: "/images/gallery-7.jpeg",
+      alt: "Danial dan Ain menikmati matahari terbenam di tepi laut",
+      sizes: "(min-width: 768px) 360px, (min-width: 640px) calc(100vw - 3.5rem), calc(100vw - 2.5rem)",
     },
   ],
   gifts: [
