@@ -8,6 +8,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PaintedDecoration } from "@/components/invitation/painted-decoration";
 import {
   Select,
   SelectContent,
@@ -98,14 +99,29 @@ export function RSVPScene() {
   return (
     <section
       id="rsvp"
-      className="relative bg-[#f7f0e7] px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
+      className="relative overflow-hidden bg-[#f7f0e7] px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
     >
+      <PaintedDecoration
+        src="/images/decorations/painted-wildflower-edge.png"
+        sizes="(min-width: 1024px) 420px, (min-width: 640px) 340px, 240px"
+        parallaxDistance={42}
+        className="-left-16 top-12 z-0 aspect-[2/3] w-60 sm:-left-24 sm:top-14 sm:w-[21rem] lg:-left-28 lg:top-16 lg:w-[26rem]"
+        imageClassName="scale-x-[-1] opacity-65"
+      />
+      <PaintedDecoration
+        src="/images/decorations/painted-wildflower-edge.png"
+        sizes="(min-width: 1024px) 420px, (min-width: 640px) 340px, 240px"
+        parallaxDistance={42}
+        className="-right-16 bottom-8 z-0 aspect-[2/3] w-60 sm:-right-24 sm:bottom-10 sm:w-[21rem] lg:-right-28 lg:bottom-12 lg:w-[26rem]"
+        imageClassName="opacity-65"
+      />
+
       <motion.div
         initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
         whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.25 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="mx-auto w-full max-w-xl"
+        className="relative z-10 mx-auto w-full max-w-xl"
       >
         <div className="mx-auto max-w-lg text-center">
           <div className="relative mx-auto aspect-square w-full max-w-[5.5rem] sm:max-w-[6rem]">

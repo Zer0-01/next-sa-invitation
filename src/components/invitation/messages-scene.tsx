@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getDocs, orderBy, query } from "firebase/firestore";
 import { motion, useReducedMotion } from "framer-motion";
+import { SparkleField } from "@/components/invitation/sparkle-field";
 import { messageCollection } from "@/lib/firebase";
 
 type Status = "initial" | "loading" | "success" | "error";
@@ -79,17 +80,18 @@ export function MessagesScene() {
   return (
     <section
       id="messages"
-      className="relative bg-[#efe7de] px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
+      className="relative overflow-hidden bg-[#efe7de] px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
     >
+      <SparkleField className="inset-0 z-20" />
       <motion.div
         initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
         whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="mx-auto flex w-full max-w-2xl flex-col"
+        className="relative z-10 mx-auto flex w-full max-w-2xl flex-col"
       >
-        <div className="text-center">
-          <div className="relative mx-auto aspect-square w-full max-w-[5.5rem] sm:max-w-[6rem]">
+        <div className="relative isolate text-center">
+          <div className="relative z-10 mx-auto aspect-square w-full max-w-[5.5rem] sm:max-w-[6rem]">
             <Image
               src="/images/message-image.png"
               alt="Sampul surat bunga untuk bahagian ucapan"
@@ -98,7 +100,7 @@ export function MessagesScene() {
               className="object-contain drop-shadow-[0_18px_34px_rgba(74,58,44,0.12)]"
             />
           </div>
-          <h2 className="mt-4 font-spartan text-[1.65rem] leading-[0.98] text-primary sm:text-[1.95rem]">
+          <h2 className="relative z-10 mt-4 font-spartan text-[1.65rem] leading-[0.98] text-primary sm:text-[1.95rem]">
             Ucapan & Doa
           </h2>
         </div>

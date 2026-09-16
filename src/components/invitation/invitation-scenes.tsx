@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import {
   useReducedMotion,
   useScroll,
@@ -11,6 +11,7 @@ import { CountdownScene } from "@/components/invitation/countdown-scene";
 import { DateVenueScene } from "@/components/invitation/date-venue-scene";
 import { GreetingScene } from "@/components/invitation/greeting-scene";
 import { SceneBackground } from "@/components/invitation/scene-background";
+import { useInvitationScrollContainer } from "@/hooks/use-invitation-scroll-container";
 import { invitationContent } from "@/lib/invitation-content";
 
 const DEFAULT_MOBILE_SCENE_HEIGHT = 900;
@@ -20,60 +21,12 @@ const SCROLL_OFFSETS: NonNullable<UseScrollOptions["offset"]> = [
 ];
 
 export function InvitationScenes() {
-  const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(null);
-  const [isDesktopFrame, setIsDesktopFrame] = useState(false);
-  const [sceneHeight, setSceneHeight] = useState<number | null>(null);
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
-    const scrollContainer = document.querySelector<HTMLElement>(
-      "[data-invitation-scroll-container='true']"
-    );
-    const syncContainerMode = () => {
-      setIsDesktopFrame(mediaQuery.matches);
-      setScrollContainer(mediaQuery.matches ? scrollContainer : null);
-    };
-
-    const syncHeight = () => {
-      const nextHeight =
-        mediaQuery.matches && scrollContainer
-          ? scrollContainer.clientHeight
-          : window.innerHeight;
-
-      setSceneHeight(nextHeight || null);
-    };
-
-    syncContainerMode();
-    syncHeight();
-
-    const resizeObserver =
-      scrollContainer && typeof ResizeObserver !== "undefined"
-        ? new ResizeObserver(syncHeight)
-        : null;
-
-    if (resizeObserver && scrollContainer) {
-      resizeObserver.observe(scrollContainer);
-    }
-    mediaQuery.addEventListener("change", syncContainerMode);
-    mediaQuery.addEventListener("change", syncHeight);
-    window.addEventListener("resize", syncHeight);
-
-    return () => {
-      resizeObserver?.disconnect();
-      mediaQuery.removeEventListener("change", syncContainerMode);
-      mediaQuery.removeEventListener("change", syncHeight);
-      window.removeEventListener("resize", syncHeight);
-    };
-  }, []);
+  const { scrollContainer, viewportHeight } = useInvitationScrollContainer();
 
   return (
     <InvitationScenesContent
-      sceneHeight={sceneHeight}
-      scrollContainer={isDesktopFrame ? scrollContainer : null}
+      sceneHeight={viewportHeight}
+      scrollContainer={scrollContainer}
     />
   );
 }
@@ -117,6 +70,33 @@ function InvitationScenesContent({
     scrollYProgress,
     [0.58, 0.78, 1],
     [0, 1, 1]
+  );
+  const countdownBackgroundOpacity = useTransform(scrollYProgress, () => 1);
+  const venueBackgroundOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.18, 0.2, 0.58, 0.74, 1],
+    [0, 0, 1, 1, 0, 0]
+  );
+  const sceneOneVisibility = useTransform(scrollYProgress, (value) =>
+    value <= 0.36 ? ("visible" as const) : ("hidden" as const)
+  );
+  const sceneTwoVisibility = useTransform(scrollYProgress, (value) =>
+    value >= 0.18 && value <= 0.76 ? ("visible" as const) : ("hidden" as const)
+  );
+  const sceneThreeVisibility = useTransform(scrollYProgress, (value) =>
+    value >= 0.56 ? ("visible" as const) : ("hidden" as const)
+  );
+  const countdownBackgroundVisibility = useTransform(
+    scrollYProgress,
+    () => "visible" as const
+  );
+  const venueBackgroundVisibility = useTransform(scrollYProgress, (value) =>
+    value >= 0.16 && value <= 0.76
+      ? ("visible" as const)
+      : ("hidden" as const)
+  );
+  const greetingBackgroundVisibility = useTransform(scrollYProgress, (value) =>
+    value <= 0.36 ? ("visible" as const) : ("hidden" as const)
   );
 
   const bgOneY = useTransform(
@@ -170,33 +150,51 @@ function InvitationScenesContent({
         style={{ height: `${viewportHeight}px`, minHeight: `${viewportHeight}px` }}
       >
         <SceneBackground
+          src={invitationContent.invitationScenes.countdown.backgroundSrc}
+          alt="Dreamy floral backdrop"
+          opacity={countdownBackgroundOpacity}
+          y={bgThreeY}
+          scale={bgScale}
+          visibility={countdownBackgroundVisibility}
+          className="z-0"
+          overlayClassName="bg-[linear-gradient(180deg,rgba(31,23,17,0.24)_0%,rgba(58,44,33,0.15)_46%,rgba(28,21,16,0.22)_100%)]"
+        />
+        <SceneBackground
+          src={invitationContent.invitationScenes.dateVenue.backgroundSrc}
+          alt="Soft venue backdrop"
+          opacity={venueBackgroundOpacity}
+          y={bgTwoY}
+          scale={bgScale}
+          visibility={venueBackgroundVisibility}
+          className="z-[1]"
+          overlayClassName="bg-[linear-gradient(180deg,rgba(36,25,16,0.22)_0%,rgba(64,48,36,0.16)_48%,rgba(32,23,17,0.24)_100%)]"
+        />
+        <SceneBackground
           src={invitationContent.invitationScenes.greeting.backgroundSrc}
           alt="Romantic garden backdrop"
           opacity={sceneOneOpacity}
           y={bgOneY}
           scale={bgScale}
+          visibility={greetingBackgroundVisibility}
+          className="z-[2]"
           priority
         />
-        <SceneBackground
-          src={invitationContent.invitationScenes.dateVenue.backgroundSrc}
-          alt="Soft venue backdrop"
-          opacity={sceneTwoOpacity}
-          y={bgTwoY}
-          scale={bgScale}
-          overlayClassName="bg-[linear-gradient(180deg,rgba(36,25,16,0.22)_0%,rgba(64,48,36,0.16)_48%,rgba(32,23,17,0.24)_100%)]"
-        />
-        <SceneBackground
-          src={invitationContent.invitationScenes.countdown.backgroundSrc}
-          alt="Dreamy floral backdrop"
-          opacity={sceneThreeOpacity}
-          y={bgThreeY}
-          scale={bgScale}
-          overlayClassName="bg-[linear-gradient(180deg,rgba(31,23,17,0.24)_0%,rgba(58,44,33,0.15)_46%,rgba(28,21,16,0.22)_100%)]"
-        />
 
-        <GreetingScene opacity={sceneOneOpacity} contentY={contentOneY} />
-        <DateVenueScene opacity={sceneTwoOpacity} contentY={contentTwoY} />
-        <CountdownScene opacity={sceneThreeOpacity} contentY={contentThreeY} />
+        <GreetingScene
+          opacity={sceneOneOpacity}
+          contentY={contentOneY}
+          visibility={sceneOneVisibility}
+        />
+        <DateVenueScene
+          opacity={sceneTwoOpacity}
+          contentY={contentTwoY}
+          visibility={sceneTwoVisibility}
+        />
+        <CountdownScene
+          opacity={sceneThreeOpacity}
+          contentY={contentThreeY}
+          visibility={sceneThreeVisibility}
+        />
       </div>
     </section>
   );

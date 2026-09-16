@@ -8,9 +8,10 @@ import { invitationContent } from "@/lib/invitation-content";
 interface DateVenueSceneProps {
   opacity: MotionValue<number>;
   contentY: MotionValue<number>;
+  visibility: MotionValue<"visible" | "hidden">;
 }
 
-export function DateVenueScene({ opacity, contentY }: DateVenueSceneProps) {
+export function DateVenueScene({ opacity, contentY, visibility }: DateVenueSceneProps) {
   const { title, schedule, venueLines } = invitationContent.invitationScenes.dateVenue;
   const [isInteractive, setIsInteractive] = useState(() => opacity.get() > 0.05);
 
@@ -24,8 +25,8 @@ export function DateVenueScene({ opacity, contentY }: DateVenueSceneProps) {
 
   return (
     <motion.div
-      style={{ opacity, y: contentY }}
-      className={`absolute inset-0 flex items-start justify-center px-5 pt-10 pb-7 sm:px-7 sm:pt-12 sm:pb-9 ${
+      style={{ opacity, visibility, y: contentY }}
+      className={`absolute inset-0 z-10 flex items-start justify-center px-5 pt-10 pb-7 sm:px-7 sm:pt-12 sm:pb-9 ${
         isInteractive ? "pointer-events-auto" : "pointer-events-none"
       }`}
     >

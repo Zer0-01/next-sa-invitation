@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform, type UseScrollOptions } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import { useOpening } from "@/components/OpeningContext";
+import { useInvitationScrollContainer } from "@/hooks/use-invitation-scroll-container";
 import { invitationContent } from "@/lib/invitation-content";
 
 const HERO_SCROLL_OFFSETS: NonNullable<UseScrollOptions["offset"]> = [
@@ -14,9 +15,8 @@ const HERO_SCROLL_OFFSETS: NonNullable<UseScrollOptions["offset"]> = [
 export function InvitationHero() {
   const ref = useRef<HTMLElement | null>(null);
   const containerRef = useRef<HTMLElement | null>(null);
-  const [heroHeight, setHeroHeight] = useState<number | null>(null);
-  const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
+  const { scrollContainer, viewportHeight } = useInvitationScrollContainer();
   const { isOpening, isUnlocked } = useOpening();
   const shouldRevealContent = isOpening || isUnlocked;
   const groomName = invitationContent.couple.groom.shortName;
@@ -50,56 +50,14 @@ export function InvitationHero() {
     shouldReduceMotion ? [1, 1] : [1, 0.42]
   );
 
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
-    const scrollContainer = document.querySelector<HTMLElement>(
-      "[data-invitation-scroll-container='true']"
-    );
-
-    const syncScrollContainer = () => {
-      setScrollContainer(mediaQuery.matches ? scrollContainer : null);
-    };
-
-    const syncHeroHeight = () => {
-      const nextHeight =
-        mediaQuery.matches && scrollContainer
-          ? scrollContainer.clientHeight
-          : window.innerHeight;
-
-      setHeroHeight(nextHeight || null);
-    };
-
-    syncScrollContainer();
-    syncHeroHeight();
-
-    const resizeObserver =
-      scrollContainer && typeof ResizeObserver !== "undefined"
-        ? new ResizeObserver(syncHeroHeight)
-        : null;
-
-    if (resizeObserver && scrollContainer) {
-      resizeObserver.observe(scrollContainer);
-    }
-    mediaQuery.addEventListener("change", syncScrollContainer);
-    mediaQuery.addEventListener("change", syncHeroHeight);
-    window.addEventListener("resize", syncHeroHeight);
-
-    return () => {
-      resizeObserver?.disconnect();
-      mediaQuery.removeEventListener("change", syncScrollContainer);
-      mediaQuery.removeEventListener("change", syncHeroHeight);
-      window.removeEventListener("resize", syncHeroHeight);
-    };
-  }, []);
-
   return (
     <motion.section
       ref={ref}
-      style={heroHeight ? { height: `${heroHeight}px`, minHeight: `${heroHeight}px` } : undefined}
+      style={
+        viewportHeight
+          ? { height: `${viewportHeight}px`, minHeight: `${viewportHeight}px` }
+          : undefined
+      }
       className="relative min-h-screen overflow-hidden bg-[#f7f2e9] md:min-h-0"
     >
       <div className="absolute inset-y-0 left-1/2 aspect-[1410/2000] h-full -translate-x-1/2">
@@ -214,6 +172,33 @@ export function InvitationHero() {
           </motion.div>
         </div>
       </motion.div>
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-5 z-20 flex justify-center sm:bottom-6">
+        <motion.a
+          href="#details"
+          initial={false}
+          animate={{
+            opacity: shouldRevealContent ? 1 : 0,
+            y: shouldRevealContent ? 0 : 8,
+          }}
+          transition={{ duration: 0.45, delay: shouldRevealContent ? 1.1 : 0 }}
+          tabIndex={shouldRevealContent ? 0 : -1}
+          aria-hidden={!shouldRevealContent}
+          className="pointer-events-auto flex flex-col items-center gap-1.5 text-primary/62"
+        >
+          <span className="font-spartan text-[0.7rem] uppercase tracking-[0.2em]">
+            Skrol ke bawah
+          </span>
+          <motion.span
+            animate={shouldReduceMotion ? undefined : { y: [0, 4, 0] }}
+            transition={{ duration: 1.6, ease: "easeInOut", repeat: Infinity }}
+            className="flex size-7 items-center justify-center rounded-full border border-primary/18 bg-white/35 font-serif text-[0.95rem] leading-none backdrop-blur-[2px]"
+            aria-hidden="true"
+          >
+            ↓
+          </motion.span>
+        </motion.a>
+      </div>
     </motion.section>
   );
 }

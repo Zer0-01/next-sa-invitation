@@ -8,14 +8,16 @@ import {
   useReducedMotion,
   type MotionValue,
 } from "framer-motion";
+import { CometShower } from "@/components/invitation/decorative-motion";
 import { invitationContent } from "@/lib/invitation-content";
 
 interface GreetingSceneProps {
   opacity: MotionValue<number>;
   contentY: MotionValue<number>;
+  visibility: MotionValue<"visible" | "hidden">;
 }
 
-export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
+export function GreetingScene({ opacity, contentY, visibility }: GreetingSceneProps) {
   const { title, arabicFallback, bismillahSrc, separator } =
     invitationContent.invitationScenes.greeting;
   const shouldReduceMotion = useReducedMotion();
@@ -35,11 +37,12 @@ export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
 
   return (
     <motion.div
-      style={{ opacity, y: contentY }}
-      className={`absolute inset-0 flex items-start justify-center px-5 pt-10 pb-7 sm:px-7 sm:pt-12 sm:pb-9 ${
+      style={{ opacity, visibility, y: contentY }}
+      className={`absolute inset-0 z-10 flex items-start justify-center px-5 pt-10 pb-7 sm:px-7 sm:pt-12 sm:pb-9 ${
         isInteractive ? "pointer-events-auto" : "pointer-events-none"
       }`}
     >
+      <CometShower />
       <div className="relative z-10 flex w-full max-w-[18rem] flex-col text-center sm:max-w-[19.5rem]">
         <div className="mx-auto w-full max-w-[15rem] sm:max-w-[16.5rem]">
           {bismillahSrc ? (

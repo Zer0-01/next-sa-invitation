@@ -1,5 +1,7 @@
 import { ContactScene } from "@/components/invitation/contact-scene";
+import { CreatedByScene } from "@/components/invitation/created-by-scene";
 import { GiftScene } from "@/components/invitation/gift-scene";
+import { GalleryScene } from "@/components/invitation/gallery-scene";
 import { InvitationHero } from "@/components/invitation/invitation-hero";
 import { InvitationScenes } from "@/components/invitation/invitation-scenes";
 import { MessagesScene } from "@/components/invitation/messages-scene";
@@ -10,10 +12,12 @@ export function WeddingInvitationPage() {
     <div className="overflow-x-clip text-foreground">
       <InvitationHero />
       <InvitationScenes />
+      <GalleryScene />
       <RSVPScene />
       <MessagesScene />
       <GiftScene />
       <ContactScene />
+      <CreatedByScene />
     </div>
   );
 }
