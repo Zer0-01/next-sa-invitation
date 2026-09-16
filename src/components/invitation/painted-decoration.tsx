@@ -1,10 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type UseScrollOptions,
+} from "framer-motion";
 import { useMemo, useRef } from "react";
 import { useInvitationScrollContainer } from "@/hooks/use-invitation-scroll-container";
 import { cn } from "@/lib/utils";
+
+const DECORATION_SCROLL_OFFSETS: NonNullable<UseScrollOptions["offset"]> = [
+  "start end",
+  "end start",
+];
 
 interface PaintedDecorationProps {
   src: string;
@@ -34,7 +45,7 @@ export function PaintedDecoration({
   const scrollOptions = useMemo(
     () => ({
       target: decorationRef,
-      offset: ["start end", "end start"] as const,
+      offset: DECORATION_SCROLL_OFFSETS,
       ...(scrollContainer ? { container: containerRef } : {}),
     }),
     [scrollContainer]
