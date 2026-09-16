@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
+import { useInvitationScrollContainer } from "@/hooks/use-invitation-scroll-container";
 import { cn } from "@/lib/utils";
 
 interface PaintedDecorationProps {
@@ -11,6 +12,8 @@ interface PaintedDecorationProps {
   imageClassName?: string;
   sizes: string;
   parallaxDistance?: number;
+  floatDistance?: number;
+  floatDuration?: number;
 }
 
 export function PaintedDecoration({
@@ -19,13 +22,25 @@ export function PaintedDecoration({
   imageClassName,
   sizes,
   parallaxDistance = 36,
+  floatDistance = 0,
+  floatDuration = 7,
 }: PaintedDecorationProps) {
   const decorationRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: decorationRef,
-    offset: ["start end", "end start"],
-  });
+  const { scrollContainer } = useInvitationScrollContainer();
+  containerRef.current = scrollContainer;
+
+  const scrollOptions = useMemo(
+    () => ({
+      target: decorationRef,
+      offset: ["start end", "end start"] as const,
+      ...(scrollContainer ? { container: containerRef } : {}),
+    }),
+    [scrollContainer]
+  );
+
+  const { scrollYProgress } = useScroll(scrollOptions);
   const y = useTransform(
     scrollYProgress,
     [0, 1],
@@ -46,13 +61,27 @@ export function PaintedDecoration({
         style={shouldReduceMotion ? undefined : { y }}
         className="relative size-full"
       >
-        <Image
-          src={src}
-          alt=""
-          fill
-          sizes={sizes}
-          className={cn("object-contain", imageClassName)}
-        />
+        <motion.div
+          animate={
+            shouldReduceMotion || floatDistance === 0
+              ? undefined
+              : { y: [0, -floatDistance, 0], rotate: [0, 0.35, 0] }
+          }
+          transition={{
+            duration: floatDuration,
+            ease: "easeInOut",
+            repeat: Infinity,
+          }}
+          className="relative size-full"
+        >
+          <Image
+            src={src}
+            alt=""
+            fill
+            sizes={sizes}
+            className={cn("object-contain", imageClassName)}
+          />
+        </motion.div>
       </motion.div>
     </motion.div>
   );

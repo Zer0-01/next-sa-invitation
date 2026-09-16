@@ -13,9 +13,10 @@ import { invitationContent } from "@/lib/invitation-content";
 interface GreetingSceneProps {
   opacity: MotionValue<number>;
   contentY: MotionValue<number>;
+  visibility: MotionValue<"visible" | "hidden">;
 }
 
-export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
+export function GreetingScene({ opacity, contentY, visibility }: GreetingSceneProps) {
   const { title, arabicFallback, bismillahSrc, separator } =
     invitationContent.invitationScenes.greeting;
   const shouldReduceMotion = useReducedMotion();
@@ -35,7 +36,7 @@ export function GreetingScene({ opacity, contentY }: GreetingSceneProps) {
 
   return (
     <motion.div
-      style={{ opacity, y: contentY }}
+      style={{ opacity, visibility, y: contentY }}
       className={`absolute inset-0 flex items-start justify-center px-5 pt-10 pb-7 sm:px-7 sm:pt-12 sm:pb-9 ${
         isInteractive ? "pointer-events-auto" : "pointer-events-none"
       }`}

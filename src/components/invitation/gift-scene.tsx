@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import { PaintedDecoration } from "@/components/invitation/painted-decoration";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -29,14 +30,33 @@ export function GiftScene() {
   return (
     <section
       id="gift"
-      className="relative bg-[#f2ebe1] px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
+      className="relative overflow-hidden bg-[#f2ebe1] px-5 py-24 sm:px-7 sm:py-28 lg:px-10 lg:py-32"
     >
+      <PaintedDecoration
+        src="/images/decorations/whimsical-garden-corner.png"
+        sizes="(min-width: 768px) 360px, 88vw"
+        parallaxDistance={28}
+        floatDistance={5}
+        floatDuration={8}
+        className="-left-[30%] -top-20 z-0 aspect-square w-[88%] max-w-[24rem] sm:-left-[24%] sm:-top-24"
+        imageClassName="object-left-top opacity-72"
+      />
+      <PaintedDecoration
+        src="/images/decorations/whimsical-garden-corner.png"
+        sizes="(min-width: 768px) 360px, 88vw"
+        parallaxDistance={-34}
+        floatDistance={6}
+        floatDuration={9.5}
+        className="-bottom-20 -right-[30%] z-0 aspect-square w-[88%] max-w-[24rem] sm:-bottom-24 sm:-right-[24%]"
+        imageClassName="rotate-180 object-left-top opacity-72"
+      />
+
       <motion.div
         initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
         whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.25 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="mx-auto flex w-full max-w-3xl flex-col items-center text-center"
+        className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center text-center"
       >
         <div className="relative aspect-square w-full max-w-[5.5rem] sm:max-w-[6rem]">
           <Image

@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform, type UseScrollOptions } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import { useOpening } from "@/components/OpeningContext";
+import { useInvitationScrollContainer } from "@/hooks/use-invitation-scroll-container";
 import { invitationContent } from "@/lib/invitation-content";
 
 const HERO_SCROLL_OFFSETS: NonNullable<UseScrollOptions["offset"]> = [
@@ -14,9 +15,8 @@ const HERO_SCROLL_OFFSETS: NonNullable<UseScrollOptions["offset"]> = [
 export function InvitationHero() {
   const ref = useRef<HTMLElement | null>(null);
   const containerRef = useRef<HTMLElement | null>(null);
-  const [heroHeight, setHeroHeight] = useState<number | null>(null);
-  const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
+  const { scrollContainer, viewportHeight } = useInvitationScrollContainer();
   const { isOpening, isUnlocked } = useOpening();
   const shouldRevealContent = isOpening || isUnlocked;
   const groomName = invitationContent.couple.groom.shortName;
@@ -50,56 +50,14 @@ export function InvitationHero() {
     shouldReduceMotion ? [1, 1] : [1, 0.42]
   );
 
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
-    const scrollContainer = document.querySelector<HTMLElement>(
-      "[data-invitation-scroll-container='true']"
-    );
-
-    const syncScrollContainer = () => {
-      setScrollContainer(mediaQuery.matches ? scrollContainer : null);
-    };
-
-    const syncHeroHeight = () => {
-      const nextHeight =
-        mediaQuery.matches && scrollContainer
-          ? scrollContainer.clientHeight
-          : window.innerHeight;
-
-      setHeroHeight(nextHeight || null);
-    };
-
-    syncScrollContainer();
-    syncHeroHeight();
-
-    const resizeObserver =
-      scrollContainer && typeof ResizeObserver !== "undefined"
-        ? new ResizeObserver(syncHeroHeight)
-        : null;
-
-    if (resizeObserver && scrollContainer) {
-      resizeObserver.observe(scrollContainer);
-    }
-    mediaQuery.addEventListener("change", syncScrollContainer);
-    mediaQuery.addEventListener("change", syncHeroHeight);
-    window.addEventListener("resize", syncHeroHeight);
-
-    return () => {
-      resizeObserver?.disconnect();
-      mediaQuery.removeEventListener("change", syncScrollContainer);
-      mediaQuery.removeEventListener("change", syncHeroHeight);
-      window.removeEventListener("resize", syncHeroHeight);
-    };
-  }, []);
-
   return (
     <motion.section
       ref={ref}
-      style={heroHeight ? { height: `${heroHeight}px`, minHeight: `${heroHeight}px` } : undefined}
+      style={
+        viewportHeight
+          ? { height: `${viewportHeight}px`, minHeight: `${viewportHeight}px` }
+          : undefined
+      }
       className="relative min-h-screen overflow-hidden bg-[#f7f2e9] md:min-h-0"
     >
       <div className="absolute inset-y-0 left-1/2 aspect-[1410/2000] h-full -translate-x-1/2">

@@ -9,6 +9,7 @@ interface SceneBackgroundProps {
   alt: string;
   opacity: MotionValue<number>;
   y: MotionValue<number>;
+  visibility: MotionValue<"visible" | "hidden">;
   scale?: MotionValue<number>;
   overlayClassName?: string;
   className?: string;
@@ -20,6 +21,7 @@ export function SceneBackground({
   alt,
   opacity,
   y,
+  visibility,
   scale,
   overlayClassName,
   className,
@@ -29,7 +31,11 @@ export function SceneBackground({
 
   return (
     <motion.div
-      style={shouldReduceMotion ? { opacity } : { opacity, y, scale }}
+      style={
+        shouldReduceMotion
+          ? { opacity, visibility }
+          : { opacity, visibility, y, scale }
+      }
       className={cn("absolute inset-0", className)}
       aria-hidden="true"
     >
