@@ -88,7 +88,7 @@ function InvitationScenesContent({
   );
   const countdownBackgroundVisibility = useTransform(
     scrollYProgress,
-    () => "visible" as const
+    (): "visible" | "hidden" => "visible"
   );
   const venueBackgroundVisibility = useTransform(scrollYProgress, (value) =>
     value >= 0.16 && value <= 0.76
