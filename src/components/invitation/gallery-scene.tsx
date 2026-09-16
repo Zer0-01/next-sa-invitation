@@ -11,6 +11,7 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import { PaintedDecoration } from "@/components/invitation/painted-decoration";
 import { invitationContent } from "@/lib/invitation-content";
 
 export function GalleryScene() {
@@ -41,7 +42,22 @@ export function GalleryScene() {
       aria-labelledby="gallery-title"
       className="invitation-surface relative overflow-hidden px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
     >
-      <div className="relative mx-auto w-full max-w-5xl">
+      <PaintedDecoration
+        src="/images/decorations/painted-wildflower-corner.png"
+        sizes="(min-width: 1024px) 420px, (min-width: 640px) 320px, 240px"
+        parallaxDistance={30}
+        className="-left-12 -top-10 z-0 size-64 sm:-left-16 sm:-top-12 sm:size-80 lg:-left-12 lg:-top-14 lg:size-[26rem]"
+        imageClassName="opacity-80"
+      />
+      <PaintedDecoration
+        src="/images/decorations/painted-wildflower-corner.png"
+        sizes="(min-width: 1024px) 420px, (min-width: 640px) 320px, 240px"
+        parallaxDistance={30}
+        className="-bottom-10 -right-12 z-0 size-64 sm:-bottom-12 sm:-right-16 sm:size-80 lg:-bottom-14 lg:-right-12 lg:size-[26rem]"
+        imageClassName="rotate-180 opacity-80"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-5xl">
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
           whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}

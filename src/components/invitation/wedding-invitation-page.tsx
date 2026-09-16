@@ -1,4 +1,5 @@
 import { ContactScene } from "@/components/invitation/contact-scene";
+import { CreatedByScene } from "@/components/invitation/created-by-scene";
 import { GiftScene } from "@/components/invitation/gift-scene";
 import { GalleryScene } from "@/components/invitation/gallery-scene";
 import { InvitationHero } from "@/components/invitation/invitation-hero";
@@ -16,6 +17,7 @@ export function WeddingInvitationPage() {
       <MessagesScene />
       <GiftScene />
       <ContactScene />
+      <CreatedByScene />
     </div>
   );
 }
