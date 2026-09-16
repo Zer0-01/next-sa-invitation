@@ -59,7 +59,6 @@ export function ButterflyDrift() {
       aria-hidden="true"
     >
       <motion.div
-        initial={false}
         animate={
           shouldReduceMotion
             ? undefined
@@ -83,7 +82,6 @@ export function ButterflyDrift() {
       </motion.div>
 
       <motion.div
-        initial={false}
         animate={
           shouldReduceMotion
             ? undefined
