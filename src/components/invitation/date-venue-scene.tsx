@@ -26,7 +26,7 @@ export function DateVenueScene({ opacity, contentY, visibility }: DateVenueScene
   return (
     <motion.div
       style={{ opacity, visibility, y: contentY }}
-      className={`absolute inset-0 flex items-start justify-center px-5 pt-10 pb-7 sm:px-7 sm:pt-12 sm:pb-9 ${
+      className={`absolute inset-0 z-10 flex items-start justify-center px-5 pt-10 pb-7 sm:px-7 sm:pt-12 sm:pb-9 ${
         isInteractive ? "pointer-events-auto" : "pointer-events-none"
       }`}
     >

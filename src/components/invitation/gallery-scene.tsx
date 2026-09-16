@@ -11,6 +11,7 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import { ButterflyDrift } from "@/components/invitation/decorative-motion";
 import { PaintedDecoration } from "@/components/invitation/painted-decoration";
 import { invitationContent } from "@/lib/invitation-content";
 
@@ -56,6 +57,7 @@ export function GalleryScene() {
         className="-bottom-10 -right-12 z-0 size-64 sm:-bottom-12 sm:-right-16 sm:size-80 lg:-bottom-14 lg:-right-12 lg:size-[26rem]"
         imageClassName="rotate-180 opacity-80"
       />
+      <ButterflyDrift />
 
       <div className="relative z-10 mx-auto w-full max-w-5xl">
         <motion.div

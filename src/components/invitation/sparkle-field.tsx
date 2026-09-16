@@ -31,8 +31,8 @@ export function SparkleField({ className }: SparkleFieldProps) {
     >
       {sparkles.map((sparkle, index) => (
         <motion.span
-          key={`${sparkle.left}-${sparkle.top}`}
-          initial={false}
+          key={`${sparkle.left}-${sparkle.restingTop}`}
+          initial={shouldReduceMotion ? false : { top: "-8%", opacity: 0 }}
           animate={
             shouldReduceMotion
               ? {
@@ -40,26 +40,31 @@ export function SparkleField({ className }: SparkleFieldProps) {
                   top: sparkle.restingTop,
                 }
               : {
-                  top: ["-4%", "104%"],
-                  x: [0, sparkle.drift, 0],
-                  opacity: [0, 0.92, 0.72, 0],
-                  scale: [0.55, 1.12, 0.82],
+                  top: ["-8%", "108%"],
+                  x: [0, sparkle.drift * 2, sparkle.drift * 4],
+                  opacity: [0, 1, 0.82, 0],
+                  scale: [0.72, 1.08, 0.9],
                 }
           }
           transition={{
             delay: sparkle.delay,
-            duration: sparkle.duration,
-            ease: "easeInOut",
+            duration: sparkle.duration * 1.35,
+            ease: "linear",
             repeat: shouldReduceMotion ? 0 : Infinity,
           }}
-          className="absolute block rounded-full bg-[radial-gradient(circle,rgba(255,250,252,1)_0%,rgba(255,190,215,0.96)_34%,rgba(224,114,157,0.7)_62%,transparent_76%)] shadow-[0_0_9px_4px_rgba(238,137,177,0.58)]"
+          className="absolute block rounded-full bg-[linear-gradient(180deg,transparent_0%,rgba(246,174,204,0.12)_20%,rgba(238,137,177,0.68)_72%,rgba(255,241,247,0.98)_100%)] drop-shadow-[0_0_6px_rgba(238,137,177,0.82)]"
           style={{
             left: sparkle.left,
-            top: shouldReduceMotion ? sparkle.restingTop : "-4%",
+            top: shouldReduceMotion ? sparkle.restingTop : "-8%",
             width: sparkle.size,
-            height: sparkle.size,
+            height: shouldReduceMotion ? sparkle.size : sparkle.size * 4,
           }}
-        />
+        >
+          <span
+            className="absolute bottom-0 left-1/2 block -translate-x-1/2 rounded-full bg-[#fff6fa] shadow-[0_0_9px_4px_rgba(238,137,177,0.7)]"
+            style={{ width: sparkle.size, height: sparkle.size }}
+          />
+        </motion.span>
       ))}
     </div>
   );

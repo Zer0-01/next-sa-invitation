@@ -172,6 +172,33 @@ export function InvitationHero() {
           </motion.div>
         </div>
       </motion.div>
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-5 z-20 flex justify-center sm:bottom-6">
+        <motion.a
+          href="#details"
+          initial={false}
+          animate={{
+            opacity: shouldRevealContent ? 1 : 0,
+            y: shouldRevealContent ? 0 : 8,
+          }}
+          transition={{ duration: 0.45, delay: shouldRevealContent ? 1.1 : 0 }}
+          tabIndex={shouldRevealContent ? 0 : -1}
+          aria-hidden={!shouldRevealContent}
+          className="pointer-events-auto flex flex-col items-center gap-1.5 text-primary/62"
+        >
+          <span className="font-spartan text-[0.7rem] uppercase tracking-[0.2em]">
+            Skrol ke bawah
+          </span>
+          <motion.span
+            animate={shouldReduceMotion ? undefined : { y: [0, 4, 0] }}
+            transition={{ duration: 1.6, ease: "easeInOut", repeat: Infinity }}
+            className="flex size-7 items-center justify-center rounded-full border border-primary/18 bg-white/35 font-serif text-[0.95rem] leading-none backdrop-blur-[2px]"
+            aria-hidden="true"
+          >
+            ↓
+          </motion.span>
+        </motion.a>
+      </div>
     </motion.section>
   );
 }

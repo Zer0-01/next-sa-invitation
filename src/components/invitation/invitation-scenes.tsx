@@ -71,6 +71,12 @@ function InvitationScenesContent({
     [0.58, 0.78, 1],
     [0, 1, 1]
   );
+  const countdownBackgroundOpacity = useTransform(scrollYProgress, () => 1);
+  const venueBackgroundOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.18, 0.2, 0.58, 0.74, 1],
+    [0, 0, 1, 1, 0, 0]
+  );
   const sceneOneVisibility = useTransform(scrollYProgress, (value) =>
     value <= 0.36 ? ("visible" as const) : ("hidden" as const)
   );
@@ -79,6 +85,18 @@ function InvitationScenesContent({
   );
   const sceneThreeVisibility = useTransform(scrollYProgress, (value) =>
     value >= 0.56 ? ("visible" as const) : ("hidden" as const)
+  );
+  const countdownBackgroundVisibility = useTransform(
+    scrollYProgress,
+    () => "visible" as const
+  );
+  const venueBackgroundVisibility = useTransform(scrollYProgress, (value) =>
+    value >= 0.16 && value <= 0.76
+      ? ("visible" as const)
+      : ("hidden" as const)
+  );
+  const greetingBackgroundVisibility = useTransform(scrollYProgress, (value) =>
+    value <= 0.36 ? ("visible" as const) : ("hidden" as const)
   );
 
   const bgOneY = useTransform(
@@ -132,31 +150,34 @@ function InvitationScenesContent({
         style={{ height: `${viewportHeight}px`, minHeight: `${viewportHeight}px` }}
       >
         <SceneBackground
+          src={invitationContent.invitationScenes.countdown.backgroundSrc}
+          alt="Dreamy floral backdrop"
+          opacity={countdownBackgroundOpacity}
+          y={bgThreeY}
+          scale={bgScale}
+          visibility={countdownBackgroundVisibility}
+          className="z-0"
+          overlayClassName="bg-[linear-gradient(180deg,rgba(31,23,17,0.24)_0%,rgba(58,44,33,0.15)_46%,rgba(28,21,16,0.22)_100%)]"
+        />
+        <SceneBackground
+          src={invitationContent.invitationScenes.dateVenue.backgroundSrc}
+          alt="Soft venue backdrop"
+          opacity={venueBackgroundOpacity}
+          y={bgTwoY}
+          scale={bgScale}
+          visibility={venueBackgroundVisibility}
+          className="z-[1]"
+          overlayClassName="bg-[linear-gradient(180deg,rgba(36,25,16,0.22)_0%,rgba(64,48,36,0.16)_48%,rgba(32,23,17,0.24)_100%)]"
+        />
+        <SceneBackground
           src={invitationContent.invitationScenes.greeting.backgroundSrc}
           alt="Romantic garden backdrop"
           opacity={sceneOneOpacity}
           y={bgOneY}
           scale={bgScale}
-          visibility={sceneOneVisibility}
+          visibility={greetingBackgroundVisibility}
+          className="z-[2]"
           priority
-        />
-        <SceneBackground
-          src={invitationContent.invitationScenes.dateVenue.backgroundSrc}
-          alt="Soft venue backdrop"
-          opacity={sceneTwoOpacity}
-          y={bgTwoY}
-          scale={bgScale}
-          visibility={sceneTwoVisibility}
-          overlayClassName="bg-[linear-gradient(180deg,rgba(36,25,16,0.22)_0%,rgba(64,48,36,0.16)_48%,rgba(32,23,17,0.24)_100%)]"
-        />
-        <SceneBackground
-          src={invitationContent.invitationScenes.countdown.backgroundSrc}
-          alt="Dreamy floral backdrop"
-          opacity={sceneThreeOpacity}
-          y={bgThreeY}
-          scale={bgScale}
-          visibility={sceneThreeVisibility}
-          overlayClassName="bg-[linear-gradient(180deg,rgba(31,23,17,0.24)_0%,rgba(58,44,33,0.15)_46%,rgba(28,21,16,0.22)_100%)]"
         />
 
         <GreetingScene
