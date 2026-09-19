@@ -80,7 +80,7 @@ export const invitationContent = {
         },
         {
           title: "Resepsi",
-          time: "11.00 AM - 4.00 PM",
+          time: "11.30 AM - 4.00 PM",
         },
         {
           title: "Ketibaan Pengantin",
