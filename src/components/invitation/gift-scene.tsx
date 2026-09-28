@@ -26,7 +26,7 @@ const defaultGiftAccount = invitationContent.gifts[0].account;
 export function GiftScene() {
   const shouldReduceMotion = useReducedMotion();
   const [open, setOpen] = useState(false);
-  const [selectedGiftAccount, setSelectedGiftAccount] = useState(defaultGiftAccount);
+  const [selectedGiftAccount, setSelectedGiftAccount] = useState<string>(defaultGiftAccount);
   const [copyStatus, setCopyStatus] = useState<CopyStatus>(null);
 
   async function copyToClipboard(account: string) {
