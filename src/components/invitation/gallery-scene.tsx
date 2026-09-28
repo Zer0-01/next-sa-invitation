@@ -85,13 +85,13 @@ export function GalleryScene() {
           <Carousel
             setApi={setCarouselApi}
             opts={{ align: "start", loop: true }}
-            className="w-full"
+            className="w-full [&_[data-slot=carousel-content]]:touch-pan-y"
           >
             <CarouselContent className="ml-0">
-              {invitationContent.galleryImages.map((image) => (
+              {invitationContent.galleryImages.map((image, index) => (
                 <CarouselItem key={image.src} className="pl-0">
                   <figure
-                    className="relative aspect-[3/4] overflow-hidden rounded-[1.35rem] border border-white/70 bg-[#e9dfd3] shadow-[0_16px_38px_rgba(74,58,44,0.12)] sm:rounded-[1.6rem]"
+                    className="relative aspect-[3/4] overflow-hidden rounded-[1.35rem] border border-white/70 bg-[radial-gradient(circle_at_50%_38%,#f4ebe1_0%,#e9dfd3_58%,#d9c9b9_100%)] shadow-[0_8px_20px_rgba(74,58,44,0.1)] sm:rounded-[1.6rem] sm:shadow-[0_16px_38px_rgba(74,58,44,0.12)]"
                   >
                     <Image
                       src={image.src}
@@ -99,7 +99,7 @@ export function GalleryScene() {
                       fill
                       sizes={image.sizes}
                       aria-hidden="true"
-                      className="scale-110 object-cover blur-2xl"
+                      className="hidden scale-110 object-cover blur-2xl sm:block"
                     />
                     <div className="absolute inset-0 bg-[#31271f]/24" />
                     <Image
@@ -107,7 +107,8 @@ export function GalleryScene() {
                       alt={image.alt}
                       fill
                       sizes={image.sizes}
-                      className="relative z-10 object-contain drop-shadow-[0_12px_24px_rgba(30,23,17,0.28)]"
+                      priority={index === 0}
+                      className="relative z-10 object-contain sm:drop-shadow-[0_12px_24px_rgba(30,23,17,0.28)]"
                     />
                   </figure>
                 </CarouselItem>
