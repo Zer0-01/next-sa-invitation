@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, useMotionValueEvent, type MotionValue } from "framer-motion";
 import { CountdownTimer } from "@/components/invitation/countdown-timer";
 import { Button } from "@/components/ui/button";
-import { downloadInvitationCalendarEvent } from "@/lib/calendar";
+import { openInvitationGoogleCalendar } from "@/lib/calendar";
 
 interface CountdownSceneProps {
   opacity: MotionValue<number>;
@@ -30,7 +30,7 @@ export function CountdownScene({ opacity, contentY, visibility }: CountdownScene
         <CountdownTimer />
         <Button
           type="button"
-          onClick={downloadInvitationCalendarEvent}
+          onClick={openInvitationGoogleCalendar}
           className="mt-7 h-auto rounded-full border border-white/28 bg-white/14 px-6 py-3 font-spartan text-[0.88rem] uppercase tracking-[0.16em] text-white shadow-none hover:bg-white/20"
         >
           Simpan kalendar
