@@ -43,6 +43,7 @@ export const invitationContent = {
     googleCalendarDates: "20261220T030000Z/20261220T083000Z",
     icsStart: "20261220T030000Z",
     icsEnd: "20261220T083000Z",
+    rsvpDeadline: "15 Disember 2026",
   },
   dressCode: "Nuansa lembut, pastel, atau earth tone amat dialu-alukan.",
   intro:
@@ -51,6 +52,7 @@ export const invitationContent = {
     "Dengan penuh kesyukuran ke hadrat Ilahi, kami menjemput Tuan / Puan / Encik / Cik seisi keluarga ke majlis perkahwinan kami",
   heroText:
     "An invitation to witness a day of love, prayer, and a beginning written with grace.",
+  weddingHashtag: "#destineDAlways",
   invitationScenes: {
     greeting: {
       title: "Majlis Perkahwinan Kami",

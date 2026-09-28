@@ -169,6 +169,17 @@ export function InvitationHero() {
             >
               20.12.26
             </motion.p>
+
+            <motion.p
+              variants={{
+                hidden: { opacity: 0, y: 18 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="ml-auto w-fit rounded-full border border-primary/14 bg-white/32 px-3.5 py-1.5 font-spartan text-[0.78rem] tracking-[0.08em] text-primary/72 backdrop-blur-[2px]"
+            >
+              {invitationContent.weddingHashtag}
+            </motion.p>
           </motion.div>
         </div>
       </motion.div>

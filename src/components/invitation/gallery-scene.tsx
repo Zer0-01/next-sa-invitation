@@ -124,6 +124,12 @@ export function GalleryScene() {
           >
             {currentSlide + 1} / {invitationContent.galleryImages.length}
           </p>
+          <p className="mt-5 text-center font-spartan text-[0.82rem] leading-6 text-primary/58">
+            Kongsi kenangan anda dengan
+            <span className="mt-1 block text-[0.9rem] tracking-[0.08em] text-primary/76">
+              {invitationContent.weddingHashtag}
+            </span>
+          </p>
         </div>
       </div>
     </section>

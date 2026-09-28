@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo, useState } from "react";
 import { addDoc, serverTimestamp } from "firebase/firestore";
 import { Loader2 } from "lucide-react";
@@ -9,6 +8,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PaintedDecoration } from "@/components/invitation/painted-decoration";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -18,18 +18,20 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { attendanceCollection, messageCollection } from "@/lib/firebase";
+import { invitationContent } from "@/lib/invitation-content";
 
 type AttendanceOption = "hadir" | "tidak-hadir";
 
 interface FormErrors {
   name?: string;
+  attendance?: string;
   pax?: string;
 }
 
 export function RSVPScene() {
   const shouldReduceMotion = useReducedMotion();
   const [name, setName] = useState("");
-  const [attendance, setAttendance] = useState<AttendanceOption>("hadir");
+  const [attendance, setAttendance] = useState<AttendanceOption | "">("");
   const [pax, setPax] = useState("1");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
@@ -42,6 +44,10 @@ export function RSVPScene() {
 
     if (!name.trim()) {
       nextErrors.name = "Nama diperlukan.";
+    }
+
+    if (!attendance) {
+      nextErrors.attendance = "Sila pilih status kehadiran anda.";
     }
 
     if (attendance === "hadir" && (!Number.isInteger(paxCount) || paxCount < 1)) {
@@ -84,7 +90,7 @@ export function RSVPScene() {
 
       toast.success("RSVP berjaya dihantar.");
       setName("");
-      setAttendance("hadir");
+      setAttendance("");
       setPax("1");
       setMessage("");
       setErrors({});
@@ -99,6 +105,7 @@ export function RSVPScene() {
   return (
     <section
       id="rsvp"
+      aria-labelledby="rsvp-title"
       className="relative overflow-hidden bg-[#f7f0e7] px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
     >
       <PaintedDecoration
@@ -124,18 +131,18 @@ export function RSVPScene() {
         className="relative z-10 mx-auto w-full max-w-xl"
       >
         <div className="mx-auto max-w-lg text-center">
-          <div className="relative mx-auto aspect-square w-full max-w-[5.5rem] sm:max-w-[6rem]">
-            <Image
-              src="/images/rsvp-image.png"
-              alt="Ilustrasi bunga untuk bahagian RSVP"
-              fill
-              sizes="96px"
-              className="object-contain drop-shadow-[0_18px_34px_rgba(74,58,44,0.12)]"
-            />
-          </div>
-          <h2 className="mt-4 font-spartan text-[1.55rem] leading-[0.98] text-primary sm:text-[1.8rem]">
+          <p className="font-spartan text-[0.72rem] uppercase tracking-[0.28em] text-primary/55">
+            Sahkan kehadiran
+          </p>
+          <h2
+            id="rsvp-title"
+            className="mt-3 font-spartan text-[1.7rem] leading-[0.98] text-primary sm:text-[2rem]"
+          >
             RSVP
           </h2>
+          <p className="mt-4 font-spartan text-[1rem] leading-7 text-primary/68 sm:text-[1.05rem]">
+            Mohon sahkan kehadiran anda sebelum {invitationContent.event.rsvpDeadline}.
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-10 space-y-5 sm:mt-12">
@@ -147,7 +154,7 @@ export function RSVPScene() {
               value={name}
               onChange={(event) => setName(event.target.value)}
               placeholder="Nama penuh anda"
-              className="h-12 rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[1rem]"
+              className="h-12 rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[1rem] text-primary placeholder:text-primary/35"
               aria-invalid={errors.name ? true : undefined}
             />
             {errors.name ? (
@@ -156,21 +163,43 @@ export function RSVPScene() {
           </div>
 
           <div className="space-y-2">
-            <label className="font-spartan text-[0.88rem] uppercase tracking-[0.16em] text-primary/58">
-              Kehadiran
-            </label>
-            <Select
-              value={attendance}
-              onValueChange={(value: AttendanceOption) => setAttendance(value)}
+            <p
+              id="attendance-label"
+              className="font-spartan text-[0.88rem] uppercase tracking-[0.16em] text-primary/58"
             >
-              <SelectTrigger className="h-12 w-full rounded-[1.2rem] border-primary/12 bg-white/88 font-spartan text-[1rem]">
-                <SelectValue placeholder="Pilih kehadiran" />
-              </SelectTrigger>
-              <SelectContent className="font-spartan">
-                <SelectItem className="py-2 text-[1rem]" value="hadir">Hadir</SelectItem>
-                <SelectItem className="py-2 text-[1rem]" value="tidak-hadir">Tidak hadir</SelectItem>
-              </SelectContent>
-            </Select>
+              Kehadiran
+            </p>
+            <RadioGroup
+              value={attendance}
+              onValueChange={(value) => {
+                setAttendance(value as AttendanceOption);
+                setErrors((currentErrors) => ({ ...currentErrors, attendance: undefined }));
+              }}
+              aria-labelledby="attendance-label"
+              aria-invalid={errors.attendance ? true : undefined}
+              aria-describedby={errors.attendance ? "attendance-error" : undefined}
+              className="grid gap-3 sm:grid-cols-2"
+            >
+              <label
+                htmlFor="attendance-present"
+                className="flex min-h-16 cursor-pointer items-center gap-3 rounded-[1.2rem] border border-primary/12 bg-white/88 px-4 py-3 font-spartan text-[1rem] text-primary/78 transition-colors hover:border-primary/25 has-[[data-state=checked]]:border-primary/45 has-[[data-state=checked]]:bg-primary/8"
+              >
+                <RadioGroupItem id="attendance-present" value="hadir" />
+                <span>Insya-Allah, saya hadir</span>
+              </label>
+              <label
+                htmlFor="attendance-absent"
+                className="flex min-h-16 cursor-pointer items-center gap-3 rounded-[1.2rem] border border-primary/12 bg-white/88 px-4 py-3 font-spartan text-[1rem] text-primary/78 transition-colors hover:border-primary/25 has-[[data-state=checked]]:border-primary/45 has-[[data-state=checked]]:bg-primary/8"
+              >
+                <RadioGroupItem id="attendance-absent" value="tidak-hadir" />
+                <span>Maaf, tidak dapat hadir</span>
+              </label>
+            </RadioGroup>
+            {errors.attendance ? (
+              <p id="attendance-error" className="font-spartan text-[0.96rem] text-destructive">
+                {errors.attendance}
+              </p>
+            ) : null}
           </div>
 
           {attendance === "hadir" ? (
@@ -188,7 +217,7 @@ export function RSVPScene() {
                 <SelectContent className="font-spartan">
                   {Array.from({ length: 10 }, (_, index) => index + 1).map((value) => (
                     <SelectItem className="py-2 text-[1rem]" key={value} value={String(value)}>
-                      {value}
+                      {value === 1 ? "1 orang — saya sahaja" : `${value} orang`}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -204,11 +233,12 @@ export function RSVPScene() {
               Ucapan & doa
             </label>
             <Textarea
+              id="rsvp-message"
               value={message}
               onChange={(event) => setMessage(event.target.value)}
               placeholder="Semoga majlis ini dipermudahkan dan diberkati."
               rows={5}
-              className="rounded-[1.3rem] border-primary/12 bg-white/88 px-4 py-3 font-spartan text-[1rem]"
+              className="rounded-[1.3rem] border-primary/12 bg-white/88 px-4 py-3 font-spartan text-[1rem] text-primary placeholder:text-primary/35"
             />
           </div>
 
