@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getDocs, orderBy, query } from "firebase/firestore";
 import { motion, useReducedMotion } from "framer-motion";
-import { SparkleField } from "@/components/invitation/sparkle-field";
 import { messageCollection } from "@/lib/firebase";
 
 type Status = "initial" | "loading" | "success" | "error";
@@ -82,7 +81,10 @@ export function MessagesScene() {
       id="messages"
       className="relative overflow-hidden bg-[#efe7de] px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
     >
-      <SparkleField className="inset-0 z-20" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-20 select-none bg-center bg-repeat [background-image:url('/gif/falling_leaves_transparent.gif')] [background-size:360px_360px] sm:[background-size:420px_420px]"
+      />
       <motion.div
         initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
         whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
