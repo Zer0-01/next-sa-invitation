@@ -28,11 +28,18 @@ END:VCALENDAR
 }
 
 export function openInvitationGoogleCalendar() {
+  const description = [
+    "Dengan penuh kesyukuran, kami menjemput anda untuk bersama-sama meraikan hari bahagia kami.",
+    "Kehadiran serta doa restu anda amat kami alu-alukan dan pastinya akan menyerikan lagi majlis istimewa kami.",
+    "",
+    "<i>Bunga melur harum mewangi,<br>Disusun indah di atas para;<br>Kehadiran anda amat kami nanti,<br>Menyerikan majlis penuh bahagia.</i>",
+  ].join("<br>");
+
   const params = new URLSearchParams({
     action: "TEMPLATE",
-    text: `The Wedding of ${invitationContent.couple.groom.shortName} & ${invitationContent.couple.bride.shortName}`,
+    text: "Majlis Persandingan Danial & Ain | #destineDAlways",
     dates: invitationContent.event.googleCalendarDates,
-    details: invitationContent.intro,
+    details: description,
     location: `${invitationContent.event.venueName}, ${invitationContent.event.venueAddress}`,
   });
 
