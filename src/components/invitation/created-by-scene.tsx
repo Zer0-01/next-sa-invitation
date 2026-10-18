@@ -12,7 +12,7 @@ export function CreatedByScene() {
 
       <div className="mx-auto mt-7 max-w-sm">
         <p className="font-cinzel-decorative text-[1.35rem] leading-tight tracking-[0.04em] text-primary sm:text-[1.5rem]">
-          Danial & Ain
+          {invitationContent.couple.groom.shortName} & {invitationContent.couple.bride.shortName}
         </p>
         <p className="mt-3 font-spartan text-[0.88rem] tracking-[0.08em] text-primary/72">
           {invitationContent.weddingHashtag}

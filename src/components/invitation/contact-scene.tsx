@@ -50,7 +50,7 @@ export function ContactScene() {
             {contacts.map((contact, index) => {
               const normalizedPhoneNumber = normalizePhoneNumber(contact.phoneNumber);
               const callHref = `tel:+${normalizedPhoneNumber}`;
-              const whatsappMessage = `Assalamualaikum ${contact.name}, saya ingin bertanya mengenai majlis Danial & Ain.`;
+              const whatsappMessage = `Assalamualaikum ${contact.name}, saya ingin bertanya mengenai majlis ${invitationContent.couple.groom.shortName} & ${invitationContent.couple.bride.shortName}.`;
               const whatsappHref = `https://wa.me/${normalizedPhoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
               return (

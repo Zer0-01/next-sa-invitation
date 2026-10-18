@@ -12,7 +12,7 @@ import {
 } from "@/lib/calendar";
 import { invitationContent } from "@/lib/invitation-content";
 
-const targetDate = new Date("2026-12-20T11:00:00+08:00").getTime();
+const targetDate = new Date(invitationContent.event.countdownTarget).getTime();
 
 export function CountdownSection() {
   const shouldReduceMotion = useReducedMotion();

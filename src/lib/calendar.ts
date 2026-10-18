@@ -37,7 +37,7 @@ export function openInvitationGoogleCalendar() {
 
   const params = new URLSearchParams({
     action: "TEMPLATE",
-    text: "Majlis Persandingan Danial & Ain | #destineDAlways",
+    text: `Majlis Persandingan ${invitationContent.couple.groom.shortName} & ${invitationContent.couple.bride.shortName} | ${invitationContent.weddingHashtag}`,
     dates: invitationContent.event.googleCalendarDates,
     details: description,
     location: `${invitationContent.event.venueName}, ${invitationContent.event.venueAddress}`,

@@ -141,7 +141,7 @@ export function ParallaxHero() {
                       {invitationContent.event.venueName}
                     </p>
                     <p className="mt-1 text-sm leading-6 text-primary/72">
-                      Pandan Indah, Kuala Lumpur
+                      {invitationContent.event.venueAddress}
                     </p>
                   </div>
                 </div>

@@ -167,7 +167,7 @@ export function InvitationHero() {
               transition={{ duration: 1, ease: "easeOut" }}
               className="font-spartan text-[1.05rem] uppercase tracking-[0.32em] text-primary/70"
             >
-              20.12.26
+              {invitationContent.event.compactDate}
             </motion.p>
 
             <motion.p

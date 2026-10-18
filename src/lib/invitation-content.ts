@@ -13,37 +13,36 @@ type ContactPerson = {
 export const invitationContent = {
   couple: {
     groom: {
-      shortName: "Danial",
-      fullName: "Khairil Danial",
+      shortName: "Amirul",
+      fullName: "Amirul Hazeq",
       parents: [
-        "Anakanda kepada Khairil Azreen Bin Jamian",
-        "dan Kartini Binti Yusof",
+        "Anakanda kepada Azizan bin Mahmood",
+        "dan Hanita binti Jaffar",
       ],
     },
     bride: {
-      shortName: "Ain",
-      fullName: "Siti Nurdanyizatul Ain",
+      shortName: "Nurin",
+      fullName: "Nurin Qasdina",
       parents: [
-        "Anakanda kepada Sahrizat Azam Bin Saidin",
-        "dan Hasniza Binti Ismail",
+        "Anakanda kepada Nazaruddin bin Muhamad",
+        "dan Azura binti Ahmad",
       ],
     },
   },
   event: {
     label: "Walimatulurus",
-    date: "Ahad, 20 Disember 2026",
-    shortDate: "20 Disember 2026",
-    compactDate: "20.12.2026",
+    date: "Sabtu, 2 Januari 2027",
+    shortDate: "2 Januari 2027",
+    compactDate: "02.01.2027",
     time: "11:00 pagi - 4:30 petang",
-    venueName: "RIQ Glass Hall",
+    venueName: "Dewan Adam Hawa",
     venueAddress:
-      "Pandan Kapital, Ground Floor, Jalan Pandan Utama, Pandan Indah, 55100 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur",
-    mapUrl: "https://maps.app.goo.gl/oKhhmjWQJPmHLbu86",
-    countdownTarget: "2026-12-20T11:00:00+08:00",
-    googleCalendarDates: "20261220T033000Z/20261220T080000Z",
-    icsStart: "20261220T033000Z",
-    icsEnd: "20261220T080000Z",
-    rsvpDeadline: "15 Disember 2026",
+      "Lot 16050A, Jalan Rahmat, Kampung Teras Jernang, 43000 Bandar Baru Bangi, Selangor",
+    countdownTarget: "2027-01-02T11:00:00+08:00",
+    googleCalendarDates: "20270102T033000Z/20270102T080000Z",
+    icsStart: "20270102T033000Z",
+    icsEnd: "20270102T080000Z",
+    rsvpDeadline: "28 Disember 2026",
   },
   dressCode: "Nuansa lembut, pastel, atau earth tone amat dialu-alukan.",
   intro:
@@ -67,12 +66,11 @@ export const invitationContent = {
     },
     dateVenue: {
       backgroundSrc: "/images/bg-13.png",
-      title: "Ahad, 20 Disember 2026",
+      title: "Sabtu, 2 Januari 2027",
       venueLines: [
-        "Riq Glass Hall, Pandan Kapital",
-        "Ground Floor, Jalan Pandan Utama,",
-        "Pandan Indah, 55100 Kuala Lumpur,",
-        "Wilayah Persekutuan Kuala Lumpur",
+        "Lot 16050A, Jalan Rahmat,",
+        "Kampung Teras Jernang,",
+        "43000 Bandar Baru Bangi, Selangor",
       ],
       schedule: [
         {

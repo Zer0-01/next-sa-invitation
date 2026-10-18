@@ -20,7 +20,10 @@ export function DateVenueScene({ opacity, contentY, visibility }: DateVenueScene
   });
 
   const openMap = () => {
-    window.open(invitationContent.event.mapUrl, "_blank", "noopener,noreferrer");
+    const query = encodeURIComponent(
+      `${invitationContent.event.venueName}, ${invitationContent.event.venueAddress}`
+    );
+    window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, "_blank", "noopener,noreferrer");
   };
 
   return (

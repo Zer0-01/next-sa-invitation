@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import InvitationOpening from "@/components/InvitationOpening";
+import { invitationContent } from "@/lib/invitation-content";
 
 export const metadata: Metadata = {
-  title: "Danial & Ain | Undangan Perkahwinan",
-  description:
-    "Majlis perkahwinan Danial dan Ain pada Ahad, 20 Disember 2026 di RIQ Glass Hall, Ampang.",
+  title: `${invitationContent.couple.groom.shortName} & ${invitationContent.couple.bride.shortName} | Undangan Perkahwinan`,
+  description: `Majlis perkahwinan ${invitationContent.couple.groom.shortName} dan ${invitationContent.couple.bride.shortName} pada ${invitationContent.event.date} di ${invitationContent.event.venueName}, Bandar Baru Bangi.`,
 };
 
 export default function PublicLayout({
