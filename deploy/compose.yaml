@@ -1,0 +1,26 @@
+# Ustad invitation stack, started by deploy.sh from
+# /home/ubuntu/apps/sa-invitation-deploy/ustad with:
+#   docker compose --env-file release.env up -d
+# release.env holds IMAGE_TAG, the commit SHA being deployed.
+name: sa-invitation-ustad
+
+services:
+  website:
+    image: ghcr.io/zer0-01/next-sa-invitation:${IMAGE_TAG:?set IMAGE_TAG in release.env}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 10s
+    networks:
+      web:
+        # Caddy (infra) proxies nurinamirulsheart.keyplee.com to
+        # sa-invitation-ustad:3000.
+        aliases:
+          - sa-invitation-ustad
+
+networks:
+  web:
+    external: true
