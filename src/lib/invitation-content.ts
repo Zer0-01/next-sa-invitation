@@ -69,7 +69,7 @@ export const invitationContent = {
     "Dengan penuh kesyukuran ke hadrat Ilahi, kami menjemput Tuan / Puan / Encik / Cik seisi keluarga ke majlis perkahwinan kami",
   heroText:
     "An invitation to witness a day of love, prayer, and a beginning written with grace.",
-  weddingHashtag: "#destineDAlways",
+  weddingHashtag: "#NurInAmirulsHeart",
   invitationScenes: {
     greeting: {
       title: "Majlis Perkahwinan Kami",

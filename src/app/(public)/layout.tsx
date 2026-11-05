@@ -2,9 +2,44 @@ import type { Metadata } from "next";
 import InvitationOpening from "@/components/InvitationOpening";
 import { invitationContent } from "@/lib/invitation-content";
 
+const { groom, bride } = invitationContent.couple;
+const { event } = invitationContent;
+
+const shareTitle = `${event.label} ${groom.shortName} & ${bride.shortName} · ${event.shortDate}`;
+const shareDescription = `Dengan penuh kesyukuran, kami menjemput anda ke majlis perkahwinan ${groom.shortName} & ${bride.shortName} pada ${event.date} di ${event.venueName}, ${event.venueArea}.`;
+
+/**
+ * Absolute base URL for share previews (WhatsApp needs a full image URL).
+ * Set NEXT_PUBLIC_SITE_URL to the live domain; Vercel's production URL is
+ * used as a fallback when deployed there.
+ */
+function getSiteUrl() {
+  const configured =
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : undefined);
+
+  return configured ? new URL(configured) : undefined;
+}
+
+// The preview image itself comes from opengraph-image.jpg next to this file.
 export const metadata: Metadata = {
-  title: `${invitationContent.couple.groom.shortName} & ${invitationContent.couple.bride.shortName} | Undangan Perkahwinan`,
-  description: `Majlis perkahwinan ${invitationContent.couple.groom.shortName} dan ${invitationContent.couple.bride.shortName} pada ${invitationContent.event.date} di ${invitationContent.event.venueName}, Bandar Baru Bangi.`,
+  metadataBase: getSiteUrl(),
+  title: `${groom.shortName} & ${bride.shortName} | Undangan Perkahwinan`,
+  description: shareDescription,
+  openGraph: {
+    type: "website",
+    locale: "ms_MY",
+    title: shareTitle,
+    description: shareDescription,
+    siteName: `${groom.shortName} & ${bride.shortName}`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: shareTitle,
+    description: shareDescription,
+  },
 };
 
 export default function PublicLayout({
