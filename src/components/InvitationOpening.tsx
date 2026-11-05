@@ -9,6 +9,7 @@ const InvitationShell = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div
+      data-invitation-frame="true"
       className={`relative w-full ${
         isUnlocked ? "min-h-screen md:min-h-0" : "h-screen"
       } md:h-[calc(100vh-4rem)] md:max-h-[860px] md:w-[420px] md:max-w-full md:overflow-hidden md:rounded-[2rem] md:border-[6px] md:border-white md:shadow-[0_28px_70px_rgba(42,31,18,0.22)]`}

@@ -1,44 +1,64 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useCallback, useRef, useState } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { ButterflyDrift } from "@/components/invitation/decorative-motion";
+import { GalleryDots } from "@/components/invitation/gallery-dots";
+import { GalleryLightbox } from "@/components/invitation/gallery-lightbox";
 import { PaintedDecoration } from "@/components/invitation/painted-decoration";
+import { useCarouselAutoplay } from "@/hooks/use-carousel-autoplay";
+import { useCarouselSelectedIndex } from "@/hooks/use-carousel-selected-index";
 import { invitationContent } from "@/lib/invitation-content";
+import { cn } from "@/lib/utils";
+
+const ARCH_FRAME_RADIUS = "rounded-t-[50%_33.333%] rounded-b-[1.5rem]";
 
 export function GalleryScene() {
   const shouldReduceMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { amount: 0.4 });
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const currentSlide = useCarouselSelectedIndex(carouselApi);
+  const images = invitationContent.galleryImages;
 
-  useEffect(() => {
-    if (!carouselApi) {
+  const { stopAutoplay } = useCarouselAutoplay(carouselApi, {
+    enabled: !shouldReduceMotion && isInView && !isHovered && !isLightboxOpen,
+  });
+
+  const goToSlide = (index: number) => {
+    stopAutoplay();
+    carouselApi?.scrollTo(index);
+  };
+
+  const handleSlideClick = (index: number) => {
+    if (index === currentSlide) {
+      stopAutoplay();
+      setIsLightboxOpen(true);
       return;
     }
 
-    const updateCurrentSlide = () => {
-      setCurrentSlide(carouselApi.selectedScrollSnap());
-    };
+    goToSlide(index);
+  };
 
-    updateCurrentSlide();
-    carouselApi.on("select", updateCurrentSlide);
-
-    return () => {
-      carouselApi.off("select", updateCurrentSlide);
-    };
-  }, [carouselApi]);
+  const syncFromLightbox = useCallback(
+    (index: number) => {
+      carouselApi?.scrollTo(index, true);
+    },
+    [carouselApi],
+  );
 
   return (
     <section
+      ref={sectionRef}
       id="gallery"
       aria-labelledby="gallery-title"
       className="invitation-surface relative overflow-hidden px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
@@ -84,47 +104,76 @@ export function GalleryScene() {
         <div className="mt-10 sm:mt-12">
           <Carousel
             setApi={setCarouselApi}
-            opts={{ align: "start", loop: true }}
-            className="w-full [&_[data-slot=carousel-content]]:touch-pan-y"
+            opts={{ align: "center", loop: true }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="@container -mx-5 sm:-mx-7 lg:-mx-10 [&_[data-slot=carousel-content]]:touch-pan-y"
           >
-            <CarouselContent className="ml-0">
-              {invitationContent.galleryImages.map((image, index) => (
-                <CarouselItem key={image.src} className="pl-0">
-                  <figure
-                    className="relative aspect-[3/4] overflow-hidden rounded-[1.35rem] border border-white/70 bg-[radial-gradient(circle_at_50%_38%,#f4ebe1_0%,#e9dfd3_58%,#d9c9b9_100%)] shadow-[0_8px_20px_rgba(74,58,44,0.1)] sm:rounded-[1.6rem] sm:shadow-[0_16px_38px_rgba(74,58,44,0.12)]"
-                  >
-                    <Image
-                      src={image.src}
-                      alt=""
-                      fill
-                      sizes={image.sizes}
-                      aria-hidden="true"
-                      className="hidden scale-110 object-cover blur-2xl sm:block"
-                    />
-                    <div className="absolute inset-0 bg-[#31271f]/24" />
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      fill
-                      sizes={image.sizes}
-                      priority={index === 0}
-                      className="relative z-10 object-contain sm:drop-shadow-[0_12px_24px_rgba(30,23,17,0.28)]"
-                    />
-                  </figure>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
+            {/* Slide widths use container queries, not viewport breakpoints,
+                so they stay correct inside the desktop phone frame. */}
+            <CarouselContent className="-ml-3 @lg:-ml-5">
+              {images.map((image, index) => {
+                const isActive = index === currentSlide;
 
-            <CarouselPrevious className="left-3 border-white/75 bg-[#fbf7f1]/90 text-primary shadow-[0_8px_20px_rgba(74,58,44,0.15)] hover:bg-white" />
-            <CarouselNext className="right-3 border-white/75 bg-[#fbf7f1]/90 text-primary shadow-[0_8px_20px_rgba(74,58,44,0.15)] hover:bg-white" />
+                return (
+                  <CarouselItem
+                    key={image.src}
+                    className="basis-[76%] pl-3 @lg:basis-[56%] @lg:pl-5 @3xl:basis-[40%]"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => handleSlideClick(index)}
+                      aria-label={
+                        isActive
+                          ? `Buka gambar ${index + 1} dalam paparan penuh`
+                          : `Lihat gambar ${index + 1}`
+                      }
+                      className={cn(
+                        "block w-full cursor-pointer transition-[transform,opacity] duration-500 ease-out focus-visible:outline-none [&:focus-visible>figure]:ring-2 [&:focus-visible>figure]:ring-primary/40 [&:focus-visible>figure]:ring-offset-2",
+                        isActive ? "scale-100 opacity-100" : "scale-[0.86] opacity-55",
+                      )}
+                    >
+                      <figure
+                        className={cn(
+                          "relative isolate aspect-[2/3] overflow-hidden border border-white/70 bg-[#e9dfd3] shadow-[0_8px_20px_rgba(74,58,44,0.1)] sm:shadow-[0_16px_38px_rgba(74,58,44,0.12)]",
+                          ARCH_FRAME_RADIUS,
+                        )}
+                      >
+                        <motion.div
+                          className="absolute inset-0"
+                          initial={false}
+                          animate={{ scale: isActive && !shouldReduceMotion ? 1.06 : 1 }}
+                          transition={{ duration: isActive ? 7 : 0.6, ease: "easeOut" }}
+                        >
+                          <Image
+                            src={image.src}
+                            alt={image.alt}
+                            fill
+                            sizes={image.sizes}
+                            priority={index === 0}
+                            draggable={false}
+                            className="object-cover"
+                          />
+                        </motion.div>
+                        <div
+                          aria-hidden="true"
+                          className="pointer-events-none absolute inset-2.5 rounded-t-[50%_33.333%] rounded-b-[1.1rem] border border-white/55"
+                        />
+                      </figure>
+                    </button>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
           </Carousel>
 
-          <p
-            aria-live="polite"
-            className="mt-4 text-center font-spartan text-[0.72rem] uppercase tracking-[0.22em] text-primary/52"
-          >
-            {currentSlide + 1} / {invitationContent.galleryImages.length}
-          </p>
+          <GalleryDots
+            className="mt-6"
+            count={images.length}
+            activeIndex={currentSlide}
+            onSelect={goToSlide}
+          />
+
           <p className="mt-5 text-center font-spartan text-[0.82rem] leading-6 text-primary/58">
             Kongsi kenangan anda dengan
             <span className="mt-1 block text-[0.9rem] tracking-[0.08em] text-primary/76">
@@ -133,6 +182,13 @@ export function GalleryScene() {
           </p>
         </div>
       </div>
+
+      <GalleryLightbox
+        open={isLightboxOpen}
+        startIndex={currentSlide}
+        onOpenChange={setIsLightboxOpen}
+        onIndexChange={syncFromLightbox}
+      />
     </section>
   );
 }
