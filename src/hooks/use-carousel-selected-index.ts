@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import type { CarouselApi } from "@/components/ui/carousel";
 
-export function useCarouselSelectedIndex(api: CarouselApi) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+export function useCarouselSelectedIndex(api: CarouselApi, initialIndex = 0) {
+  const [selectedIndex, setSelectedIndex] = useState(initialIndex);
 
   useEffect(() => {
     if (!api) {

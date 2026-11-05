@@ -27,6 +27,8 @@ export function GalleryScene() {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [isHovered, setIsHovered] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  // Captured when the viewer opens; never the live index (see GalleryLightbox).
+  const [lightboxStartIndex, setLightboxStartIndex] = useState(0);
   const currentSlide = useCarouselSelectedIndex(carouselApi);
   const images = invitationContent.galleryImages;
 
@@ -42,6 +44,7 @@ export function GalleryScene() {
   const handleSlideClick = (index: number) => {
     if (index === currentSlide) {
       stopAutoplay();
+      setLightboxStartIndex(index);
       setIsLightboxOpen(true);
       return;
     }
@@ -185,7 +188,7 @@ export function GalleryScene() {
 
       <GalleryLightbox
         open={isLightboxOpen}
-        startIndex={currentSlide}
+        startIndex={lightboxStartIndex}
         onOpenChange={setIsLightboxOpen}
         onIndexChange={syncFromLightbox}
       />
