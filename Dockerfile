@@ -20,7 +20,9 @@ ARG NEXT_PUBLIC_SITE_URL
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 
 # The Firebase config arrives as a build secret holding a dotenv file, so it
-# never ends up in an image layer.
+# never ends up in an image layer. Secrets are not part of the layer cache key,
+# so CI passes a hash of the file to rebuild whenever the values change.
+ARG BUILD_ENV_HASH
 RUN --mount=type=secret,id=env,target=/app/.env.production.local npm run build
 
 # Production container
