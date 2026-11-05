@@ -4,15 +4,34 @@ import Image from "next/image";
 import { MessageCircle, Phone } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { invitationContent } from "@/lib/invitation-content";
+import { GoldDiamond } from "@/components/invitation/gold-diamond";
+import { invitationContent, type ContactPerson } from "@/lib/invitation-content";
 
-function normalizePhoneNumber(phoneNumber: string) {
+const contacts: readonly ContactPerson[] = invitationContent.contacts;
+
+const FAMILY_LABELS: Record<NonNullable<ContactPerson["family"]>, string> = {
+  lelaki: "Keluarga pengantin lelaki",
+  perempuan: "Keluarga pengantin perempuan",
+};
+
+const actionButtonClassName =
+  "h-11 rounded-full border-primary/14 bg-white/75 font-spartan text-[0.86rem] text-primary shadow-none hover:bg-white";
+
+/** "+60 12-237 1756" → "60122371756", the form tel: and wa.me links need. */
+function toDialDigits(phoneNumber: string) {
   return phoneNumber.replace(/\D/g, "");
+}
+
+function buildWhatsAppHref(contact: ContactPerson) {
+  const { groom, bride } = invitationContent.couple;
+  const message = `Assalamualaikum ${contact.salutation}, saya ingin bertanya mengenai majlis ${groom.shortName} & ${bride.shortName}.`;
+
+  return `https://wa.me/${toDialDigits(contact.phoneNumber)}?text=${encodeURIComponent(message)}`;
 }
 
 export function ContactScene() {
   const shouldReduceMotion = useReducedMotion();
-  const { contactScene, contacts } = invitationContent;
+  const { contactScene } = invitationContent;
 
   return (
     <section
@@ -25,11 +44,13 @@ export function ContactScene() {
         whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.65, ease: "easeOut" }}
-        className="mx-auto flex w-full max-w-5xl flex-col items-center gap-10 sm:gap-12"
+        className="mx-auto flex w-full max-w-3xl flex-col items-center gap-10 sm:gap-12"
       >
         <div className="mx-auto max-w-xl text-center">
-          <p className="font-spartan text-[0.72rem] uppercase tracking-[0.28em] text-primary/55">
-            Ada pertanyaan?
+          <p className="flex items-center justify-center gap-2 font-spartan text-[0.72rem] uppercase tracking-[0.28em] text-primary/55">
+            <GoldDiamond />
+            <span className="mr-[-0.28em]">Ada pertanyaan?</span>
+            <GoldDiamond />
           </p>
           <h2
             id="contact-title"
@@ -42,95 +63,94 @@ export function ContactScene() {
           </p>
         </div>
 
-        <div className="w-full">
+        {/* Container query: side by side only when the section itself is wide,
+            so the cards stay stacked inside the desktop phone frame. */}
+        <div className="@container w-full">
           <ul
             aria-label="Senarai wakil keluarga untuk dihubungi"
-            className="grid grid-cols-1 gap-6"
+            className="grid grid-cols-1 gap-5 @xl:grid-cols-2"
           >
-            {contacts.map((contact, index) => {
-              const normalizedPhoneNumber = normalizePhoneNumber(contact.phoneNumber);
-              const callHref = `tel:+${normalizedPhoneNumber}`;
-              const whatsappMessage = `Assalamualaikum ${contact.name}, saya ingin bertanya mengenai majlis ${invitationContent.couple.groom.shortName} & ${invitationContent.couple.bride.shortName}.`;
-              const whatsappHref = `https://wa.me/${normalizedPhoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+            {contacts.map((contact, index) => (
+              <motion.li
+                key={contact.phoneNumber}
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+                whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.45 }}
+                transition={{
+                  duration: 0.45,
+                  delay: shouldReduceMotion ? 0 : index * 0.08,
+                  ease: "easeOut",
+                }}
+                className="relative isolate rounded-[1.75rem] border border-white/80 bg-[#fbf7f0]/92 px-5 pb-8 pt-5 shadow-[0_18px_42px_rgba(74,58,44,0.08)]"
+              >
+                <div
+                  aria-hidden="true"
+                  className="paper-grain pointer-events-none absolute inset-0 -z-10 rounded-[1.75rem] opacity-40 mix-blend-multiply"
+                />
 
-              return (
-                <motion.li
-                  key={contact.phoneNumber}
-                  initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
-                  whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.45 }}
-                  transition={{
-                    duration: 0.45,
-                    delay: shouldReduceMotion ? 0 : index * 0.06,
-                    ease: "easeOut",
-                  }}
-                  className="relative min-h-[15rem] rounded-[1.8rem] border border-primary/10 bg-[#fbf5eb] p-6 pb-10 text-center shadow-[0_18px_42px_rgba(74,58,44,0.07)]"
-                >
-                  <div
+                <div className="flex items-center gap-4 text-left">
+                  <span
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 rounded-[1.8rem] bg-[url('/images/bg-17.png')] bg-cover bg-center bg-no-repeat opacity-25"
-                  />
+                    className="flex size-13 shrink-0 items-center justify-center rounded-full border border-gold/60 bg-gold/8 font-cinzel-decorative text-[1.35rem] text-primary/80"
+                  >
+                    {contact.name.charAt(0)}
+                  </span>
 
-                  <div className="relative z-10 flex h-full flex-col items-center">
-                    <h3 className="font-spartan text-[1.35rem] leading-tight text-primary sm:text-[1.45rem]">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-spartan text-[1.3rem] leading-tight text-primary">
                       {contact.name}
                     </h3>
-                    <p className="mt-2 font-spartan text-[0.82rem] uppercase tracking-[0.16em] text-primary/50">
+                    <p className="mt-1 font-spartan text-[0.76rem] uppercase tracking-[0.16em] text-primary/52">
                       {contact.role}
                     </p>
-                    <a
-                      href={callHref}
-                      className="mt-4 font-spartan text-[1rem] tabular-nums tracking-[0.06em] text-primary/72 underline-offset-4 hover:underline"
-                    >
-                      {contact.phoneNumber}
+                    {contact.family ? (
+                      <p className="mt-1 font-spartan text-[0.82rem] italic text-primary/55">
+                        {FAMILY_LABELS[contact.family]}
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+
+                <p className="mt-4 font-spartan text-[1.02rem] tabular-nums tracking-[0.06em] text-primary/75">
+                  {contact.phoneNumber}
+                </p>
+
+                <div className="mt-4 grid grid-cols-[1fr_auto] gap-2">
+                  <Button asChild variant="outline" className={`${actionButtonClassName} px-4`}>
+                    <a href={`tel:+${toDialDigits(contact.phoneNumber)}`} aria-label={`Panggil ${contact.name}`}>
+                      <Phone aria-hidden="true" />
+                      Panggil
                     </a>
+                  </Button>
+                  <Button asChild variant="outline" className={`${actionButtonClassName} w-11 px-0`}>
+                    <a
+                      href={buildWhatsAppHref(contact)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`WhatsApp ${contact.name}`}
+                      title="WhatsApp"
+                    >
+                      <MessageCircle aria-hidden="true" />
+                    </a>
+                  </Button>
+                </div>
 
-                    <div className="mt-auto grid w-full grid-cols-2 gap-2 pt-6">
-                      <Button
-                        asChild
-                        variant="outline"
-                        className="h-11 rounded-full border-primary/14 bg-white/72 px-3 font-spartan text-[0.86rem] text-primary hover:bg-white"
-                      >
-                        <a href={callHref} aria-label={`Panggil ${contact.name}`}>
-                          <Phone aria-hidden="true" />
-                          Panggil
-                        </a>
-                      </Button>
-
-                      <Button
-                        asChild
-                        className="h-11 rounded-full px-3 font-spartan text-[0.86rem]"
-                      >
-                        <a
-                          href={whatsappHref}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`WhatsApp ${contact.name}`}
-                        >
-                          <MessageCircle aria-hidden="true" />
-                          WhatsApp
-                        </a>
-                      </Button>
-                    </div>
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-0 -bottom-5 z-20 flex justify-center opacity-70"
+                >
+                  <div className="relative h-10 w-20">
+                    <Image
+                      src="/images/ribbon-image.png"
+                      alt=""
+                      fill
+                      sizes="80px"
+                      className="object-contain"
+                    />
                   </div>
-
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-0 -bottom-5 z-20 flex justify-center opacity-70"
-                  >
-                    <div className="relative h-10 w-20 sm:h-11 sm:w-24">
-                      <Image
-                        src="/images/ribbon-image.png"
-                        alt=""
-                        fill
-                        sizes="96px"
-                        className="object-contain"
-                      />
-                    </div>
-                  </div>
-                </motion.li>
-              );
-            })}
+                </div>
+              </motion.li>
+            ))}
           </ul>
         </div>
       </motion.div>

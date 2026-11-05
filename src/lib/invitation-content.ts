@@ -16,9 +16,14 @@ export type GiftRecipient = {
   qr: string;
 };
 
-type ContactPerson = {
+export type ContactPerson = {
   name: string;
   role: string;
+  /** Which family the contact represents; omitted when not confirmed. */
+  family?: "lelaki" | "perempuan";
+  /** How the WhatsApp greeting addresses them, e.g. "Puan Hanita". */
+  salutation: string;
+  /** International format, e.g. "+60 12-237 1756". */
   phoneNumber: string;
 };
 
@@ -213,23 +218,21 @@ export const invitationContent = {
   ] satisfies readonly GiftRecipient[],
   contactScene: {
     title: "Hubungi",
-    imageSrc: "/images/contact-image.png",
   },
   contacts: [
     {
-      name: "Danish",
-      role: "Adik Pengantin",
-      phoneNumber: "+60 17-319 8743",
+      name: "Hanita",
+      role: "Ibu Pengantin",
+      family: "lelaki",
+      salutation: "Puan Hanita",
+      phoneNumber: "+60 12-237 1756",
     },
     {
-      name: "Shida",
-      role: "Ibu Saudara Pengantin",
-      phoneNumber: "+60 18-977 4577",
-    },
-    {
-      name: "Durra",
+      name: "Fitri",
       role: "Adik Pengantin",
-      phoneNumber: "+60 11-2710 1242",
+      family: "lelaki",
+      salutation: "Fitri",
+      phoneNumber: "+60 10-900 4851",
     },
   ] satisfies readonly ContactPerson[],
 } as const;
