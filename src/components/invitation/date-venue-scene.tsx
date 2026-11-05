@@ -9,9 +9,11 @@ interface DateVenueSceneProps {
   opacity: MotionValue<number>;
   contentY: MotionValue<number>;
   visibility: MotionValue<"visible" | "hidden">;
+  /** Gentle zoom applied while the scene enters/leaves. */
+  contentScale?: MotionValue<number>;
 }
 
-export function DateVenueScene({ opacity, contentY, visibility }: DateVenueSceneProps) {
+export function DateVenueScene({ opacity, contentY, visibility, contentScale }: DateVenueSceneProps) {
   const { title, schedule, venueLines } = invitationContent.invitationScenes.dateVenue;
   const [isInteractive, setIsInteractive] = useState(() => opacity.get() > 0.05);
 
@@ -28,7 +30,7 @@ export function DateVenueScene({ opacity, contentY, visibility }: DateVenueScene
 
   return (
     <motion.div
-      style={{ opacity, visibility, y: contentY }}
+      style={{ opacity, visibility, y: contentY, scale: contentScale }}
       className={`absolute inset-0 z-10 flex items-start justify-center px-5 pt-10 pb-7 sm:px-7 sm:pt-12 sm:pb-9 ${
         isInteractive ? "pointer-events-auto" : "pointer-events-none"
       }`}

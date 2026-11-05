@@ -10,9 +10,11 @@ interface CountdownSceneProps {
   opacity: MotionValue<number>;
   contentY: MotionValue<number>;
   visibility: MotionValue<"visible" | "hidden">;
+  /** Gentle zoom applied while the scene enters/leaves. */
+  contentScale?: MotionValue<number>;
 }
 
-export function CountdownScene({ opacity, contentY, visibility }: CountdownSceneProps) {
+export function CountdownScene({ opacity, contentY, visibility, contentScale }: CountdownSceneProps) {
   const [isInteractive, setIsInteractive] = useState(() => opacity.get() > 0.05);
 
   useMotionValueEvent(opacity, "change", (value) => {
@@ -21,7 +23,7 @@ export function CountdownScene({ opacity, contentY, visibility }: CountdownScene
 
   return (
     <motion.div
-      style={{ opacity, visibility, y: contentY }}
+      style={{ opacity, visibility, y: contentY, scale: contentScale }}
       className={`absolute inset-0 z-10 flex items-start justify-center px-5 pt-10 pb-7 sm:px-7 sm:pt-12 sm:pb-9 ${
         isInteractive ? "pointer-events-auto" : "pointer-events-none"
       }`}

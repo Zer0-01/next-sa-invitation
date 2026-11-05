@@ -14,6 +14,8 @@ interface SceneBackgroundProps {
   overlayClassName?: string;
   className?: string;
   priority?: boolean;
+  /** When false, the image is not requested yet (used to defer later scenes). */
+  shouldLoadImage?: boolean;
 }
 
 export function SceneBackground({
@@ -26,6 +28,7 @@ export function SceneBackground({
   overlayClassName,
   className,
   priority = false,
+  shouldLoadImage = true,
 }: SceneBackgroundProps) {
   const shouldReduceMotion = useReducedMotion();
 
@@ -39,14 +42,16 @@ export function SceneBackground({
       className={cn("absolute inset-0", className)}
       aria-hidden="true"
     >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        priority={priority}
-        sizes="(max-width: 767px) 100vw, 420px"
-        className="object-cover object-center"
-      />
+      {shouldLoadImage ? (
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority={priority}
+          sizes="(max-width: 767px) 100vw, 420px"
+          className="object-cover object-center"
+        />
+      ) : null}
       <div
         className={cn(
           "absolute inset-0 bg-[linear-gradient(180deg,rgba(28,20,14,0.26)_0%,rgba(77,60,46,0.18)_30%,rgba(71,56,44,0.14)_62%,rgba(34,24,18,0.24)_100%)]",
