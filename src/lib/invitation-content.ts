@@ -4,6 +4,18 @@ type ScheduleItem = {
   note?: string;
 };
 
+export type GiftRecipient = {
+  /** Short name shown on the recipient tab. */
+  name: string;
+  /** Full account holder name, as the bank shows it before a transfer. */
+  holderName: string;
+  bank: string;
+  /** Digits only; formatted for display. `null` hides the copy row. */
+  account: string | null;
+  /** Cropped, unaltered DuitNow QR code. */
+  qr: string;
+};
+
 type ContactPerson = {
   name: string;
   role: string;
@@ -183,18 +195,22 @@ export const invitationContent = {
   ],
   gifts: [
     {
-      name: "Ain",
-      bank: "CIMB",
-      account: "7633771742",
-      qr: "/qr-image.jpeg",
+      name: "Amirul",
+      // Bank-side name is truncated on the QR ("Muhammad Amirul Hazeq bin");
+      // completed from the father's name in the greeting. Confirm before launch.
+      holderName: "Muhammad Amirul Hazeq bin Azizan",
+      bank: "Maybank",
+      account: "014598203532",
+      qr: "/ustad/qr-amirul.png",
     },
     {
-      name: "Danial",
-      bank: "CIMB",
-      account: "7627870603",
-      qr: "/qr-image-danial.jpeg",
+      name: "Nurin",
+      holderName: "Nurin Qasdina binti Nazaruddin",
+      bank: "Bank Muamalat",
+      account: "12010040358722",
+      qr: "/ustad/qr-nurin.png",
     },
-  ],
+  ] satisfies readonly GiftRecipient[],
   contactScene: {
     title: "Hubungi",
     imageSrc: "/images/contact-image.png",
