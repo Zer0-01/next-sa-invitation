@@ -151,7 +151,8 @@ export function MessagesScene() {
       aria-labelledby="messages-title"
       className="relative overflow-hidden bg-[#efe7de] px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
     >
-      <PetalDrift className="z-0" />
+      {/* In front of the list so the leaves stay visible; they never block taps or scrolling */}
+      <PetalDrift variant="leaf" className="z-20" />
       <motion.div
         initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
         whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
