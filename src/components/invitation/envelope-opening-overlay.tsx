@@ -88,8 +88,11 @@ const flapInsideVariants: Variants = {
 const cardVariants: Variants = {
   closed: { y: "0%", scale: 1 },
   open: {
-    y: ["0%", "-66%", "-72%"],
-    scale: [1, 1, 1.35],
+    // Card is 16:9, 90% of the envelope width (~71% of its height) and rests
+    // with its bottom at ~85%. Rising 70% of its own height lifts the bottom
+    // to ~35%, clear of the pocket edge at 40%, before it moves to the front.
+    y: ["0%", "-70%", "-76%"],
+    scale: [1, 1, 1.12],
     transition: {
       delay: CARD_RISE_DELAY,
       duration: CARD_SEQUENCE_DURATION,
@@ -284,18 +287,18 @@ export function EnvelopeOpeningOverlay() {
             <motion.div
               variants={cardVariants}
               className={cn(
-                "absolute left-[25.5%] top-[4%] w-[49%]",
+                "absolute left-[5%] top-[14%] w-[90%]",
                 isCardInFront ? "z-30" : "z-10",
               )}
             >
               <div className="rounded-[0.4rem] bg-[#fffdf8] p-1 shadow-[0_10px_26px_rgba(61,50,33,0.18)]">
-                <div className="relative aspect-3/4 overflow-hidden rounded-[0.25rem] bg-[#f4f1ea]">
+                <div className="relative aspect-video overflow-hidden rounded-[0.25rem] bg-[#f4f1ea]">
                   <Image
                     src="/ustad/envelope-image.png"
                     alt={`Kad jemputan perkahwinan ${groom.shortName} dan ${bride.shortName}`}
                     fill
                     priority
-                    sizes="(min-width: 768px) 240px, 60vw"
+                    sizes="(min-width: 768px) 320px, 80vw"
                     className="object-cover"
                   />
                 </div>
