@@ -1,18 +1,26 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { getDocs, orderBy, query } from "firebase/firestore";
 import { RefreshCw } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PetalDrift } from "@/components/invitation/petal-drift";
+import { useInvitationScrollContainer } from "@/hooks/use-invitation-scroll-container";
 import { messageCollection } from "@/lib/firebase";
+import {
+  MESSAGES_UPDATED_EVENT,
+  type MessagesUpdatedDetail,
+} from "@/lib/guestbook-events";
+import { cn } from "@/lib/utils";
 
 type Status = "initial" | "loading" | "success" | "error";
 
 interface MessageEntry {
-  name?: string;
-  message?: string;
+  id: string;
+  name: string;
+  message: string;
 }
 
 const bubbleTones = [
@@ -22,72 +30,128 @@ const bubbleTones = [
   "bg-[#f5eee6]",
 ];
 
+// Start fetching a little before the section scrolls into view.
+const PREFETCH_MARGIN = "0px 0px 600px 0px";
+// How long the guest's own new message keeps its gold glow.
+const HIGHLIGHT_MS = 6000;
+
 export function MessagesScene() {
   const shouldReduceMotion = useReducedMotion();
   const [messages, setMessages] = useState<MessageEntry[]>([]);
   const [status, setStatus] = useState<Status>("initial");
+  const [highlightedId, setHighlightedId] = useState<string | null>(null);
+  const [hasRequestedLoad, setHasRequestedLoad] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
   const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const scrollContainerRef = useRef<HTMLElement | null>(null);
+  const previousCountRef = useRef(0);
+  const hasRequestedLoadRef = useRef(false);
+  hasRequestedLoadRef.current = hasRequestedLoad;
+  const { scrollContainer } = useInvitationScrollContainer();
+  scrollContainerRef.current = scrollContainer;
 
-  useEffect(() => {
-    void fetchMessages();
-  }, []);
+  const isNearView = useInView(sectionRef, {
+    once: true,
+    margin: PREFETCH_MARGIN,
+    root: scrollContainer ? scrollContainerRef : undefined,
+  });
 
-  useEffect(() => {
-    const handleRefresh = () => {
-      void fetchMessages();
-    };
+  const fetchMessages = useCallback(async () => {
+    // Only show placeholders on the first load; a refresh keeps the list in place.
+    setStatus((current) => (current === "success" ? current : "loading"));
 
-    window.addEventListener("invitation:messages-updated", handleRefresh);
-
-    return () => {
-      window.removeEventListener("invitation:messages-updated", handleRefresh);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (status !== "success" || !scrollerRef.current) {
-      return;
-    }
-
-    scrollerRef.current.scrollTop = scrollerRef.current.scrollHeight;
-  }, [status, messages]);
-
-  async function fetchMessages() {
     try {
-      setStatus("loading");
       const snapshot = await getDocs(query(messageCollection, orderBy("createdAt", "asc")));
       setMessages(
-        snapshot.docs.map((doc) => {
-          const data = doc.data();
+        snapshot.docs
+          .map((doc) => {
+            const data = doc.data();
 
-          return {
-            name: typeof data.name === "string" ? data.name : "Tetamu",
-            message: typeof data.message === "string" ? data.message : "",
-          };
-        })
+            return {
+              id: doc.id,
+              name: typeof data.name === "string" && data.name.trim() ? data.name.trim() : "Tetamu",
+              message: typeof data.message === "string" ? data.message.trim() : "",
+            };
+          })
+          .filter((entry) => entry.message),
       );
       setStatus("success");
     } catch (error) {
       console.error(error);
-      setStatus("error");
+      // Keep showing what we already have if a refresh fails.
+      setStatus((current) => (current === "success" ? current : "error"));
     }
-  }
+  }, []);
 
-  const visibleMessages = useMemo(
-    () => messages.filter((entry) => entry.message?.trim()),
-    [messages]
-  );
+  useEffect(() => {
+    if (isNearView) {
+      setHasRequestedLoad(true);
+    }
+  }, [isNearView]);
+
+  useEffect(() => {
+    if (hasRequestedLoad) {
+      void fetchMessages();
+    }
+  }, [hasRequestedLoad, fetchMessages]);
+
+  useEffect(() => {
+    const handleRefresh = (event: Event) => {
+      const { messageId } = (event as CustomEvent<MessagesUpdatedDetail>).detail ?? {};
+
+      if (messageId) {
+        setHighlightedId(messageId);
+      }
+
+      // Refresh if already loaded; otherwise this starts the first load.
+      if (hasRequestedLoadRef.current) {
+        void fetchMessages();
+      } else {
+        setHasRequestedLoad(true);
+      }
+    };
+
+    window.addEventListener(MESSAGES_UPDATED_EVENT, handleRefresh);
+
+    return () => {
+      window.removeEventListener(MESSAGES_UPDATED_EVENT, handleRefresh);
+    };
+  }, [fetchMessages]);
+
+  useEffect(() => {
+    if (!highlightedId) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => setHighlightedId(null), HIGHLIGHT_MS);
+
+    return () => window.clearTimeout(timer);
+  }, [highlightedId]);
+
+  // Newest messages sit at the bottom: jump there on first load and whenever
+  // a new message arrives, but leave the guest's position alone otherwise.
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+
+    if (status !== "success" || !scroller) {
+      return;
+    }
+
+    if (messages.length > previousCountRef.current) {
+      scroller.scrollTop = scroller.scrollHeight;
+    }
+
+    previousCountRef.current = messages.length;
+  }, [status, messages]);
 
   return (
     <section
+      ref={sectionRef}
       id="messages"
       aria-labelledby="messages-title"
       className="relative overflow-hidden bg-[#efe7de] px-5 py-18 sm:px-7 sm:py-20 lg:px-10 lg:py-24"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 select-none bg-center bg-repeat opacity-25 [background-image:url('/gif/falling_leaves_transparent.gif')] [background-size:360px_360px] sm:[background-size:420px_420px]"
-      />
+      <PetalDrift className="z-0" />
       <motion.div
         initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
         whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
@@ -158,7 +222,7 @@ export function MessagesScene() {
               </div>
             ) : null}
 
-            {status === "success" && visibleMessages.length === 0 ? (
+            {status === "success" && messages.length === 0 ? (
               <div className="relative z-10 flex min-h-[18rem] flex-col items-center justify-center gap-5 px-4 text-center">
                 <p className="font-spartan text-[1rem] leading-7 text-primary/60">
                   Belum ada ucapan lagi. Jadilah yang pertama meninggalkan doa.
@@ -173,29 +237,45 @@ export function MessagesScene() {
               </div>
             ) : null}
 
-            {status === "success" && visibleMessages.length > 0 ? (
+            {status === "success" && messages.length > 0 ? (
               <ol className="relative z-10 space-y-3" aria-label="Senarai ucapan tetamu">
-                {visibleMessages.map((entry, index) => {
+                {messages.map((entry, index) => {
                   const alignRight = index % 3 === 1;
                   const tone = bubbleTones[index % bubbleTones.length];
-                  const author = entry.name?.trim() || "Tetamu";
+                  const isHighlighted = entry.id === highlightedId;
 
                   return (
                     <motion.li
-                      key={`${author}-${index}`}
-                      initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
-                      whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 0.6 }}
-                      transition={{ duration: 0.4, delay: Math.min(index, 5) * 0.03 }}
-                      className={`flex ${alignRight ? "justify-end" : "justify-start"}`}
+                      key={entry.id}
+                      data-message-id={entry.id}
+                      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.4, root: scrollerRef }}
+                      transition={{
+                        duration: shouldReduceMotion ? 0.3 : 0.5,
+                        ease: "easeOut",
+                        // Notes that arrive together appear one after another.
+                        delay: (index % 4) * 0.08,
+                      }}
+                      className={cn("flex", alignRight ? "justify-end" : "justify-start")}
                     >
                       <article
-                        className={`max-w-[88%] rounded-[1.5rem] border border-white/55 px-4 py-3 text-left shadow-[0_12px_28px_rgba(58,44,27,0.055)] ${tone} ${
-                          alignRight ? "rounded-br-md" : "rounded-bl-md"
-                        }`}
+                        className={cn(
+                          "max-w-[88%] rounded-[1.5rem] border px-4 py-3 text-left transition-[box-shadow,border-color] duration-1000 ease-out",
+                          tone,
+                          alignRight ? "rounded-br-md" : "rounded-bl-md",
+                          isHighlighted
+                            ? "border-gold/60 shadow-[0_0_0_4px_rgba(201,168,115,0.16),0_12px_28px_rgba(201,168,115,0.24)]"
+                            : "border-white/55 shadow-[0_12px_28px_rgba(58,44,27,0.055)]",
+                        )}
                       >
-                        <p className="font-spartan text-[0.82rem] uppercase tracking-[0.16em] text-primary/55">
-                          {author}
+                        <p className="flex items-center gap-2 font-spartan text-[0.82rem] uppercase tracking-[0.16em] text-primary/55">
+                          {entry.name}
+                          {isHighlighted ? (
+                            <span className="rounded-full bg-gold/15 px-2 py-0.5 text-[0.66rem] tracking-[0.12em] text-primary/70">
+                              Ucapan anda
+                            </span>
+                          ) : null}
                         </p>
                         <p className="mt-2 font-spartan text-[1rem] leading-7 text-primary/78">
                           {entry.message}

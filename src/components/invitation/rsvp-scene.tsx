@@ -16,6 +16,7 @@ import { PaxStepper } from "@/components/invitation/pax-stepper";
 import { RsvpThankYou } from "@/components/invitation/rsvp-thank-you";
 import { useRsvpRecord } from "@/hooks/use-rsvp-record";
 import { attendanceCollection, db, messageCollection } from "@/lib/firebase";
+import { notifyMessagesUpdated } from "@/lib/guestbook-events";
 import { invitationContent } from "@/lib/invitation-content";
 import { cn } from "@/lib/utils";
 
@@ -144,6 +145,9 @@ export function RSVPScene() {
     const isAttend = attendance === "hadir";
     const confirmedPax = isAttend ? pax : 0;
 
+    // Created up front so the guestbook can highlight this exact message.
+    const messageRef = trimmedMessage ? doc(messageCollection) : null;
+
     try {
       // One atomic write: either the RSVP and its message both save, or
       // neither does, so a retry after a failure never double-counts a guest.
@@ -156,8 +160,8 @@ export function RSVPScene() {
         createdAt: serverTimestamp(),
       });
 
-      if (trimmedMessage) {
-        batch.set(doc(messageCollection), {
+      if (messageRef) {
+        batch.set(messageRef, {
           name: trimmedName,
           message: trimmedMessage,
           createdAt: serverTimestamp(),
@@ -172,7 +176,7 @@ export function RSVPScene() {
       return;
     }
 
-    window.dispatchEvent(new Event("invitation:messages-updated"));
+    notifyMessagesUpdated({ messageId: messageRef?.id });
     setStatus("success");
 
     schedule(() => {
