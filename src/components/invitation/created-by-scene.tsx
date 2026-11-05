@@ -1,42 +1,94 @@
-import { ExternalLink } from "lucide-react";
 import SectionSeparator from "@/components/section-separator";
+import { AnMonogram } from "@/components/invitation/an-monogram";
+import { FooterActions } from "@/components/invitation/footer-actions";
+import { PaintedDecoration } from "@/components/invitation/painted-decoration";
 import { invitationContent } from "@/lib/invitation-content";
 
+// The traditional doa for a newly married couple.
+const WEDDING_DOA_ARABIC = "بَارَكَ اللهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ";
+const WEDDING_DOA_MEANING =
+  "Semoga Allah memberkati kamu berdua, melimpahkan keberkatan ke atas kamu berdua, dan menghimpunkan kamu berdua dalam kebaikan.";
+
+const CREDIT = { name: "Keyplee", url: "https://keyplee.com" } as const;
+
 export function CreatedByScene() {
+  const { groom, bride } = invitationContent.couple;
+  const { event } = invitationContent;
+
   return (
     <footer
       aria-label="Penutup undangan dan kredit laman web"
-      className="bg-[#edf1e7] px-5 pb-10 pt-7 text-center sm:px-7 sm:pb-12 sm:pt-8 lg:px-10"
+      className="relative isolate overflow-hidden bg-[#edf1e7] px-5 pb-28 pt-7 text-center sm:px-7 sm:pb-32 sm:pt-8 lg:px-10"
     >
+      <div
+        aria-hidden="true"
+        className="paper-grain pointer-events-none absolute inset-0 -z-10 opacity-40 mix-blend-multiply"
+      />
+      {/* Painted wildflowers rising from the bottom corners, so the page ends gently */}
+      <PaintedDecoration
+        src="/images/decorations/painted-wildflower-corner.png"
+        sizes="(min-width: 768px) 240px, 56vw"
+        parallaxDistance={18}
+        className="-bottom-10 -left-12 -z-10 size-56 sm:size-64"
+        imageClassName="-scale-y-100 opacity-70"
+      />
+      <PaintedDecoration
+        src="/images/decorations/painted-wildflower-corner.png"
+        sizes="(min-width: 768px) 240px, 56vw"
+        parallaxDistance={18}
+        className="-bottom-10 -right-12 -z-10 size-56 sm:size-64"
+        imageClassName="rotate-180 opacity-70"
+      />
+
       <SectionSeparator className="px-0 py-0" />
 
-      <div className="mx-auto mt-7 max-w-sm">
-        <p className="font-cinzel-decorative text-[1.35rem] leading-tight tracking-[0.04em] text-primary sm:text-[1.5rem]">
-          {invitationContent.couple.groom.shortName} & {invitationContent.couple.bride.shortName}
+      <figure className="mx-auto mt-8 max-w-sm">
+        <blockquote>
+          <p
+            lang="ar"
+            dir="rtl"
+            className="font-arabic text-[1.45rem] leading-[2.1] text-primary/82"
+          >
+            {WEDDING_DOA_ARABIC}
+          </p>
+        </blockquote>
+        <figcaption className="mt-3 font-spartan text-[0.9rem] leading-6 italic text-primary/58">
+          {WEDDING_DOA_MEANING}
+        </figcaption>
+      </figure>
+
+      <div className="mx-auto mt-10 flex max-w-sm flex-col items-center">
+        <AnMonogram
+          label={`Monogram ${groom.shortName} dan ${bride.shortName}`}
+          className="h-20 w-30 opacity-90"
+        />
+        <p className="mt-4 font-spartan text-[0.82rem] uppercase tracking-[0.22em] text-primary/62">
+          {event.compactDate} · {event.venueName}, {event.venueArea}
         </p>
-        <p className="mt-3 font-spartan text-[0.88rem] tracking-[0.08em] text-primary/72">
+        <p className="mt-2 font-spartan text-[0.88rem] tracking-[0.08em] text-primary/72">
           {invitationContent.weddingHashtag}
         </p>
-        <p className="mt-3 font-spartan text-[0.98rem] leading-7 text-primary/66">
+        <p className="mt-4 font-spartan text-[0.98rem] leading-7 text-primary/66">
           Terima kasih kerana meraikan hari bahagia ini bersama kami.
         </p>
       </div>
 
-      <div className="mx-auto mt-8 flex max-w-sm flex-col items-center">
-        <p className="font-spartan text-[0.68rem] uppercase tracking-[0.2em] text-primary/44">
-          Direka dengan penuh kasih oleh
-        </p>
+      <div className="mt-8">
+        <FooterActions />
+      </div>
+
+      <p className="mt-8 font-spartan text-[0.72rem] tracking-[0.06em] text-primary/42">
+        Direka oleh{" "}
         <a
-          href="https://lakarsoft.com"
+          href={CREDIT.url}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Lawati laman web LakarSoft, dibuka dalam tab baharu"
-          className="mt-1 inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 font-spartan text-[0.8rem] uppercase tracking-[0.18em] text-primary/68 transition-colors hover:bg-white/40 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          aria-label={`Lawati laman web ${CREDIT.name}, dibuka dalam tab baharu`}
+          className="rounded-sm text-primary/58 underline decoration-primary/20 underline-offset-4 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
         >
-          LakarSoft
-          <ExternalLink className="size-3.5" aria-hidden="true" />
+          {CREDIT.name}
         </a>
-      </div>
+      </p>
     </footer>
   );
 }

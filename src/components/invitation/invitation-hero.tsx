@@ -11,6 +11,7 @@ import {
 } from "framer-motion";
 import { useMemo, useRef } from "react";
 import { useOpening } from "@/components/OpeningContext";
+import { monogramMaskStyle } from "@/components/invitation/an-monogram";
 import { GoldDiamond } from "@/components/invitation/gold-diamond";
 import { PetalDrift } from "@/components/invitation/petal-drift";
 import { useInvitationScrollContainer } from "@/hooks/use-invitation-scroll-container";
@@ -20,8 +21,6 @@ const HERO_SCROLL_OFFSETS: NonNullable<UseScrollOptions["offset"]> = [
   "start start",
   "end start",
 ];
-
-const MONOGRAM_SRC = "/ustad/AN-caligraph.png";
 
 // The monogram is "written" left to right, then the text follows.
 const MONOGRAM_WRITE_DURATION = 1.4;
@@ -149,16 +148,7 @@ export function InvitationHero() {
                 opacity: { duration: 0.3 },
               }}
               className="absolute inset-0 bg-ink"
-              style={{
-                maskImage: `url(${MONOGRAM_SRC})`,
-                WebkitMaskImage: `url(${MONOGRAM_SRC})`,
-                maskSize: "contain",
-                WebkitMaskSize: "contain",
-                maskRepeat: "no-repeat",
-                WebkitMaskRepeat: "no-repeat",
-                maskPosition: "center",
-                WebkitMaskPosition: "center",
-              }}
+              style={monogramMaskStyle}
             />
           </div>
 

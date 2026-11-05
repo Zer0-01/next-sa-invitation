@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cinzel_Decorative, Inter, League_Spartan, Playfair_Display } from "next/font/google";
+import { Amiri, Cinzel_Decorative, Inter, League_Spartan, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { QueryProvider } from "@/components/providers/query-provider";
@@ -17,6 +17,13 @@ const playfairDisplay = Playfair_Display({
 const leagueSpartan = League_Spartan({
   variable: "--font-league-spartan",
   subsets: ["latin"],
+});
+
+// Arabic script for the closing doa; only downloaded where it is used.
+const amiri = Amiri({
+  variable: "--font-amiri",
+  subsets: ["arabic"],
+  weight: ["400"],
 });
 
 const cinzelDecorative = Cinzel_Decorative({
@@ -38,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="ms">
       <body
-        className={`${inter.variable} ${playfairDisplay.variable} ${leagueSpartan.variable} ${cinzelDecorative.variable} antialiased`}
+        className={`${inter.variable} ${playfairDisplay.variable} ${leagueSpartan.variable} ${cinzelDecorative.variable} ${amiri.variable} antialiased`}
       >
         <QueryProvider>
           {children}
