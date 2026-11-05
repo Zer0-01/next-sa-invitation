@@ -36,6 +36,7 @@ export const invitationContent = {
     compactDate: "02.01.2027",
     time: "11:00 pagi - 4:30 petang",
     venueName: "Dewan Adam Hawa",
+    venueArea: "Bangi",
     venueAddress:
       "Lot 16050A, Jalan Rahmat, Kampung Teras Jernang, 43000 Bandar Baru Bangi, Selangor",
     countdownTarget: "2027-01-02T11:00:00+08:00",
