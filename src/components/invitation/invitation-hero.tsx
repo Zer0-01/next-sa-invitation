@@ -11,6 +11,7 @@ import {
 } from "framer-motion";
 import { useMemo, useRef } from "react";
 import { useOpening } from "@/components/OpeningContext";
+import { GoldDiamond } from "@/components/invitation/gold-diamond";
 import { PetalDrift } from "@/components/invitation/petal-drift";
 import { useInvitationScrollContainer } from "@/hooks/use-invitation-scroll-container";
 import { invitationContent } from "@/lib/invitation-content";
@@ -36,10 +37,6 @@ const textItemVariants: Variants = {
   hidden: { opacity: 0, y: 16 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.95, ease: "easeOut" } },
 };
-
-function GoldDiamond() {
-  return <span aria-hidden="true" className="h-1 w-1 rotate-45 border border-gold/75" />;
-}
 
 export function InvitationHero() {
   const ref = useRef<HTMLElement | null>(null);

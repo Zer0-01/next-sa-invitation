@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, useMotionValueEvent, type MotionValue } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { invitationContent } from "@/lib/invitation-content";
+import { openInvitationMap } from "@/lib/venue";
 
 interface DateVenueSceneProps {
   opacity: MotionValue<number>;
@@ -20,13 +21,6 @@ export function DateVenueScene({ opacity, contentY, visibility, contentScale }: 
   useMotionValueEvent(opacity, "change", (value) => {
     setIsInteractive(value > 0.05);
   });
-
-  const openMap = () => {
-    const query = encodeURIComponent(
-      `${invitationContent.event.venueName}, ${invitationContent.event.venueAddress}`
-    );
-    window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, "_blank", "noopener,noreferrer");
-  };
 
   return (
     <motion.div
@@ -65,7 +59,7 @@ export function DateVenueScene({ opacity, contentY, visibility, contentScale }: 
           </p>
           <Button
             type="button"
-            onClick={openMap}
+            onClick={openInvitationMap}
             className="mt-4 h-auto rounded-full border border-white/28 bg-white/14 px-6 py-3 font-spartan text-[0.88rem] uppercase tracking-[0.16em] text-white shadow-none hover:bg-white/20"
           >
             Buka lokasi
