@@ -1,13 +1,31 @@
+import type { CSSProperties } from "react";
 import SectionSeparator from "@/components/section-separator";
 import { AnMonogram } from "@/components/invitation/an-monogram";
 import { FooterActions } from "@/components/invitation/footer-actions";
 import { PaintedDecoration } from "@/components/invitation/painted-decoration";
 import { invitationContent } from "@/lib/invitation-content";
 
-// The traditional doa for a newly married couple.
-const WEDDING_DOA_ARABIC = "بَارَكَ اللهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ";
+const WEDDING_DOA_SRC = "/ustad/barakallah.png";
+
+// The traditional doa for a newly married couple, as written in the calligraphy.
+const WEDDING_DOA_ARABIC = "بَارَكَ اللهُ لَهُمَا وَبَارَكَ عَلَيْهِمَا وَجَمَعَ بَيْنَهُمَا فِي خَيْرٍ";
 const WEDDING_DOA_MEANING =
   "Semoga Allah memberkati kamu berdua, melimpahkan keberkatan ke atas kamu berdua, dan menghimpunkan kamu berdua dalam kebaikan.";
+
+/**
+ * Uses the calligraphy PNG as a mask so it takes the ink token's colour, like
+ * the monogram. `cover` trims the empty space around the artwork.
+ */
+const weddingDoaMaskStyle: CSSProperties = {
+  maskImage: `url(${WEDDING_DOA_SRC})`,
+  WebkitMaskImage: `url(${WEDDING_DOA_SRC})`,
+  maskSize: "cover",
+  WebkitMaskSize: "cover",
+  maskRepeat: "no-repeat",
+  WebkitMaskRepeat: "no-repeat",
+  maskPosition: "center",
+  WebkitMaskPosition: "center",
+};
 
 const CREDIT = { name: "Keyplee", url: "https://keyplee.com" } as const;
 
@@ -44,13 +62,13 @@ export function CreatedByScene() {
 
       <figure className="mx-auto mt-8 max-w-sm">
         <blockquote>
-          <p
+          <div
+            role="img"
             lang="ar"
-            dir="rtl"
-            className="font-arabic text-[1.45rem] leading-[2.1] text-primary/82"
-          >
-            {WEDDING_DOA_ARABIC}
-          </p>
+            aria-label={WEDDING_DOA_ARABIC}
+            className="aspect-[32/5] w-full bg-ink opacity-90"
+            style={weddingDoaMaskStyle}
+          />
         </blockquote>
         <figcaption className="mt-3 font-spartan text-[0.9rem] leading-6 italic text-primary/58">
           {WEDDING_DOA_MEANING}
