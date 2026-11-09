@@ -19,8 +19,6 @@ export type GiftRecipient = {
 export type ContactPerson = {
   name: string;
   role: string;
-  /** Which family the contact represents; omitted when not confirmed. */
-  family?: "lelaki" | "perempuan";
   /** How the WhatsApp greeting addresses them, e.g. "Puan Hanita". */
   salutation: string;
   /** International format, e.g. "+60 12-237 1756". */
@@ -31,19 +29,11 @@ export const invitationContent = {
   couple: {
     groom: {
       shortName: "Amirul",
-      fullName: "Amirul Hazeq",
-      parents: [
-        "Anakanda kepada Azizan bin Mahmood",
-        "dan Hanita binti Jaffar",
-      ],
+      fullName: "Muhammad Amirul Hazeq bin Azizan",
     },
     bride: {
       shortName: "Nurin",
-      fullName: "Nurin Qasdina",
-      parents: [
-        "Anakanda kepada Nazaruddin bin Muhamad",
-        "dan Azura binti Ahmad",
-      ],
+      fullName: "Nurin Qasdina binti Nazaruddin",
     },
   },
   event: {
@@ -65,14 +55,18 @@ export const invitationContent = {
   dressCode: "Nuansa lembut, pastel, atau earth tone amat dialu-alukan.",
   intro:
     "Dengan penuh kesyukuran, kami menjemput Dato', Datin, Tuan, Puan, Encik, Cik serta seisi keluarga untuk meraikan hari bahagia kami dalam suasana taman yang tenang, romantik, dan penuh kasih.",
-  greetingText:
-    "Dengan penuh kesyukuran ke hadrat Ilahi, kami menjemput Tuan / Puan / Encik / Cik seisi keluarga ke majlis perkahwinan kami",
   heroText:
     "An invitation to witness a day of love, prayer, and a beginning written with grace.",
   weddingHashtag: "#NurInAmirulsHeart",
   invitationScenes: {
     greeting: {
-      title: "Majlis Perkahwinan Kami",
+      openingLine: "Dengan izin Allah dan rahmat-Nya, kami",
+      hosts: ["Azizan bin Mahmood", "Hanita binti Jaffar"],
+      hostSeparator: "dan",
+      invitationLead: "Dengan segala rasa syukur mempersilakan",
+      honorifics: "Dato' / Datin / Tuan / Puan / Encik / Cik",
+      invitationClose: "seisi keluarga hadir ke Majlis Perkahwinan Putera kami",
+      coupleSeparator: "dengan",
       arabicFallback: "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
       backgroundSrc: "/images/bg-14.png",
       bismillahSrc: "/images/assalam.png",
@@ -80,7 +74,6 @@ export const invitationContent = {
         groom: "/images/groom.png",
         bride: "/images/bride.png",
       },
-      separator: "dan",
     },
     dateVenue: {
       backgroundSrc: "/images/bg-13.png",
@@ -223,16 +216,20 @@ export const invitationContent = {
     {
       name: "Hanita",
       role: "Ibu Pengantin",
-      family: "lelaki",
       salutation: "Puan Hanita",
       phoneNumber: "+60 12-237 1756",
     },
     {
       name: "Fitri",
       role: "Adik Pengantin",
-      family: "lelaki",
       salutation: "Fitri",
       phoneNumber: "+60 10-900 4851",
+    },
+    {
+      name: "Amida",
+      role: "Kakak Pengantin",
+      salutation: "Kak Amida",
+      phoneNumber: "+60 11-5725 1938",
     },
   ] satisfies readonly ContactPerson[],
 } as const;

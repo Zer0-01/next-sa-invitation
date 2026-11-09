@@ -20,8 +20,18 @@ interface GreetingSceneProps {
 }
 
 export function GreetingScene({ opacity, contentY, visibility, contentScale }: GreetingSceneProps) {
-  const { title, arabicFallback, bismillahSrc, separator } =
-    invitationContent.invitationScenes.greeting;
+  const {
+    openingLine,
+    hosts,
+    hostSeparator,
+    invitationLead,
+    honorifics,
+    invitationClose,
+    coupleSeparator,
+    arabicFallback,
+    bismillahSrc,
+  } = invitationContent.invitationScenes.greeting;
+  const { groom, bride } = invitationContent.couple;
   const shouldReduceMotion = useReducedMotion();
   const [isInteractive, setIsInteractive] = useState(() => opacity.get() > 0.05);
   const [showSwipeHint, setShowSwipeHint] = useState(
@@ -62,43 +72,34 @@ export function GreetingScene({ opacity, contentY, visibility, contentScale }: G
           )}
         </div>
 
-        <div className="mt-3.5">
-          <h2 className="mt-3 font-spartan text-[1.4rem] leading-[1.02] text-white sm:text-[1.65rem]">
-            {title}
-          </h2>
-          <p className="mx-auto mt-3 max-w-[18rem] font-spartan text-[0.96rem] leading-[1.5] text-white/78 sm:max-w-[20rem] sm:text-[1.04rem] sm:leading-7">
-            {invitationContent.greetingText}
+        <p className="mt-3.5 font-spartan text-[0.94rem] leading-6 text-white/78 sm:text-[1rem]">
+          {openingLine}
+        </p>
+
+        <div className="mt-3 space-y-0.5">
+          <p className="font-cinzel-decorative text-[1rem] leading-snug text-white/92 sm:text-[1.14rem]">
+            {hosts[0]}
+          </p>
+          <p className="font-spartan text-[0.94rem] leading-6 text-[#f1dec2]">{hostSeparator}</p>
+          <p className="font-cinzel-decorative text-[1rem] leading-snug text-white/92 sm:text-[1.14rem]">
+            {hosts[1]}
           </p>
         </div>
 
-        <div className="mt-5 space-y-3.5 text-center">
-          <div>
-            <h3 className="font-cinzel-decorative text-[1.12rem] leading-tight text-white sm:text-[1.3rem]">
-              {invitationContent.couple.groom.fullName}
-            </h3>
-            <p className="mt-1.5 font-spartan text-[0.94rem] leading-6 text-white/72 sm:text-[1rem]">
-              Anakanda kepada
-            </p>
-            <div className="mt-1 font-spartan text-[0.94rem] leading-6 text-white/72 sm:text-[1rem]">
-              <p>{invitationContent.couple.groom.parents[0].replace("Anakanda kepada ", "")} &</p>
-              <p>{invitationContent.couple.groom.parents[1].replace("dan ", "")}</p>
-            </div>
-          </div>
+        <div className="mt-4 font-spartan text-[0.94rem] leading-6 text-white/72 sm:text-[1rem]">
+          <p>{invitationLead}</p>
+          <p className="text-white/78">{honorifics}</p>
+          <p className="text-balance">{invitationClose}</p>
+        </div>
 
-          <p className="font-spartan text-[1.15rem] text-[#f1dec2]">{separator}</p>
-
-          <div>
-            <h3 className="font-cinzel-decorative text-[1.12rem] leading-tight text-white sm:text-[1.3rem]">
-              {invitationContent.couple.bride.fullName}
-            </h3>
-            <p className="mt-1.5 font-spartan text-[0.94rem] leading-6 text-white/72 sm:text-[1rem]">
-              Anakanda kepada
-            </p>
-            <div className="mt-1 font-spartan text-[0.94rem] leading-6 text-white/72 sm:text-[1rem]">
-              <p>{invitationContent.couple.bride.parents[0].replace("Anakanda kepada ", "")} &</p>
-              <p>{invitationContent.couple.bride.parents[1].replace("dan ", "")}</p>
-            </div>
-          </div>
+        <div className="mt-5 space-y-2 text-center">
+          <h2 className="text-balance font-cinzel-decorative text-[1.12rem] leading-tight text-white sm:text-[1.3rem]">
+            {groom.fullName}
+          </h2>
+          <p className="font-spartan text-[1.15rem] text-[#f1dec2]">{coupleSeparator}</p>
+          <h2 className="text-balance font-cinzel-decorative text-[1.12rem] leading-tight text-white sm:text-[1.3rem]">
+            {bride.fullName}
+          </h2>
         </div>
 
         <motion.div

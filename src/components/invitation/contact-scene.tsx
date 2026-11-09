@@ -9,11 +9,6 @@ import { invitationContent, type ContactPerson } from "@/lib/invitation-content"
 
 const contacts: readonly ContactPerson[] = invitationContent.contacts;
 
-const FAMILY_LABELS: Record<NonNullable<ContactPerson["family"]>, string> = {
-  lelaki: "Keluarga pengantin lelaki",
-  perempuan: "Keluarga pengantin perempuan",
-};
-
 const actionButtonClassName =
   "h-11 rounded-full border-primary/14 bg-white/75 font-spartan text-[0.86rem] text-primary shadow-none hover:bg-white";
 
@@ -103,11 +98,6 @@ export function ContactScene() {
                     <p className="mt-1 font-spartan text-[0.76rem] uppercase tracking-[0.16em] text-primary/52">
                       {contact.role}
                     </p>
-                    {contact.family ? (
-                      <p className="mt-1 font-spartan text-[0.82rem] italic text-primary/55">
-                        {FAMILY_LABELS[contact.family]}
-                      </p>
-                    ) : null}
                   </div>
                 </div>
 
