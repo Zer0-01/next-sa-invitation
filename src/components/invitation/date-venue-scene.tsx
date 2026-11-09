@@ -40,9 +40,6 @@ export function DateVenueScene({ opacity, contentY, visibility, contentScale }: 
               <p className="font-spartan text-[1.1rem] leading-tight text-white sm:text-[1.2rem]">
                 {item.title}
               </p>
-              {item.note ? (
-                <p className="mt-1 font-spartan text-[1rem] leading-6 text-white/76">{item.note}</p>
-              ) : null}
               <p className="mt-2 font-spartan text-[0.88rem] uppercase tracking-[0.16em] text-white/68">
                 {item.time}
               </p>

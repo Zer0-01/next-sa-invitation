@@ -1,7 +1,6 @@
 type ScheduleItem = {
   title: string;
   time: string;
-  note?: string;
 };
 
 export type GiftRecipient = {
@@ -85,11 +84,6 @@ export const invitationContent = {
       ],
       schedule: [
         {
-          title: "Akad Nikah",
-          note: "Keluarga terdekat",
-          time: "9.00 AM",
-        },
-        {
           title: "Resepsi",
           time: "11.30 AM - 4.00 PM",
         },
@@ -123,11 +117,6 @@ export const invitationContent = {
     },
   ],
   programme: [
-    {
-      time: "9:00 pagi",
-      event: "Akad Nikah",
-      note: "Bersama keluarga terdekat",
-    },
     {
       time: "11:00 pagi",
       event: "Ketibaan para tetamu",
